@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Item extends Equatable {
+  final int id;
   final String name;
   final String imgUrl;
   final List<DateTime> scrapDate;
@@ -13,6 +14,7 @@ class Item extends Equatable {
   final bool mustBuy;
 
   const Item({
+    required this.id,
     required this.name,
     required this.imgUrl,
     required this.scrapDate,
@@ -27,6 +29,7 @@ class Item extends Equatable {
 
   @override
   List<Object?> get props => [
+    id,
         name,
         imgUrl,
         scrapDate,
