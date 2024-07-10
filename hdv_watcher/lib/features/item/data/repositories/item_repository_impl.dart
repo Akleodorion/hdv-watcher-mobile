@@ -10,7 +10,7 @@ class ItemRepositoryImpl implements ItemRepository {
   ItemRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<Failure, List<Item>>> fetchAllItems() async {
+  Future<Either<Failure, List<Item>>> fetchItems() async {
     
     try {
      final items = await dataSource.fetchItem();
