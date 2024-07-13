@@ -26,10 +26,29 @@ class Item extends Equatable {
     required this.ressourceType,
     required this.mustBuy,
   });
+  get betterPrice {
+    final List<int> prices = [
+      unitPrice.last,
+      (tenthPrice.last / 10).round(),
+      (hundredPrice.last / 100).round(),
+    ];
+
+    return prices.fold(unitPrice.last, (prev, value) {
+      if (prev > value && value != 0) {
+        return prev = value;
+      }
+      return prev;
+    });
+  }
+
+  get quantityFor100Xp {
+    final qtyPerUnitXp = xpQuantity * fXp;
+    return 197000 / qtyPerUnitXp;
+  }
 
   @override
   List<Object?> get props => [
-    id,
+        id,
         name,
         imgUrl,
         scrapDate,
