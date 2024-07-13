@@ -7,8 +7,10 @@ class RessourceXpList {
     items = initialiseOnlyFxpItem(items: itemList);
   }
 
-  List<Item> initialiseOnlyFxpItem( {required List<Item> items}) {
-    return items.where((item) =>  item.fXp > 0).toList();
+  List<Item> initialiseOnlyFxpItem({required List<Item> items}) {
+    return items
+        .where((item) => item.fXp > 0 && item.xpQuantity <= 10)
+        .toList();
   }
 
   // méthode qui retourne les items dans l'ordre

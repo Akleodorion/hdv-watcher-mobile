@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/fetch_item_provider.dart';
+import 'package:hdv_watcher/obects/classes/items/item_list.dart';
+import 'package:hdv_watcher/obects/classes/items/ressource_xp_list.dart';
+import 'package:hdv_watcher/pages/error_page.dart';
+import 'package:hdv_watcher/pages/loaded_page.dart';
+import 'package:hdv_watcher/pages/loading_page.dart';
 
 import '../features/item/presentation/providers/fetch_item/state/fetch_item_state.dart';
 
@@ -27,17 +32,19 @@ class _AppLoadingPageState extends ConsumerState<AppLoadingPage> {
     required FetchItemState? state,
   }) {
     if (state is Loaded) {
-      final item = ref.read(fXpListProvider);
-
-      return Text(item.items.first.xpQuantity.toString());
+      final ItemList itemList = ref.read(ressourceItemsProvider);
+      final RessourceXpList xpList = ref.read(fXpListProvider);
+      return LoadedPage(
+        itemList: itemList,
+        xpList: xpList,
+      );
     }
+
     if (state is Loading) {
-      return const CircularProgressIndicator();
+      return const LoadingPage();
     }
 
-    return const Text(
-      "Error",
-    );
+    return const ErrorPage();
   }
 
   @override
