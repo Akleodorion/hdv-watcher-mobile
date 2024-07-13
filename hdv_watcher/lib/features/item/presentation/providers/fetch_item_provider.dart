@@ -1,10 +1,10 @@
-
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hdv_watcher/classes/items/item_list.dart';
+import 'package:hdv_watcher/classes/items/ressource_xp_list.dart';
 import 'package:hdv_watcher/features/item/domain/entities/item.dart';
 import 'package:hdv_watcher/features/item/domain/usecases/fetch_items_usecase.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/fetch_item/state/fetch_item_notifier.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/fetch_item/state/fetch_item_state.dart';
-import 'package:riverpod/riverpod.dart';
 
 import '../../../../injection_container.dart';
 
@@ -14,10 +14,21 @@ final fetchItemsProvider = StateNotifierProvider<FetchItemNotifier,FetchItemStat
 });
 
 
-final itemsProvider = Provider<List<Item>?>((ref) {
+final allItemsProvider = Provider<List<Item>>((ref) {
   final state = ref.watch(fetchItemsProvider);
   if (state is Loaded) {
     return state.items;
   }
-  return null;
+  return [];
+});
+
+final ressourceItemsProvider = Provider((ref) {
+  final allItems = ref.watch(allItemsProvider);
+  return ItemList(allItems);
+}); 
+
+
+final fXpListProvider = Provider((ref) {
+  final allItems = ref.watch(allItemsProvider);
+  return RessourceXpList(allItems);   
 });

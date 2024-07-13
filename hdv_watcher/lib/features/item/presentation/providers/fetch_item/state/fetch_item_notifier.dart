@@ -1,7 +1,7 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/core/errors/failures.dart';
 import 'package:hdv_watcher/features/item/domain/usecases/fetch_items_usecase.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/fetch_item/state/fetch_item_state.dart';
-import 'package:riverpod/riverpod.dart';
 
 class FetchItemNotifier extends StateNotifier<FetchItemState> {
   FetchItemNotifier( {required this.fetchItemsUsecase}) : super (Loading());
