@@ -12,14 +12,15 @@ abstract class ItemRemoteDataSource {
 class ItemRemoteDataSourceImpl implements ItemRemoteDataSource {
   @override
   Future<List<ItemModel>> fetchItem() async {
-    final url = Uri.parse("http://lcoalhost:3000/items");
+    final url = Uri.parse("http://localhost:3000/items");
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
       final List datas = json.decode(response.body);
-      final List<ItemModel> items = datas.map((data) => ItemModel.fromJson(data)).toList();
+      final List<ItemModel> items =
+          datas.map((data) => ItemModel.fromJson(data)).toList();
       return items;
-    } 
+    }
 
     throw ServerException(errorMessage: "Une erreur s'est produite");
   }

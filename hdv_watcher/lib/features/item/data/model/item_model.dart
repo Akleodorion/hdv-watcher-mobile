@@ -21,19 +21,18 @@ class ItemModel extends Item {
       id: json["id"],
       name: json["name"],
       imgUrl: json["img_url"],
-      scrapDate: json["scrap_date"],
-      unitPrice: json["unit_price"],
-      tenthPrice: json["tenth_price"],
-      hundredPrice: json["hundred_price"],
+      scrapDate: _getDates(json),
+      unitPrice: _getInt(numbers: json["unit_price"]),
+      tenthPrice: _getInt(numbers: json["tenth_price"]),
+      hundredPrice: _getInt(numbers: json["hundred_price"]),
       fXp: json["f_xp"],
-      xpQuantity: json["xp_quantity"],
+      xpQuantity: json["xp_quantity"] ?? 0,
       ressourceType: json["ressource_type"],
       mustBuy: json["must_buy"],
     );
   }
 
-  Map<String,dynamic> toJson() {
-
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "name": name,
@@ -48,5 +47,15 @@ class ItemModel extends Item {
       "must_buy": mustBuy,
     };
   }
+}
 
+List<DateTime> _getDates(json) {
+  List dates = json["scrap_date"];
+  final parsedDates =
+      dates.map((stringDate) => DateTime.parse(stringDate)).toList();
+  return parsedDates;
+}
+
+List<int> _getInt({required List numbers}) {
+  return numbers.map((number) => number as int).toList();
 }

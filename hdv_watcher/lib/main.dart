@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hdv_watcher/general_widgets/app_loading_page.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -17,11 +18,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'HDV-WATCHER',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-    );
+        title: 'HDV-WATCHER',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text("Main Things"),
+            backgroundColor: Colors.black45,
+          ),
+          body: const AppLoadingPage(),
+        ));
   }
 }
