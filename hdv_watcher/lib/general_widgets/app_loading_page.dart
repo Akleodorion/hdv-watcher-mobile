@@ -12,24 +12,15 @@ class AppLoadingPage extends ConsumerStatefulWidget {
 }
 
 class _AppLoadingPageState extends ConsumerState<AppLoadingPage> {
-  Future<FetchItemState> _checkItemState() async {
-    final state = ref.watch(fetchItemsProvider);
-    return state;
-  }
-
   @override
   void initState() {
     ref.read(fetchItemsProvider.notifier).fetchItems();
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _checkItemState(),
-        builder: (context, snapshot) {
-          return _screenToDisplay(state: snapshot.data);
-        });
+  Future<FetchItemState> _checkItemState() async {
+    final state = ref.watch(fetchItemsProvider);
+    return state;
   }
 
   Widget _screenToDisplay({
@@ -44,6 +35,17 @@ class _AppLoadingPageState extends ConsumerState<AppLoadingPage> {
       return const CircularProgressIndicator();
     }
 
-    return const Text("Error");
+    return const Text(
+      "Error",
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: _checkItemState(),
+        builder: (context, snapshot) {
+          return _screenToDisplay(state: snapshot.data);
+        });
   }
 }
