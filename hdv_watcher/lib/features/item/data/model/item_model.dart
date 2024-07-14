@@ -1,19 +1,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:hdv_watcher/features/item/domain/entities/item.dart';
+import 'package:hdv_watcher/obects/classes/prices/super_prices.dart';
 
 class ItemModel extends Item {
   const ItemModel({
     required super.id,
     required super.name,
     required super.imgUrl,
-    required super.scrapDate,
-    required super.unitPrice,
-    required super.tenthPrice,
-    required super.hundredPrice,
     required super.fXp,
     required super.xpQuantity,
     required super.ressourceType,
     required super.mustBuy,
+    required super.superPrices,
   });
 
   factory ItemModel.fromJson(Map<String, dynamic> json) {
@@ -21,10 +19,7 @@ class ItemModel extends Item {
       id: json["id"],
       name: json["name"],
       imgUrl: json["img_url"],
-      scrapDate: _getDates(json),
-      unitPrice: _getInt(numbers: json["unit_price"]),
-      tenthPrice: _getInt(numbers: json["tenth_price"]),
-      hundredPrice: _getInt(numbers: json["hundred_price"]),
+      superPrices: SuperPrices.fromJson(json),
       fXp: json["f_xp"],
       xpQuantity: json["xp_quantity"] ?? 0,
       ressourceType: json["ressource_type"],
@@ -37,25 +32,13 @@ class ItemModel extends Item {
       "id": id,
       "name": name,
       "img_url": imgUrl,
-      "scrap_date": scrapDate,
-      "unit_price": unitPrice,
-      "tenth_price": tenthPrice,
-      "hundred_price": hundredPrice,
+      "unit_price": superPrices.unitPrices.prices,
+      "tenth_price": superPrices.tenthPrices.prices,
+      "hundred_price": superPrices.hundredPrices.prices,
       "f_xp": fXp,
       "xp_quantity": xpQuantity,
       "ressource_type": ressourceType,
       "must_buy": mustBuy,
     };
   }
-}
-
-List<DateTime> _getDates(json) {
-  List dates = json["scrap_date"];
-  final parsedDates =
-      dates.map((stringDate) => DateTime.parse(stringDate)).toList();
-  return parsedDates;
-}
-
-List<int> _getInt({required List numbers}) {
-  return numbers.map((number) => number as int).toList();
 }

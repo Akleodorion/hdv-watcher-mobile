@@ -32,8 +32,8 @@ class _AppLoadingPageState extends ConsumerState<AppLoadingPage> {
     required FetchItemState? state,
   }) {
     if (state is Loaded) {
-      final ItemList itemList = ref.read(ressourceItemsProvider);
-      final RessourceXpList xpList = ref.read(fXpListProvider);
+      final ItemList itemList = ref.watch(ressourceItemsProvider);
+      final RessourceXpList xpList = ref.watch(fXpListProvider);
       return LoadedPage(
         itemList: itemList,
         xpList: xpList,

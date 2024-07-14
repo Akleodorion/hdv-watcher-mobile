@@ -29,5 +29,5 @@ final ressourceItemsProvider = Provider((ref) {
 
 final fXpListProvider = Provider((ref) {
   final allItems = ref.watch(allItemsProvider);
-  return RessourceXpList(allItems);
+  return RessourceXpList(itemList: allItems);
 });

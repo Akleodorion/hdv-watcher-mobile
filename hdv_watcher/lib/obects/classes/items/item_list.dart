@@ -1,5 +1,3 @@
-import 'package:hdv_watcher/obects/Enums/ressource_type.dart';
-
 import '../../../features/item/domain/entities/item.dart';
 
 class ItemList {
@@ -10,8 +8,6 @@ class ItemList {
   }
 
   List<Item> initialiseItem({required List<Item> allItems}) {
-    return allItems
-        .where((item) => item.ressourceType is RessourceType)
-        .toList();
+    return allItems;
   }
 }

@@ -2,12 +2,18 @@ import 'package:hdv_watcher/obects/Enums/price_type.dart';
 import 'package:hdv_watcher/obects/classes/prices/price.dart';
 
 class Prices {
-  final List<Price> prices;
-  final PriceType priceType;
-  const Prices({
-    required this.prices,
-    required this.priceType,
-  });
+  late List<Price> prices;
+  late PriceType priceType;
+  Prices({required List<Price> priceList}) {
+    prices = priceList;
+    priceType = initializePriceType(priceList);
+  }
+
+  PriceType initializePriceType(List<Price> priceList) {
+    return priceList.first.priceType;
+  }
+
+  // récupère le dernier prix.
 
   // Récupère le prix le plus haut
 

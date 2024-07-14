@@ -5,7 +5,6 @@ class Item extends Equatable {
   final int id;
   final String name;
   final String imgUrl;
-  final List<DateTime> scrapDate;
   final SuperPrices superPrices;
   final double fXp;
   final int xpQuantity;
@@ -16,7 +15,6 @@ class Item extends Equatable {
     required this.id,
     required this.name,
     required this.imgUrl,
-    required this.scrapDate,
     required this.superPrices,
     required this.fXp,
     required this.xpQuantity,
@@ -29,7 +27,6 @@ class Item extends Equatable {
         id,
         name,
         imgUrl,
-        scrapDate,
         superPrices,
         fXp,
         xpQuantity,
