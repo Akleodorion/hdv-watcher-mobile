@@ -29,6 +29,37 @@ class SuperPrices {
       ),
     );
   }
+
+  // récupére le prix le plus bas parmis les 3 price liste.
+  Price get lowerPrice {
+    Price? price = _retriveLowerPrice();
+    if (price == null) {
+      throw Error();
+    }
+    return price;
+  }
+
+  Price? _retriveLowerPrice() {
+    final array = _retrieveValidLastPrice();
+    if (array.isNotEmpty) {
+      return array.fold(
+        array[0],
+        (previous, current) => current.unitPrice <= previous!.unitPrice
+            ? previous = current
+            : previous,
+      );
+    }
+    return null;
+  }
+
+  List<Price> _retrieveValidLastPrice() {
+    final List<Price> array = [
+      unitPrices.lastPrice,
+      tenthPrices.lastPrice,
+      hundredPrices.lastPrice
+    ];
+    return array.where((item) => item.priceValue > 0).toList();
+  }
 }
 
 Map<String, PriceType> priceType = const {

@@ -8,29 +8,34 @@ class RessourceXpList {
   }
 
   List<Item> initializeOnlyItemWithXp({required List<Item> items}) {
-    return items.where((item) => item.fXp >= 50).toList();
+    return items
+        .where((item) =>
+            item.fXp >= 1 && item.qtyForUnitXp > 0 && item.qtyFor100Xp < 100000)
+        .toList();
   }
 
   // méthode qui retourne les items dans l'ordre
-  // List<Item> get sortedList {
-  //   final List<Item> sortedList = [];
-  //   for (final item in items) {
-  //     if (sortedList.isNotEmpty) {
-  //       for (final element in sortedList) {
-  //         if (item.priceToFullXp <= element.priceToFullXp) {
-  //           final idx = sortedList.indexWhere(
-  //               (note) => note.priceToFullXp == element.priceToFullXp);
-  //           sortedList.insert(idx, item);
-  //           break;
-  //         }
-  //         if (element == sortedList.last) {
-  //           sortedList.add(item);
-  //           break;
-  //         }
-  //       }
-  //     }
-  //     sortedList.add(item);
-  //   }
-  //   return sortedList;
-  // }
+  List<Item> get sortedList {
+    final List<Item> sortedList = [];
+    for (final item in items) {
+      if (sortedList.isEmpty) {
+        sortedList.add(item);
+        continue;
+      }
+
+      for (var element in sortedList) {
+        if (item.kamasPerXp <= element.kamasPerXp) {
+          final idx = sortedList
+              .indexWhere((sortedItem) => sortedItem.id == element.id);
+          sortedList.insert(idx, item);
+          break;
+        }
+        if (element.id == sortedList.last.id) {
+          sortedList.add(item);
+          break;
+        }
+      }
+    }
+    return sortedList;
+  }
 }

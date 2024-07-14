@@ -8,7 +8,7 @@ class ItemModel extends Item {
     required super.name,
     required super.imgUrl,
     required super.fXp,
-    required super.xpQuantity,
+    required super.qtyForUnitXp,
     required super.ressourceType,
     required super.mustBuy,
     required super.superPrices,
@@ -21,7 +21,7 @@ class ItemModel extends Item {
       imgUrl: json["img_url"],
       superPrices: SuperPrices.fromJson(json),
       fXp: json["f_xp"],
-      xpQuantity: json["xp_quantity"] ?? 0,
+      qtyForUnitXp: json["xp_quantity"] ?? 0,
       ressourceType: json["ressource_type"],
       mustBuy: json["must_buy"],
     );
@@ -36,7 +36,7 @@ class ItemModel extends Item {
       "tenth_price": superPrices.tenthPrices.prices,
       "hundred_price": superPrices.hundredPrices.prices,
       "f_xp": fXp,
-      "xp_quantity": xpQuantity,
+      "xp_quantity": qtyForUnitXp,
       "ressource_type": ressourceType,
       "must_buy": mustBuy,
     };

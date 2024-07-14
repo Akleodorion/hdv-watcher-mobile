@@ -23,11 +23,11 @@ final allItemsProvider = Provider<List<Item>>((ref) {
 });
 
 final ressourceItemsProvider = Provider((ref) {
-  final allItems = ref.watch(allItemsProvider);
+  final allItems = ref.read(allItemsProvider);
   return ItemList(allItems);
 });
 
 final fXpListProvider = Provider((ref) {
-  final allItems = ref.watch(allItemsProvider);
+  final allItems = ref.read(allItemsProvider);
   return RessourceXpList(itemList: allItems);
 });

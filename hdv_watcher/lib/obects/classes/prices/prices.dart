@@ -13,9 +13,9 @@ class Prices {
     return priceList.first.priceType;
   }
 
-  // récupère le dernier prix.
+  Price get lastPrice {
+    return prices.last;
+  }
 
-  // Récupère le prix le plus haut
-
-  // Récupère le prix médiant
+  // Etablis le prix de
 }
