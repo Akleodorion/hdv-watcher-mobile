@@ -14,18 +14,20 @@ class SuperPrices {
   });
 
   factory SuperPrices.fromJson(Map<String, dynamic> json) {
+    final Map<PriceType, List<Price>> prices =
+        retrievePricesFromJson(json: json);
+    final unitPrices = prices[PriceType.unitPrice];
+    final tenthPrices = prices[PriceType.tenthPrice];
+    final hundredPrices = prices[PriceType.unitPrice];
     return SuperPrices(
       unitPrices: Prices(
-        priceList: retrievePricesFromJson(
-            json: json, type: "unit_price", priceType: priceType),
+        priceList: unitPrices ?? [],
       ),
       tenthPrices: Prices(
-        priceList: retrievePricesFromJson(
-            json: json, type: "tenth_price", priceType: priceType),
+        priceList: tenthPrices ?? [],
       ),
       hundredPrices: Prices(
-        priceList: retrievePricesFromJson(
-            json: json, type: "hundred_price", priceType: priceType),
+        priceList: hundredPrices ?? [],
       ),
     );
   }
@@ -68,22 +70,40 @@ Map<String, PriceType> priceType = const {
   "hundred_price": PriceType.hundredPrice,
 };
 
-List<Price> retrievePricesFromJson({
+Map<PriceType, List<Price>> retrievePricesFromJson({
   required Map<String, dynamic> json,
-  required String type,
-  required priceType,
 }) {
-  var id = 0;
-  final List<Price> prices = [];
+  final Map<PriceType, List<Price>> prices = {
+    PriceType.unitPrice: [],
+    PriceType.tenthPrice: [],
+    PriceType.hundredPrice: [],
+  };
 
-  final List<int> dataList = _getInt(numbers: json[type]);
-  for (final data in dataList) {
-    prices.add(Price(
-        priceType: priceType[type] ?? PriceType.unknown,
-        priceValue: data,
-        scrapDate: _getDates(json)[id]));
-    id++;
+  final List<int> unitPriceList = _getInt(numbers: json["unit_price"]);
+  final List<int> tenthPriceList = _getInt(numbers: json["tenth_price"]);
+  final List<int> hundredPriceList = _getInt(numbers: json["hundred_price"]);
+  final List<DateTime> dates = _getDates(json);
+
+  for (var i = 0; i < unitPriceList.length; i++) {
+    prices[PriceType.unitPrice]!.add(Price(
+      priceType: PriceType.unitPrice,
+      priceValue: unitPriceList[i],
+      scrapDate: dates[i],
+    ));
+
+    prices[PriceType.tenthPrice]!.add(Price(
+      priceType: PriceType.tenthPrice,
+      priceValue: tenthPriceList[i],
+      scrapDate: dates[i],
+    ));
+
+    prices[PriceType.hundredPrice]!.add(Price(
+      priceType: PriceType.hundredPrice,
+      priceValue: hundredPriceList[i],
+      scrapDate: dates[i],
+    ));
   }
+
   return prices;
 }
 

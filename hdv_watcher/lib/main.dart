@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/fetch_item_provider.dart';
 import 'package:hdv_watcher/pages/home_page.dart';
 import 'injection_container.dart' as di;
 
@@ -12,11 +13,12 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.read(fetchItemsProvider.notifier).fetchItems();
     return MaterialApp(
       title: 'HDV-WATCHER',
       theme: ThemeData(

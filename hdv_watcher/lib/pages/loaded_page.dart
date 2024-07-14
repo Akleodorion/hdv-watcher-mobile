@@ -46,7 +46,7 @@ class _LoadedPageState extends State<LoadedPage> {
           const SizedBox(
             height: 30,
           ),
-          Container(
+          SizedBox(
             height: 700,
             child: ListView.builder(
               itemCount: item.length,
@@ -55,7 +55,7 @@ class _LoadedPageState extends State<LoadedPage> {
                   decoration: const BoxDecoration(
                     color: Colors.black12,
                   ),
-                  margin: EdgeInsets.symmetric(vertical: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
                   width: 400,
                   height: 125,
                   child: Row(
