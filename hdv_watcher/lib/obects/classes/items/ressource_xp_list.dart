@@ -4,17 +4,36 @@ class RessourceXpList {
   late List<Item> items;
 
   RessourceXpList(itemList) {
-    items = initialiseOnlyFxpItem(items: itemList);
+    items = initializeOnlyItemWithXp(items: itemList);
   }
 
-  List<Item> initialiseOnlyFxpItem({required List<Item> items}) {
+  List<Item> initializeOnlyItemWithXp({required List<Item> items}) {
     return items
-        .where((item) => item.fXp > 0 && item.xpQuantity <= 10)
+        .where((item) =>
+            item.fXp >= 50 && (item.xpQuantity < 10 && item.xpQuantity > 0))
         .toList();
   }
 
   // méthode qui retourne les items dans l'ordre
-  List<Item> sortedItems() {
-    return [];
+  List<Item> get sortedList {
+    final List<Item> sortedList = [];
+    for (final item in items) {
+      if (sortedList.isNotEmpty) {
+        for (final element in sortedList) {
+          if (item.priceToFullXp <= element.priceToFullXp) {
+            final idx = sortedList.indexWhere(
+                (note) => note.priceToFullXp == element.priceToFullXp);
+            sortedList.insert(idx, item);
+            break;
+          }
+          if (element == sortedList.last) {
+            sortedList.add(item);
+            break;
+          }
+        }
+      }
+      sortedList.add(item);
+    }
+    return sortedList;
   }
 }

@@ -16,6 +16,8 @@ class _LoadedPageState extends State<LoadedPage> {
   var setDisplay = 0;
   @override
   Widget build(BuildContext context) {
+    var item = widget.xpList.sortedList[2];
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -55,9 +57,7 @@ class _LoadedPageState extends State<LoadedPage> {
                 Container(
                   decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 77, 81, 152),
-                      image: DecorationImage(
-                          image:
-                              NetworkImage(widget.xpList.items[225].imgUrl))),
+                      image: DecorationImage(image: NetworkImage(item.imgUrl))),
                   width: 50,
                 ),
                 Container(
@@ -69,24 +69,23 @@ class _LoadedPageState extends State<LoadedPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Text(widget.xpList.items[225].name,
-                            style: TextStyle(fontSize: 10)),
+                        Text(item.name, style: const TextStyle(fontSize: 10)),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
-                          widget.xpList.items[225].ressourceType,
-                          style: TextStyle(fontSize: 10),
+                          item.ressourceType,
+                          style: const TextStyle(fontSize: 10),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
-                          "xp par unité: ${widget.xpList.items[225].fXp.toString()}",
+                          "xp par unité: ${item.fXp.toString()}",
                           style: const TextStyle(fontSize: 12),
                         ),
                         Text(
-                          "prix: ${widget.xpList.items[225].betterPrice.toString()}",
+                          "${item.betterPrice["name"]}: ${item.betterPrice["price"].toString()}",
                           style: const TextStyle(fontSize: 12),
                         )
                       ],
@@ -102,11 +101,11 @@ class _LoadedPageState extends State<LoadedPage> {
                     child: Column(
                       children: [
                         Text(
-                          "Qty for 100%: ${widget.xpList.items[225].quantityFor100Xp.floor()}",
+                          "Qty for 100%: ${item.quantityFor100Xp.floor()}",
                           style: const TextStyle(fontSize: 12),
                         ),
                         Text(
-                          "Price for 100%: ${(widget.xpList.items[225].quantityFor100Xp * widget.xpList.items[225].betterPrice).floor()}",
+                          "Price for 100%: ${item.priceToFullXp}",
                           style: const TextStyle(fontSize: 12),
                         ),
                       ],

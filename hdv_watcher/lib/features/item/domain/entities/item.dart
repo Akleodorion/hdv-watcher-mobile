@@ -26,25 +26,6 @@ class Item extends Equatable {
     required this.ressourceType,
     required this.mustBuy,
   });
-  get betterPrice {
-    final List<int> prices = [
-      unitPrice.last,
-      (tenthPrice.last / 10).round(),
-      (hundredPrice.last / 100).round(),
-    ];
-
-    return prices.fold(unitPrice.last, (prev, value) {
-      if (prev > value && value != 0) {
-        return prev = value;
-      }
-      return prev;
-    });
-  }
-
-  get quantityFor100Xp {
-    final qtyPerUnitXp = xpQuantity * fXp;
-    return 197000 / qtyPerUnitXp;
-  }
 
   @override
   List<Object?> get props => [
@@ -60,4 +41,43 @@ class Item extends Equatable {
         ressourceType,
         mustBuy,
       ];
+
+  Map<String, dynamic> get betterPrice {
+    final priceList = _retriveValideLastPrices(
+      unitPrice,
+      tenthPrice,
+      hundredPrice,
+    );
+
+    return priceList.fold(priceList.first,
+        (prev, next) => (prev["price"] < next["price"]) ? prev : next);
+  }
+
+  int get quantityFor100Xp {
+    const maxPetXp = 197000;
+    final qty = (maxPetXp / fXp) * xpQuantity;
+    return qty.round();
+  }
+
+  get priceToFullXp {
+    return (quantityFor100Xp * betterPrice["price"]);
+  }
+
+  List<Map<String, dynamic>> _retriveValideLastPrices(
+      List<int> unitPrice, List<int> tenthPrice, List<int> hundredPrice) {
+    final List<Map<String, dynamic>> list = [];
+    list.add({
+      "name": "unit_price",
+      "price": unitPrice.last,
+    });
+    list.add({
+      "name": "tenth_price",
+      "price": (tenthPrice.last / 10).round(),
+    });
+    list.add({
+      "name": "hundred_price",
+      "price": (hundredPrice.last / 100).round(),
+    });
+    return list.where((item) => item["price"] > 0).toList();
+  }
 }
