@@ -14,8 +14,10 @@ class LoadedPage extends StatefulWidget {
 
 class _LoadedPageState extends State<LoadedPage> {
   var setDisplay = 0;
+
   @override
   Widget build(BuildContext context) {
+    final item = widget.xpList.sortedList;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -45,77 +47,89 @@ class _LoadedPageState extends State<LoadedPage> {
             height: 30,
           ),
           Container(
-            decoration: const BoxDecoration(
-              color: Colors.black12,
-            ),
-            width: 400,
-            height: 125,
-            child: Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 77, 81, 152),
-                      image: DecorationImage(
-                          image:
-                              NetworkImage(widget.xpList.items[225].imgUrl))),
-                  width: 50,
-                ),
-                Container(
+            height: 700,
+            child: ListView.builder(
+              itemCount: item.length,
+              itemBuilder: (context, count) {
+                return Container(
                   decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 152, 82, 77),
+                    color: Colors.black12,
                   ),
-                  width: 150,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Text(widget.xpList.items[225].name,
-                            style: TextStyle(fontSize: 10)),
-                        const SizedBox(
-                          height: 5,
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  width: 400,
+                  height: 125,
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 77, 81, 152),
+                            image: DecorationImage(
+                                image: NetworkImage(item[count].imgUrl))),
+                        width: 50,
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 152, 82, 77),
                         ),
-                        Text(
-                          widget.xpList.items[225].ressourceType,
-                          style: TextStyle(fontSize: 10),
+                        width: 150,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Text(item[count].name,
+                                  style: const TextStyle(fontSize: 10)),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                item[count].ressourceType,
+                                style: const TextStyle(fontSize: 10),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "xp par unité: ${item[count].itemXp}",
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              Text(
+                                "kamas par xp: ${item[count].kamasPerXp}",
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              Text(
+                                "${item[count].superPrices.lowerPrice.priceType.name}: ${item[count].superPrices.lowerPrice.priceValue}",
+                                style: const TextStyle(fontSize: 12),
+                              )
+                            ],
+                          ),
                         ),
-                        const SizedBox(
-                          height: 5,
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(255, 77, 152, 93)),
+                        width: 200,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Qty for 100%: ${item[count].qtyFor100Xp}",
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              Text(
+                                "Price for 100%: ${item[count].totalCost}",
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ],
+                          ),
                         ),
-                        Text(
-                          "xp par unité: ${widget.xpList.items[225].fXp.toString()}",
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                        Text(
-                          "prix: ${widget.xpList.items[225].betterPrice.toString()}",
-                          style: const TextStyle(fontSize: 12),
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 77, 152, 93)),
-                  width: 200,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Qty for 100%: ${widget.xpList.items[225].quantityFor100Xp.floor()}",
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                        Text(
-                          "Price for 100%: ${(widget.xpList.items[225].quantityFor100Xp * widget.xpList.items[225].betterPrice).floor()}",
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+                );
+              },
             ),
-          ),
+          )
         ],
       ),
     );
