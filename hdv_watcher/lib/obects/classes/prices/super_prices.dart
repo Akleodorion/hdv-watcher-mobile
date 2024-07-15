@@ -64,56 +64,47 @@ class SuperPrices {
   }
 }
 
-Map<String, PriceType> priceType = const {
-  "unit_price": PriceType.unitPrice,
-  "tenth_price": PriceType.tenthPrice,
-  "hundred_price": PriceType.hundredPrice,
-};
-
 Map<PriceType, List<Price>> retrievePricesFromJson({
   required Map<String, dynamic> json,
 }) {
-  final Map<PriceType, List<Price>> prices = {
-    PriceType.unitPrice: [],
-    PriceType.tenthPrice: [],
-    PriceType.hundredPrice: [],
-  };
-
   final List<int> unitPriceList = _getInt(numbers: json["unit_price"]);
   final List<int> tenthPriceList = _getInt(numbers: json["tenth_price"]);
   final List<int> hundredPriceList = _getInt(numbers: json["hundred_price"]);
   final List<DateTime> dates = _getDates(json);
 
-  for (var i = 0; i < unitPriceList.length; i++) {
-    prices[PriceType.unitPrice]!.add(Price(
-      priceType: PriceType.unitPrice,
-      priceValue: unitPriceList[i],
-      scrapDate: dates[i],
-    ));
-
-    prices[PriceType.tenthPrice]!.add(Price(
-      priceType: PriceType.tenthPrice,
-      priceValue: tenthPriceList[i],
-      scrapDate: dates[i],
-    ));
-
-    prices[PriceType.hundredPrice]!.add(Price(
-      priceType: PriceType.hundredPrice,
-      priceValue: hundredPriceList[i],
-      scrapDate: dates[i],
-    ));
-  }
+  final Map<PriceType, List<Price>> prices = {
+    PriceType.unitPrice: List<Price>.generate(
+        unitPriceList.length,
+        (index) => Price(
+              priceType: PriceType.unitPrice,
+              priceValue: unitPriceList[index],
+              scrapDate: dates[index],
+            )),
+    PriceType.tenthPrice: List<Price>.generate(
+        tenthPriceList.length,
+        (index) => Price(
+              priceType: PriceType.tenthPrice,
+              priceValue: tenthPriceList[index],
+              scrapDate: dates[index],
+            )),
+    PriceType.hundredPrice: List<Price>.generate(
+        hundredPriceList.length,
+        (index) => Price(
+              priceType: PriceType.hundredPrice,
+              priceValue: hundredPriceList[index],
+              scrapDate: dates[index],
+            )),
+  };
 
   return prices;
 }
 
 List<int> _getInt({required List numbers}) {
-  return numbers.map((number) => number as int).toList();
+  return List<int>.from(numbers.map((number) => number as int));
 }
 
 List<DateTime> _getDates(json) {
-  List dates = json["scrap_date"];
-  final parsedDates =
-      dates.map((stringDate) => DateTime.parse(stringDate)).toList();
-  return parsedDates;
+  List<dynamic> dates = json["scrap_date"];
+  return List<DateTime>.from(
+      dates.map((stringDate) => DateTime.parse(stringDate)));
 }

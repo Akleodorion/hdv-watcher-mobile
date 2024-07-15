@@ -10,7 +10,7 @@ class RessourceXpList {
   List<Item> initializeOnlyItemWithXp({required List<Item> items}) {
     return items
         .where((item) =>
-            item.fXp >= 1 && item.qtyForUnitXp > 0 && item.qtyFor100Xp < 100000)
+            item.fXp >= 1 && item.qtyForUnitXp > 0 && item.qtyFor100Xp < 20000)
         .toList();
   }
 
