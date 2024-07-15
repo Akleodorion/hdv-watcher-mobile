@@ -19,7 +19,6 @@ class AppLoadingPage extends ConsumerStatefulWidget {
 class _AppLoadingPageState extends ConsumerState<AppLoadingPage> {
   @override
   void initState() {
-    ref.read(fetchItemsProvider.notifier).fetchItems();
     super.initState();
   }
 

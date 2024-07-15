@@ -21,7 +21,6 @@ class ItemRemoteDataSourceImpl implements ItemRemoteDataSource {
           datas.map((data) => ItemModel.fromJson(data)).toList();
       return items;
     }
-
     throw ServerException(errorMessage: "Une erreur s'est produite");
   }
 }
