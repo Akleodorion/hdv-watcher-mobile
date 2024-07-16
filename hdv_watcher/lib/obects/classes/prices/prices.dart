@@ -4,17 +4,18 @@ import 'package:hdv_watcher/obects/classes/prices/price.dart';
 class Prices {
   late List<Price> prices;
   late PriceType priceType;
-  Prices({required List<Price> priceList}) {
+  Prices({required List<Price> priceList, required priceType}) {
     prices = priceList;
-    priceType = initializePriceType(priceList);
-  }
-
-  PriceType initializePriceType(List<Price> priceList) {
-    return priceList.first.priceType;
+    priceType = priceType;
   }
 
   Price get lastPrice {
     return prices.last;
+  }
+
+  get optimalSellingPrice {
+    final List<Price> filteredList = _filterOutliers(prices);
+    return _calculateMedianPrice(filteredList);
   }
 
   // ignore: unused_element
@@ -38,26 +39,6 @@ class Prices {
     }
   }
 
-  get optimalSellingPrice {
-    final List<Price> cleanedList = _filterPricesBy0(prices);
-    final List<Price> doubleLessArray = _cleanSamePrice(cleanedList);
-    final List<Price> filteredList = _filterOutliers(doubleLessArray);
-    return _calculateMedianPrice(filteredList);
-  }
-
-  List<Price> _cleanSamePrice(List<Price> priceList) {
-    final List<Price> noDoubleArray =
-        priceList.fold<List<Price>>([], (prev, actual) {
-      if (prev.isNotEmpty && prev.last.priceValue == actual.priceValue) {
-        return prev;
-      } else {
-        prev.add(actual);
-        return prev;
-      }
-    });
-    return noDoubleArray;
-  }
-
   List<Price> _filterOutliers(List<Price> priceList) {
     if (priceList.isEmpty || priceList.length < 5) {
       return [];
@@ -78,10 +59,6 @@ class Prices {
         .where((price) =>
             price.priceValue >= lowerBound && price.priceValue <= upperBound)
         .toList();
-  }
-
-  List<Price> _filterPricesBy0(List<Price> priceList) {
-    return priceList.where((value) => value.priceValue > 0).toList();
   }
 
   List<Price> sortListByPriceValue(List<Price> priceList) {

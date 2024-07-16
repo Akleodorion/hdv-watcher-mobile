@@ -140,11 +140,11 @@ class XpRessource extends StatelessWidget {
                     style: const TextStyle(fontSize: 12),
                   ),
                   Text(
-                    "Hundred Actual Price: ${item.superPrices.hundredPrices.lastPrice.priceValue}",
+                    "Hundred Actual Price: ${item.superPrices.unitPrices.prices.last.priceValue}",
                     style: const TextStyle(fontSize: 12),
                   ),
                   Text(
-                    "Optimal: ${item.superPrices.hundredPrices.optimalSellingPrice}",
+                    "Optimal: ${item.superPrices.unitPrices.optimalSellingPrice}",
                     style: const TextStyle(fontSize: 12),
                   ),
                 ],
