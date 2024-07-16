@@ -20,14 +20,15 @@ class SuperPrices {
     final tenthPrices = prices[PriceType.tenthPrice];
     final hundredPrices = prices[PriceType.hundredPrice];
     return SuperPrices(
-      unitPrices: Prices(
-        priceList: unitPrices ?? [],
-      ),
+      unitPrices:
+          Prices(priceList: unitPrices ?? [], priceType: PriceType.unitPrice),
       tenthPrices: Prices(
         priceList: tenthPrices ?? [],
+        priceType: PriceType.tenthPrice,
       ),
       hundredPrices: Prices(
         priceList: hundredPrices ?? [],
+        priceType: PriceType.hundredPrice,
       ),
     );
   }
@@ -55,11 +56,16 @@ class SuperPrices {
   }
 
   List<Price> _retrieveValidLastPrice() {
-    final List<Price> array = [
-      unitPrices.lastPrice,
-      tenthPrices.lastPrice,
-      hundredPrices.lastPrice
-    ];
+    final List<Price> array = [];
+    if (unitPrices.prices.isNotEmpty) {
+      array.add(unitPrices.lastPrice);
+    }
+    if (tenthPrices.prices.isNotEmpty) {
+      array.add(tenthPrices.lastPrice);
+    }
+    if (hundredPrices.prices.isNotEmpty) {
+      array.add(unitPrices.lastPrice);
+    }
     return array.where((item) => item.priceValue > 0).toList();
   }
 }
@@ -67,33 +73,22 @@ class SuperPrices {
 Map<PriceType, List<Price>> retrievePricesFromJson({
   required Map<String, dynamic> json,
 }) {
-  final List<int> unitPriceList = _getInt(numbers: json["unit_price"]);
-  final List<int> tenthPriceList = _getInt(numbers: json["tenth_price"]);
-  final List<int> hundredPriceList = _getInt(numbers: json["hundred_price"]);
+  final List<int> unitValueList = _getInt(numbers: json["unit_price"]);
+  final List<int> tenthValueList = _getInt(numbers: json["tenth_price"]);
+  final List<int> hundredValueList = _getInt(numbers: json["hundred_price"]);
   final List<DateTime> dates = _getDates(json);
 
+  final List<Price> unitPriceList = _generateClearedPriceList(
+      values: unitValueList, dates: dates, type: PriceType.unitPrice);
+  final List<Price> tenthPriceList = _generateClearedPriceList(
+      values: tenthValueList, dates: dates, type: PriceType.tenthPrice);
+  final List<Price> hundredPriceList = _generateClearedPriceList(
+      values: hundredValueList, dates: dates, type: PriceType.hundredPrice);
+
   final Map<PriceType, List<Price>> prices = {
-    PriceType.unitPrice: List<Price>.generate(
-        unitPriceList.length,
-        (index) => Price(
-              priceType: PriceType.unitPrice,
-              priceValue: unitPriceList[index],
-              scrapDate: dates[index],
-            )),
-    PriceType.tenthPrice: List<Price>.generate(
-        tenthPriceList.length,
-        (index) => Price(
-              priceType: PriceType.tenthPrice,
-              priceValue: tenthPriceList[index],
-              scrapDate: dates[index],
-            )),
-    PriceType.hundredPrice: List<Price>.generate(
-        hundredPriceList.length,
-        (index) => Price(
-              priceType: PriceType.hundredPrice,
-              priceValue: hundredPriceList[index],
-              scrapDate: dates[index],
-            )),
+    PriceType.unitPrice: unitPriceList,
+    PriceType.tenthPrice: tenthPriceList,
+    PriceType.hundredPrice: hundredPriceList,
   };
 
   return prices;
@@ -107,4 +102,41 @@ List<DateTime> _getDates(json) {
   List<dynamic> dates = json["scrap_date"];
   return List<DateTime>.from(
       dates.map((stringDate) => DateTime.parse(stringDate)));
+}
+
+List<Price> _priceListGenerator(
+    List<int> valueList, List<DateTime> dates, PriceType type) {
+  return List<Price>.generate(
+    valueList.length,
+    (index) => Price(
+      priceType: type,
+      priceValue: valueList[index],
+      scrapDate: dates[index],
+    ),
+  );
+}
+
+List<Price> _clearZeroFromPriceList(List<Price> priceList) {
+  return priceList.where((price) => price.priceValue > 0).toList();
+}
+
+List<Price> _clearDoubleValuesFromPriceList(List<Price> priceList) {
+  if (priceList.isEmpty) return [];
+  List<Price> noDoubleValuesPriceList = [priceList.first];
+  for (int i = 1; i < priceList.length; i++) {
+    if (priceList[i].priceValue != priceList[i - 1].priceValue) {
+      noDoubleValuesPriceList.add(priceList[i]);
+    }
+  }
+  return noDoubleValuesPriceList;
+}
+
+List<Price> _generateClearedPriceList(
+    {required List<int> values,
+    required List<DateTime> dates,
+    required PriceType type}) {
+  final List<Price> priceList = _priceListGenerator(values, dates, type);
+  final List<Price> priceListWithoutZero = _clearZeroFromPriceList(priceList);
+
+  return _clearDoubleValuesFromPriceList(priceListWithoutZero);
 }
