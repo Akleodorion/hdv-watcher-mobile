@@ -18,7 +18,7 @@ class SuperPrices {
         retrievePricesFromJson(json: json);
     final unitPrices = prices[PriceType.unitPrice];
     final tenthPrices = prices[PriceType.tenthPrice];
-    final hundredPrices = prices[PriceType.unitPrice];
+    final hundredPrices = prices[PriceType.hundredPrice];
     return SuperPrices(
       unitPrices: Prices(
         priceList: unitPrices ?? [],
