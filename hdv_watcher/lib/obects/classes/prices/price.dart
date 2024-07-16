@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:hdv_watcher/obects/Enums/price_type.dart';
 
-class Price {
+class Price extends Equatable {
   final PriceType priceType;
   final int priceValue;
   final DateTime scrapDate;
@@ -25,4 +26,7 @@ class Price {
     };
     return map[priceType]!;
   }
+
+  @override
+  List<Object?> get props => [priceType, priceValue, scrapDate];
 }

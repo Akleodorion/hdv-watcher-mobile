@@ -139,6 +139,14 @@ class XpRessource extends StatelessWidget {
                     "Price for 100%: ${item.totalCost}",
                     style: const TextStyle(fontSize: 12),
                   ),
+                  Text(
+                    "Hundred Actual Price: ${item.superPrices.hundredPrices.lastPrice.priceValue}",
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                  Text(
+                    "Optimal: ${item.superPrices.hundredPrices.optimalSellingPrice}",
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 ],
               ),
             ),
