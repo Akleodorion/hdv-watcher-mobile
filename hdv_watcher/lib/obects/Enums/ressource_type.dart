@@ -1,4 +1,0 @@
-enum RessourceType {
-  aile,
-  pierrePrecieuse,
-}
