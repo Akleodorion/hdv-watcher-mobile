@@ -1,7 +1,21 @@
 import 'package:equatable/equatable.dart';
+import 'package:hdv_watcher/enums/price_type.dart';
 
 class Price extends Equatable {
+  final int priceValue;
+  final PriceType priceType;
+  final DateTime scrapDate;
+
+  const Price({
+    required this.priceValue,
+    required this.priceType,
+    required this.scrapDate,
+  });
+
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [
+        priceType,
+        priceType,
+        scrapDate,
+      ];
 }
