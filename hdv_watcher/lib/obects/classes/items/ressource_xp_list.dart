@@ -8,10 +8,11 @@ class RessourceXpList {
   }
 
   List<Item> initializeOnlyItemWithXp({required List<Item> items}) {
-    return items
-        .where((item) =>
-            item.fXp >= 1 && item.qtyForUnitXp > 0 && item.qtyFor100Xp < 20000)
-        .toList();
+    bool hasValidXp(Item item) {
+      return item.fXp >= 1 && item.qtyForUnitXp > 0 && item.qtyFor100Xp < 20000;
+    }
+
+    return items.where(hasValidXp).toList();
   }
 
   // méthode qui retourne les items dans l'ordre
@@ -37,5 +38,11 @@ class RessourceXpList {
       }
     }
     return sortedList;
+  }
+
+  // Valeurs des croquettes
+
+  Item get croquettes {
+    return items.firstWhere((element) => element.name == "Croquette enrichie");
   }
 }

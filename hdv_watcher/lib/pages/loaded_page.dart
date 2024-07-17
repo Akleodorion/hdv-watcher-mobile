@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hdv_watcher/features/item/domain/entities/item.dart';
+import 'package:hdv_watcher/general_widgets/pet_ressource_card/pet_ressource_card.dart';
 import 'package:hdv_watcher/obects/classes/items/item_list.dart';
 import 'package:hdv_watcher/obects/classes/items/ressource_xp_list.dart';
 
@@ -18,7 +18,7 @@ class _LoadedPageState extends State<LoadedPage> {
 
   @override
   Widget build(BuildContext context) {
-    final item = widget.xpList.sortedList;
+    final items = widget.xpList.sortedList;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -49,108 +49,17 @@ class _LoadedPageState extends State<LoadedPage> {
           ),
           SizedBox(
             height: 700,
+            width: 400,
             child: ListView.builder(
-              itemCount: item.length,
+              itemCount: items.length,
               itemBuilder: (context, count) {
-                return XpRessource(item: item[count]);
+                return PetRessourceCard(
+                  item: items[count],
+                  croquette: widget.xpList.croquettes,
+                );
               },
             ),
           )
-        ],
-      ),
-    );
-  }
-}
-
-class XpRessource extends StatelessWidget {
-  final Item item;
-
-  const XpRessource({
-    super.key,
-    required this.item,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.black12,
-      ),
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      width: 400,
-      height: 125,
-      child: Row(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 77, 81, 152),
-                image: DecorationImage(image: NetworkImage(item.imgUrl))),
-            width: 50,
-          ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 152, 82, 77),
-            ),
-            width: 150,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(item.name, style: const TextStyle(fontSize: 10)),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    item.ressourceType,
-                    style: const TextStyle(fontSize: 10),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "xp par unité: ${item.itemXp}",
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    "kamas par xp: ${item.kamasPerXp}",
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    "${item.superPrices.lowerPrice.priceType.name}: ${item.superPrices.lowerPrice.priceValue}",
-                    style: const TextStyle(fontSize: 12),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Container(
-            decoration:
-                const BoxDecoration(color: Color.fromARGB(255, 77, 152, 93)),
-            width: 200,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                    "Qty for 100%: ${item.qtyFor100Xp}",
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    "Price for 100%: ${item.totalCost}",
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    "Hundred Actual Price: ${item.superPrices.unitPrices.prices.last.priceValue}",
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    "Optimal: ${item.superPrices.unitPrices.optimalSellingPrice}",
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                ],
-              ),
-            ),
-          ),
         ],
       ),
     );

@@ -43,10 +43,14 @@ class Item extends Equatable {
     return calculateItemXp();
   }
 
+  String get lowerPriceString {
+    return superPrices.lowerPriceString;
+  }
+
   int get kamasPerXp {
     final double itemXp = calculateItemXp();
     final Price lowerPrice = superPrices.lowerPrice;
-    final int xpPerKamas = (lowerPrice.priceValue / itemXp).round();
+    final int xpPerKamas = (lowerPrice.unitPrice / itemXp).round();
     return xpPerKamas;
   }
 
@@ -59,7 +63,21 @@ class Item extends Equatable {
     return (petXpRequired / itemXp).round();
   }
 
+  String get qtyFor100XpString {
+    final double itemXp = calculateItemXp();
+    const petXpRequired = 197000;
+    if (itemXp == 0) {
+      return "Quantité requise: Nan";
+    }
+    final value = (petXpRequired / itemXp).round();
+    return "Qte requise: $value";
+  }
+
   int get totalCost {
     return qtyFor100Xp * superPrices.lowerPrice.unitPrice;
+  }
+
+  String get totalCostString {
+    return "Total: $totalCost K";
   }
 }
