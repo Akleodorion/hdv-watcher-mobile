@@ -42,6 +42,18 @@ class SuperPrices {
     return price;
   }
 
+  // récupére le prix le plus bas parmis les 3 price liste.
+  String get lowerPriceString {
+    const Map<PriceType, String> priceType = {
+      PriceType.unitPrice: "prix à l'unité",
+      PriceType.tenthPrice: "prix à la dizaine",
+      PriceType.hundredPrice: "prix à la centaine",
+    };
+    Price? price = _retriveLowerPrice();
+
+    return "${priceType[price!.priceType]}: ${price.priceValue}";
+  }
+
   Price? _retriveLowerPrice() {
     final array = _retrieveValidLastPrice();
     if (array.isNotEmpty) {

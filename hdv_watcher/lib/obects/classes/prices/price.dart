@@ -28,5 +28,9 @@ class Price extends Equatable {
   }
 
   @override
-  List<Object?> get props => [priceType, priceValue, scrapDate];
+  List<Object?> get props => [
+        priceType,
+        priceValue,
+        scrapDate,
+      ];
 }
