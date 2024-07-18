@@ -3,6 +3,7 @@ import 'package:hdv_watcher/classes/price_class/super_price.dart';
 import 'package:hdv_watcher/enums/ressource_type.dart';
 
 class Item extends Equatable {
+  final int id;
   final String name;
   final String imgUrl;
   final RessourceType ressourceType;
@@ -11,6 +12,7 @@ class Item extends Equatable {
   final SuperPrice superPrice;
 
   const Item({
+    required this.id,
     required this.name,
     required this.imgUrl,
     required this.ressourceType,
@@ -21,6 +23,7 @@ class Item extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         name,
         imgUrl,
         ressourceType,
