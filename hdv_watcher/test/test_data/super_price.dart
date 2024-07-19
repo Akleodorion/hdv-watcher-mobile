@@ -10,3 +10,9 @@ SuperPrice superPriceGenerator() {
     hundredPrice: pricesGenerator(priceType: PriceType.hundredPrice),
   );
 }
+
+final SuperPrice tSuperPrice = SuperPrice(
+  unitPrices: tUnitPrice,
+  tenthPrice: tTenthPrice,
+  hundredPrice: tHundredPrice,
+);

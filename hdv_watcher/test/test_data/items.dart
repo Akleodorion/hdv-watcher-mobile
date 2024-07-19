@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
+import 'package:hdv_watcher/features/item/data/model/item_model.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'super_price.dart';
 
@@ -15,3 +16,12 @@ Item itemGenerator({required String name}) {
     superPrice: superPriceGenerator(),
   );
 }
+
+final ItemModel tItem = ItemModel(
+    id: 10250,
+    name: "Œil de Crowneille",
+    imgUrl: "https://api.dofusdb.fr/img/items/109326.png",
+    ressourceType: RessourceType.oeil,
+    petXp: 1,
+    quantityForUnitXp: 1,
+    superPrice: tSuperPrice);
