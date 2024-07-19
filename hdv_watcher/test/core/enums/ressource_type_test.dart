@@ -9,8 +9,7 @@ void main() {
     () async {
       final Map<String, dynamic> jsonData = json.decode(fixture("item.json"));
       //act
-      final result =
-          ressourceFromString(name: jsonData["item"]["ressource_type"]);
+      final result = ressourceFromString(name: jsonData["ressource_type"]);
       //assert
       expect(result, RessourceType.oeil);
     },

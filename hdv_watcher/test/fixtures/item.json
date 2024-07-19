@@ -1,4 +1,4 @@
-{ "item": {
+{  
     "id": 10250,
     "name": "Œil de Crowneille",
     "ressource_type": "Œil",
@@ -10,6 +10,4 @@
     "f_xp": "1",
     "xp_quantity": "1",
     "must_buy": "false"
-}
-
 }

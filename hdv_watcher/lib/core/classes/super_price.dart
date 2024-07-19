@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hdv_watcher/core/classes/prices.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';

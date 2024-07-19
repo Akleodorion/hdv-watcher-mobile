@@ -26,7 +26,10 @@ class Prices extends Equatable {
       ),
     );
 
-    return Prices(prices: prices, priceType: priceType);
+    return Prices(
+      prices: prices,
+      priceType: priceType,
+    );
   }
 
   @override
