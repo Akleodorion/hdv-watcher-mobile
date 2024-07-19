@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:hdv_watcher/core/errors/exceptions.dart';
 import 'package:hdv_watcher/core/utils/array_utils.dart';
 import 'package:hdv_watcher/core/utils/dates_utils.dart';
