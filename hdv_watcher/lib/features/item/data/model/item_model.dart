@@ -1,6 +1,7 @@
 import 'package:hdv_watcher/core/classes/super_price.dart';
-import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
+import 'package:hdv_watcher/core/utils/array_utils.dart';
+import 'package:hdv_watcher/core/utils/dates_utils.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 
 class ItemModel extends Item {
@@ -13,14 +14,20 @@ class ItemModel extends Item {
       required super.quantityForUnitXp,
       required super.superPrice});
 
-  factory ItemModel.fromJson({required Map<String, dynamic> json}) {
+  factory ItemModel.fromJson({
+    required Map<String, dynamic> json,
+    required DatesUtils datesUtils,
+    required ArrayUtils arrayUtils,
+  }) {
     final List<int> unitPrices =
-        retrieveListOfIntFromArray(json: json, priceType: PriceType.unitPrice);
+        arrayUtils.getIntsFromArray(json["item"]["unit_price"]);
     final List<int> tenthPrices =
-        retrieveListOfIntFromArray(json: json, priceType: PriceType.tenthPrice);
-    final List<int> hundredPrices = retrieveListOfIntFromArray(
-        json: json, priceType: PriceType.hundredPrice);
-    final List<DateTime> dates = retrieveDatesFromJson(json: json);
+        arrayUtils.getIntsFromArray(json["item"]["tenth_price"]);
+    final List<int> hundredPrices =
+        arrayUtils.getIntsFromArray(json["item"]["hundred_price"]);
+
+    final List<DateTime> dates =
+        datesUtils.dateListParser(values: json["item"]["scrap_date"]);
 
     final String ressourceTypeName = json["item"]["ressource_type"];
     return ItemModel(
@@ -37,21 +44,4 @@ class ItemModel extends Item {
           dates: dates),
     );
   }
-}
-
-List<int> retrieveListOfIntFromArray(
-    {required Map<String, dynamic> json, required PriceType priceType}) {
-  const typeMap = {
-    PriceType.unitPrice: "unit_price",
-    PriceType.tenthPrice: "tenth_price",
-    PriceType.hundredPrice: "hundred_price"
-  };
-
-  List<dynamic> values = json["item"][typeMap[priceType]];
-  return values.whereType<int>().toList();
-}
-
-List<DateTime> retrieveDatesFromJson({required Map<String, dynamic> json}) {
-  List<dynamic> values = json["item"]["scrap_date"];
-  return values.map<DateTime>((value) => DateTime.parse(value)).toList();
 }
