@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:hdv_watcher/enums/ressource_type.dart';
+import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'super_price.dart';
 

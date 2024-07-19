@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:hdv_watcher/classes/price_class/super_price.dart';
-import 'package:hdv_watcher/enums/ressource_type.dart';
+import 'package:hdv_watcher/core/classes/super_price.dart';
+import 'package:hdv_watcher/core/enums/ressource_type.dart';
 
 class Item extends Equatable {
   final int id;

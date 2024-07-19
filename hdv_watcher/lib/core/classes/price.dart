@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:hdv_watcher/enums/price_type.dart';
+import 'package:hdv_watcher/core/enums/price_type.dart';
 
 class Price extends Equatable {
   final int priceValue;

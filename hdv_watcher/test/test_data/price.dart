@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:hdv_watcher/classes/price_class/price.dart';
-import 'package:hdv_watcher/enums/price_type.dart';
+import 'package:hdv_watcher/core/classes/price.dart';
+import 'package:hdv_watcher/core/enums/price_type.dart';
 
 Price priceGenerator(PriceType priceType) {
   return Price(

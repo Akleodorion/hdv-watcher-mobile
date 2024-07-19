@@ -157,6 +157,6 @@ Map<String, RessourceType> ressourceMap = {
   "Viande comestible": RessourceType.viandeComestible,
 };
 
-RessourceType ressourceTypeFromJson({required Map<String, dynamic> json}) {
-  return ressourceMap[json["ressource_type"]] ?? RessourceType.unknown;
+RessourceType ressourceFromString({required String name}) {
+  return ressourceMap[name] ?? RessourceType.unknown;
 }
