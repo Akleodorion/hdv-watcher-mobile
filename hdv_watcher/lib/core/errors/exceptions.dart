@@ -3,3 +3,9 @@ class ServerException implements Exception {
 
   ServerException({required this.errorMessage});
 }
+
+class UtilException implements Exception {
+  final String errorMessage;
+
+  UtilException({required this.errorMessage});
+}

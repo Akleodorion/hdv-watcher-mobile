@@ -31,12 +31,12 @@ class ItemModel extends Item {
 
     final String ressourceTypeName = json["item"]["ressource_type"];
     return ItemModel(
-      id: json["id"],
-      name: json["name"],
-      imgUrl: json["img_url"],
+      id: json["item"]["id"],
+      name: json["item"]["name"],
+      imgUrl: json["item"]["img_url"],
       ressourceType: ressourceFromString(name: ressourceTypeName),
-      petXp: json["f_xp"],
-      quantityForUnitXp: json["xp_quantity"],
+      petXp: int.parse(json["item"]["f_xp"]),
+      quantityForUnitXp: int.parse(json["item"]["xp_quantity"]),
       superPrice: SuperPrice.fromItemFactory(
           unitPrices: unitPrices,
           tenthPrices: tenthPrices,
