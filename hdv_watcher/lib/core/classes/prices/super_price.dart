@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
-import 'package:hdv_watcher/core/classes/prices.dart';
+import 'package:hdv_watcher/core/classes/prices/prices.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 
 class SuperPrice extends Equatable {
   final Prices unitPrices;
-  final Prices tenthPrice;
-  final Prices hundredPrice;
+  final Prices tenthPrices;
+  final Prices hundredPrices;
 
   const SuperPrice({
     required this.unitPrices,
-    required this.tenthPrice,
-    required this.hundredPrice,
+    required this.tenthPrices,
+    required this.hundredPrices,
   });
 
   factory SuperPrice.fromItemFactory({
@@ -22,9 +22,9 @@ class SuperPrice extends Equatable {
     return SuperPrice(
       unitPrices: Prices.fromSuperPriceFactory(
           values: unitPrices, dates: dates, priceType: PriceType.unitPrice),
-      tenthPrice: Prices.fromSuperPriceFactory(
+      tenthPrices: Prices.fromSuperPriceFactory(
           values: tenthPrices, dates: dates, priceType: PriceType.tenthPrice),
-      hundredPrice: Prices.fromSuperPriceFactory(
+      hundredPrices: Prices.fromSuperPriceFactory(
           values: hundredPrices,
           dates: dates,
           priceType: PriceType.hundredPrice),
@@ -34,7 +34,22 @@ class SuperPrice extends Equatable {
   @override
   List<Object?> get props => [
         unitPrices,
-        tenthPrice,
-        hundredPrice,
+        tenthPrices,
+        hundredPrices,
       ];
+
+  bool get isUnitPriceValid {
+    return unitPrices.cleanedPriceList.length > 15 &&
+        unitPrices.prices.last.priceValue != 0;
+  }
+
+  bool get isTenthPriceValid {
+    return tenthPrices.cleanedPriceList.length > 15 &&
+        tenthPrices.prices.last.priceValue != 0;
+  }
+
+  bool get isHundredPriceValid {
+    return hundredPrices.cleanedPriceList.length > 15 &&
+        hundredPrices.prices.last.priceValue != 0;
+  }
 }

@@ -1,4 +1,4 @@
-import 'package:hdv_watcher/core/classes/super_price.dart';
+import 'package:hdv_watcher/core/classes/prices/super_price.dart';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/core/utils/array_utils.dart';
 import 'package:hdv_watcher/core/utils/dates_utils.dart';
@@ -35,8 +35,8 @@ class ItemModel extends Item {
       name: json["name"],
       imgUrl: json["img_url"],
       ressourceType: ressourceFromString(name: ressourceTypeName),
-      petXp: json["f_xp"],
-      quantityForUnitXp: json["xp_quantity"],
+      petXp: json["f_xp"] ?? 0,
+      quantityForUnitXp: json["xp_quantity"] ?? 0,
       superPrice: SuperPrice.fromItemFactory(
           unitPrices: unitPrices,
           tenthPrices: tenthPrices,
