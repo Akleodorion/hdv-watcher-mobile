@@ -1,4 +1,4 @@
-import 'package:hdv_watcher/core/classes/super_price.dart';
+import 'package:hdv_watcher/core/classes/prices/super_price.dart';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/core/utils/array_utils.dart';
 import 'package:hdv_watcher/core/utils/dates_utils.dart';

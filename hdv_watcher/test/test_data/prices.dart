@@ -1,5 +1,5 @@
-import 'package:hdv_watcher/core/classes/price.dart';
-import 'package:hdv_watcher/core/classes/prices.dart';
+import 'package:hdv_watcher/core/classes/prices/price.dart';
+import 'package:hdv_watcher/core/classes/prices/prices.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 
 import 'price.dart';

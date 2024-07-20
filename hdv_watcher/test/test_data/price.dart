@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:hdv_watcher/core/classes/price.dart';
+import 'package:hdv_watcher/core/classes/prices/price.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 
 Price priceGenerator(PriceType priceType) {

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:hdv_watcher/core/classes/price.dart';
+import 'package:hdv_watcher/core/classes/prices/price.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/errors/exceptions.dart';
 
@@ -33,10 +33,27 @@ class Prices extends Equatable {
     );
   }
 
+  // getters
+  List<Price> get cleanedPriceList {
+    return filtersDuplicateFromTheList(
+        prices: filtersDuplicateFromTheList(prices: prices));
+  }
+
   // méthods
 
   List<Price> filtersZerofromTheList({required List<Price> prices}) {
     return prices.where((price) => price.priceValue > 0).toList();
+  }
+
+  List<Price> filtersDuplicateFromTheList({required List<Price> prices}) {
+    if (prices.isEmpty) return [];
+    final List<Price> duplicateLessPriceList = [prices[0]];
+    for (var i = 1; i < prices.length; i++) {
+      duplicateLessPriceList[i - 1].priceValue == prices[i].priceValue
+          ? duplicateLessPriceList[i - 1] = prices[i]
+          : duplicateLessPriceList.add(prices[i]);
+    }
+    return duplicateLessPriceList;
   }
 
   int calculateAveragePriceValue({required List<Price> prices}) {

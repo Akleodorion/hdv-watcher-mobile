@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hdv_watcher/core/classes/price.dart';
-import 'package:hdv_watcher/core/classes/prices.dart';
-import 'package:hdv_watcher/core/classes/super_price.dart';
+import 'package:hdv_watcher/core/classes/prices/price.dart';
+import 'package:hdv_watcher/core/classes/prices/prices.dart';
+import 'package:hdv_watcher/core/classes/prices/super_price.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/core/utils/array_utils.dart';
@@ -57,7 +57,7 @@ void main() {
               priceType: PriceType.unitPrice,
               scrapDate: DateTime.parse("2024-07-14T22:02:34.727+00:00")),
         ], priceType: PriceType.unitPrice),
-        tenthPrice: Prices(prices: [
+        tenthPrices: Prices(prices: [
           Price(
               priceValue: 1257,
               priceType: PriceType.tenthPrice,
@@ -79,7 +79,7 @@ void main() {
               priceType: PriceType.tenthPrice,
               scrapDate: DateTime.parse("2024-07-14T22:02:34.727+00:00")),
         ], priceType: PriceType.tenthPrice),
-        hundredPrice: Prices(prices: [
+        hundredPrices: Prices(prices: [
           Price(
               priceValue: 12458,
               priceType: PriceType.hundredPrice,

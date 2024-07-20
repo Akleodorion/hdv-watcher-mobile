@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hdv_watcher/core/classes/prices.dart';
+import 'package:hdv_watcher/core/classes/prices/prices.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 
 import '../../test_data/dates.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hdv_watcher/core/classes/super_price.dart';
+import 'package:hdv_watcher/core/classes/prices/super_price.dart';
 
 import '../../test_data/dates.dart';
 import '../../test_data/prices.dart';
@@ -9,8 +9,8 @@ void main() {
   group("SuperPricefromJson", () {
     final SuperPrice tSuperPrice = SuperPrice(
       unitPrices: tUnitPrice,
-      tenthPrice: tTenthPrice,
-      hundredPrice: tHundredPrice,
+      tenthPrices: tTenthPrice,
+      hundredPrices: tHundredPrice,
     );
 
     test('should return a valid SuperPrice model', () async {
