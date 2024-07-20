@@ -7,7 +7,6 @@ class ItemNotifier extends StateNotifier<ItemState> {
   final FetchItemsUsecase fetchItemsUsecase;
 
   ItemNotifier({required this.fetchItemsUsecase}) : super(Loading());
-
   ItemState get initialState => Loading();
 
   Future<ItemState> fetchItem() async {
