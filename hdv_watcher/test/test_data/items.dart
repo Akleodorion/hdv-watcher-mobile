@@ -11,7 +11,7 @@ Item itemGenerator({required String name}) {
     name: name,
     imgUrl: "imgUrl",
     ressourceType: RessourceType.values[Random().nextInt(ressourceTypeLength)],
-    petXp: Random().nextInt(40),
+    petXp: Random().nextInt(40).toDouble(),
     quantityForUnitXp: 1,
     superPrice: superPriceGenerator(),
   );

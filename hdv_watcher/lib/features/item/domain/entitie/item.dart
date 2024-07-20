@@ -7,7 +7,7 @@ class Item extends Equatable {
   final String name;
   final String imgUrl;
   final RessourceType ressourceType;
-  final int petXp;
+  final double petXp;
   final int quantityForUnitXp;
   final SuperPrice superPrice;
 
