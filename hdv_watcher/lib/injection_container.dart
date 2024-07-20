@@ -11,13 +11,13 @@ Future<void> init() async {
   //* Feature: Items
 
   // Usecases
-  sl.registerLazySingleton(() => FetchItemsUsecase(repository: sl()));
+  sl.registerFactory<FetchItemsUsecase>(
+      () => FetchItemsUsecase(repository: sl()));
 
   // Repository
-  sl.registerLazySingleton<ItemRepository>(
+  sl.registerFactory<ItemRepository>(
       () => ItemRepositoryImpl(dataSource: sl()));
 
   // Datasources
-  sl.registerLazySingleton<ItemRemoteDateSource>(
-      () => ItemRemoteDateSourceImpl());
+  sl.registerFactory<ItemRemoteDateSource>(() => ItemRemoteDateSourceImpl());
 }

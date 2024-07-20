@@ -35,8 +35,8 @@ class ItemModel extends Item {
       name: json["name"],
       imgUrl: json["img_url"],
       ressourceType: ressourceFromString(name: ressourceTypeName),
-      petXp: int.parse(json["f_xp"]),
-      quantityForUnitXp: int.parse(json["xp_quantity"]),
+      petXp: json["f_xp"],
+      quantityForUnitXp: json["xp_quantity"],
       superPrice: SuperPrice.fromItemFactory(
           unitPrices: unitPrices,
           tenthPrices: tenthPrices,
