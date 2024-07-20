@@ -8,7 +8,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../../test_data/items.dart';
-import 'item_provider_test.mocks.dart';
+import 'item_notifier_test.mocks.dart';
 
 @GenerateMocks([FetchItemsUsecase])
 void main() {
