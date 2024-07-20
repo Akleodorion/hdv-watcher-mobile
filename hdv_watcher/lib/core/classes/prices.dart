@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:hdv_watcher/core/classes/price.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
+import 'package:hdv_watcher/core/errors/exceptions.dart';
 
 class Prices extends Equatable {
   final List<Price> prices;
@@ -30,6 +31,40 @@ class Prices extends Equatable {
       prices: prices,
       priceType: priceType,
     );
+  }
+
+  // méthods
+
+  List<Price> filtersZerofromTheList({required List<Price> prices}) {
+    return prices.where((price) => price.priceValue > 0).toList();
+  }
+
+  int calculateAveragePriceValue({required List<Price> prices}) {
+    if (prices.isEmpty) {
+      throw UtilException(errorMessage: "errorMessage");
+    }
+    final sum = prices.fold<int>(0, (prev, value) => prev + value.priceValue);
+    return (sum ~/ prices.length);
+  }
+
+  List<Price> sortPriceListByPriceValue({required List<Price> prices}) {
+    return List<Price>.from(prices)
+      ..sort((a, b) => a.priceValue.compareTo(b.priceValue));
+  }
+
+  int calculateMedianPrice(List<Price> prices) {
+    final sortedPriceList = sortPriceListByPriceValue(prices: prices);
+    int middle = sortedPriceList.length ~/ 2;
+    if (prices.length % 2 == 1) {
+      return prices[middle].priceValue;
+    } else {
+      return (prices[middle - 1].priceValue + prices[middle].priceValue) ~/ 2;
+    }
+  }
+
+  int calculateCapitalGain(
+      {required int sellingPrice, required int buyingPrice}) {
+    return sellingPrice - buyingPrice - (0.02 * sellingPrice).round();
   }
 
   @override
