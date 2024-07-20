@@ -35,23 +35,38 @@ class Prices extends Equatable {
 
   // getters
   List<Price> get cleanedPriceList {
-    return filtersDuplicateFromTheList(
-        prices: filtersDuplicateFromTheList(prices: prices));
+    return _filterUnwantedValueFromList(prices);
+  }
+
+  int get averagePriceValue {
+    return calculateAveragePriceValue(
+        prices: _filterUnwantedValueFromList(prices));
+  }
+
+  int get capitalGainPriceValue {
+    return calculateCapitalGain(
+        sellingPrice: calculateMedianPrice(prices),
+        buyingPrice: prices.last.priceValue);
   }
 
   // méthods
 
-  List<Price> filtersZerofromTheList({required List<Price> prices}) {
+  List<Price> _filterUnwantedValueFromList(List<Price> prices) {
+    return _filtersDuplicateFromTheList(
+        prices: _filtersZerofromTheList(prices: prices));
+  }
+
+  List<Price> _filtersZerofromTheList({required List<Price> prices}) {
     return prices.where((price) => price.priceValue > 0).toList();
   }
 
-  List<Price> filtersDuplicateFromTheList({required List<Price> prices}) {
+  List<Price> _filtersDuplicateFromTheList({required List<Price> prices}) {
     if (prices.isEmpty) return [];
-    final List<Price> duplicateLessPriceList = [prices[0]];
+    final List<Price> duplicateLessPriceList = [prices.first];
     for (var i = 1; i < prices.length; i++) {
-      duplicateLessPriceList[i - 1].priceValue == prices[i].priceValue
-          ? duplicateLessPriceList[i - 1] = prices[i]
-          : duplicateLessPriceList.add(prices[i]);
+      if (duplicateLessPriceList.last.priceValue != prices[i].priceValue) {
+        duplicateLessPriceList.add(prices[i]);
+      }
     }
     return duplicateLessPriceList;
   }
