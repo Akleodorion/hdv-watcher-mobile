@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hdv_watcher/core/errors/failures.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_items_usecase.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/state/item_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/item/state/item_notifier.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/item/state/item_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

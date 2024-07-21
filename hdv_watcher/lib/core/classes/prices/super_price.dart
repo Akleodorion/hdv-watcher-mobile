@@ -21,13 +21,11 @@ class SuperPrice extends Equatable {
   }) {
     return SuperPrice(
       unitPrices: Prices.fromSuperPriceFactory(
-          values: unitPrices, dates: dates, priceType: PriceType.unitPrice),
+          values: unitPrices, dates: dates, priceType: PriceType.unit),
       tenthPrices: Prices.fromSuperPriceFactory(
-          values: tenthPrices, dates: dates, priceType: PriceType.tenthPrice),
+          values: tenthPrices, dates: dates, priceType: PriceType.tenth),
       hundredPrices: Prices.fromSuperPriceFactory(
-          values: hundredPrices,
-          dates: dates,
-          priceType: PriceType.hundredPrice),
+          values: hundredPrices, dates: dates, priceType: PriceType.hundred),
     );
   }
 

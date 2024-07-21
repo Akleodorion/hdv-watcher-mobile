@@ -10,7 +10,7 @@ void main() {
   group("fromSuperPricesFactory", () {
     final List<int> values = tUnits;
     final List<DateTime> dates = tDates;
-    const PriceType priceType = PriceType.unitPrice;
+    const PriceType priceType = PriceType.unit;
 
     final Prices tPrices = Prices(prices: tPriceList, priceType: priceType);
     test('should return a valid Prices', () async {

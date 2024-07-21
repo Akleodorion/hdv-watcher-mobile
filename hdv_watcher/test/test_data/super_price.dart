@@ -5,9 +5,9 @@ import 'prices.dart';
 
 SuperPrice superPriceGenerator() {
   return SuperPrice(
-    unitPrices: pricesGenerator(priceType: PriceType.unitPrice),
-    tenthPrices: pricesGenerator(priceType: PriceType.tenthPrice),
-    hundredPrices: pricesGenerator(priceType: PriceType.hundredPrice),
+    unitPrices: pricesGenerator(priceType: PriceType.unit),
+    tenthPrices: pricesGenerator(priceType: PriceType.tenth),
+    hundredPrices: pricesGenerator(priceType: PriceType.hundred),
   );
 }
 

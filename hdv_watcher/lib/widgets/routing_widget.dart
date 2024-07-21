@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hdv_watcher/features/item/presentation/pages/item_features_page.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/item_provider.dart';
+import '../../pages/item_features_page.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/item/item_provider.dart';
 
-import '../features/item/presentation/providers/state/item_state.dart';
+import '../features/item/presentation/providers/item/state/item_state.dart';
 
 class RoutingWIdget extends ConsumerStatefulWidget {
   const RoutingWIdget({super.key});

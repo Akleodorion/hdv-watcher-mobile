@@ -2,10 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/core/classes/items/unit_item_list.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_items_usecase.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/state/item_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/item/state/item_notifier.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/item/state/item_state.dart';
 
-import '../../../../injection_container.dart';
+import '../../../../../injection_container.dart';
 
 final itemProvider = StateNotifierProvider<ItemNotifier, ItemState>((ref) {
   final FetchItemsUsecase fetchItemsUsecase = sl<FetchItemsUsecase>();
