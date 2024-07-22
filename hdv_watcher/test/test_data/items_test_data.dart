@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/features/item/data/model/item_model.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
-import 'super_price.dart';
+import 'super_price_test_data.dart';
 
 Item itemGenerator({required String name}) {
   final int ressourceTypeLength = RessourceType.values.length;

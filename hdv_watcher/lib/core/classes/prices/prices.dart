@@ -33,7 +33,22 @@ class Prices extends Equatable {
     );
   }
 
-  // getters
+  // Getters
+  bool get isValid {
+    final clearedPrices = _filterUnwantedValueFromList(prices);
+    if (clearedPrices.isEmpty) {
+      return false;
+    }
+    return _isAvailable(prices, clearedPrices) &&
+        _isTradedOften(clearedPrices) &&
+        _isWorth();
+  }
+
+  int get currentPrice {
+    final filteredList = _filterUnwantedValueFromList(prices);
+    return filteredList.isNotEmpty ? filteredList.last.priceValue : 0;
+  }
+
   List<Price> get cleanedPriceList {
     return _filterUnwantedValueFromList(prices);
   }
@@ -43,32 +58,50 @@ class Prices extends Equatable {
         prices: _filterUnwantedValueFromList(prices));
   }
 
+  int get medianPrice {
+    try {
+      return calculateMedianPrice(_filterUnwantedValueFromList(prices));
+    } on UtilException {
+      return 0;
+    }
+  }
+
   int get capitalGainPriceValue {
     return calculateCapitalGain(
         sellingPrice: calculateMedianPrice(prices),
         buyingPrice: prices.last.priceValue);
   }
 
-  // méthods
-
+  // Méthodes
   List<Price> _filterUnwantedValueFromList(List<Price> prices) {
-    return _filtersDuplicateFromTheList(
-        prices: _filtersZerofromTheList(prices: prices));
+    final filteredPrices =
+        prices.where((price) => price.priceValue > 0).toList();
+    return _removeDuplicates(filteredPrices);
   }
 
-  List<Price> _filtersZerofromTheList({required List<Price> prices}) {
-    return prices.where((price) => price.priceValue > 0).toList();
-  }
-
-  List<Price> _filtersDuplicateFromTheList({required List<Price> prices}) {
+  List<Price> _removeDuplicates(List<Price> prices) {
     if (prices.isEmpty) return [];
-    final List<Price> duplicateLessPriceList = [prices.first];
+    final List<Price> result = [prices.first];
     for (var i = 1; i < prices.length; i++) {
-      if (duplicateLessPriceList.last.priceValue != prices[i].priceValue) {
-        duplicateLessPriceList.add(prices[i]);
+      if (result.last.priceValue != prices[i].priceValue) {
+        result.add(prices[i]);
       }
     }
-    return duplicateLessPriceList;
+    return result;
+  }
+
+  bool _isTradedOften(List<Price> clearedPrices) {
+    return clearedPrices.length > 80;
+  }
+
+  bool _isAvailable(List<Price> prices, List<Price> clearedPrices) {
+    return prices.isNotEmpty &&
+        clearedPrices.isNotEmpty &&
+        prices.last.scrapDate == clearedPrices.last.scrapDate;
+  }
+
+  bool _isWorth() {
+    return medianPrice > currentPrice;
   }
 
   int calculateAveragePriceValue({required List<Price> prices}) {
@@ -76,21 +109,22 @@ class Prices extends Equatable {
       throw UtilException(errorMessage: "errorMessage");
     }
     final sum = prices.fold<int>(0, (prev, value) => prev + value.priceValue);
-    return (sum ~/ prices.length);
-  }
-
-  List<Price> sortPriceListByPriceValue({required List<Price> prices}) {
-    return List<Price>.from(prices)
-      ..sort((a, b) => a.priceValue.compareTo(b.priceValue));
+    return sum ~/ prices.length;
   }
 
   int calculateMedianPrice(List<Price> prices) {
-    final sortedPriceList = sortPriceListByPriceValue(prices: prices);
-    int middle = sortedPriceList.length ~/ 2;
-    if (prices.length % 2 == 1) {
-      return prices[middle].priceValue;
+    if (prices.isEmpty) {
+      throw UtilException(errorMessage: "errorMessage");
+    }
+    final sortedPrices = List<Price>.from(prices)
+      ..sort((a, b) => a.priceValue.compareTo(b.priceValue));
+    final middle = sortedPrices.length ~/ 2;
+    if (sortedPrices.length % 2 == 1) {
+      return sortedPrices[middle].priceValue;
     } else {
-      return (prices[middle - 1].priceValue + prices[middle].priceValue) ~/ 2;
+      return (sortedPrices[middle - 1].priceValue +
+              sortedPrices[middle].priceValue) ~/
+          2;
     }
   }
 
@@ -100,8 +134,5 @@ class Prices extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        prices,
-        priceType,
-      ];
+  List<Object?> get props => [prices, priceType];
 }

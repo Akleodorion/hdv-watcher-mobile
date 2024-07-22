@@ -2,28 +2,11 @@ import 'package:hdv_watcher/core/classes/items/item_list.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 
 class UnitItemList extends ItemList {
-  late List<Item> items;
-  UnitItemList({
-    required List<Item> itemList,
-  }) {
-    items = initPriceList(itemList);
-  }
+  UnitItemList({required super.itemList});
 
   @override
   List<Item> filterByPricesLength(List<Item> items) {
-    return items
-        .where(
-            (item) => item.superPrice.unitPrices.cleanedPriceList.length > 140)
-        .toList();
-  }
-
-  @override
-  List<Item> initPriceList(List<Item> items) {
-    return filterByPricesLength(items);
-  }
-
-  List<Item> get sortedPriceList {
-    return sortByCapitalGain(items);
+    return items.where((item) => item.superPrice.unitPrices.isValid).toList();
   }
 
   @override

@@ -21,13 +21,11 @@ class SuperPrice extends Equatable {
   }) {
     return SuperPrice(
       unitPrices: Prices.fromSuperPriceFactory(
-          values: unitPrices, dates: dates, priceType: PriceType.unitPrice),
+          values: unitPrices, dates: dates, priceType: PriceType.unit),
       tenthPrices: Prices.fromSuperPriceFactory(
-          values: tenthPrices, dates: dates, priceType: PriceType.tenthPrice),
+          values: tenthPrices, dates: dates, priceType: PriceType.tenth),
       hundredPrices: Prices.fromSuperPriceFactory(
-          values: hundredPrices,
-          dates: dates,
-          priceType: PriceType.hundredPrice),
+          values: hundredPrices, dates: dates, priceType: PriceType.hundred),
     );
   }
 
@@ -38,18 +36,19 @@ class SuperPrice extends Equatable {
         hundredPrices,
       ];
 
-  bool get isUnitPriceValid {
-    return unitPrices.cleanedPriceList.length > 15 &&
-        unitPrices.prices.last.priceValue != 0;
+  Map<PriceType, int> get currentPrice {
+    return {
+      PriceType.unit: unitPrices.currentPrice,
+      PriceType.tenth: tenthPrices.currentPrice,
+      PriceType.hundred: hundredPrices.currentPrice,
+    };
   }
 
-  bool get isTenthPriceValid {
-    return tenthPrices.cleanedPriceList.length > 15 &&
-        tenthPrices.prices.last.priceValue != 0;
-  }
-
-  bool get isHundredPriceValid {
-    return hundredPrices.cleanedPriceList.length > 15 &&
-        hundredPrices.prices.last.priceValue != 0;
+  Map<PriceType, int> get recommandedSellingPrice {
+    return {
+      PriceType.unit: unitPrices.medianPrice,
+      PriceType.tenth: tenthPrices.medianPrice,
+      PriceType.hundred: hundredPrices.medianPrice,
+    };
   }
 }

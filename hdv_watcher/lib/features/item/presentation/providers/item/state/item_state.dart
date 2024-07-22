@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/entitie/item.dart';
+import '../../../../domain/entitie/item.dart';
 
 class ItemState extends Equatable {
   @override

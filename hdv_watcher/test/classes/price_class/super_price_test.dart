@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hdv_watcher/core/classes/prices/super_price.dart';
 
-import '../../test_data/dates.dart';
-import '../../test_data/prices.dart';
-import '../../test_data/values.dart';
+import '../../test_data/dates_test_data.dart';
+import '../../test_data/prices_test_data.dart';
+import '../../test_data/values_test_data.dart';
 
 void main() {
   group("SuperPricefromJson", () {

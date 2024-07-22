@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/core/errors/failures.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_items_usecase.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/item/state/item_state.dart';
 
 class ItemNotifier extends StateNotifier<ItemState> {
   final FetchItemsUsecase fetchItemsUsecase;
