@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hdv_watcher/core/classes/charts/price_point.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/chart_filter_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/chart_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/current_price_section.dart';
