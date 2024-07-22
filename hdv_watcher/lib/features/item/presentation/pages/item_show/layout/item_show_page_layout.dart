@@ -5,6 +5,7 @@ import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/current_price_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/general_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/selling_price_section.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/item/item_provider.dart';
 
 import '../../../../domain/entitie/item.dart';
 
@@ -27,7 +28,9 @@ class ItemShowPageLayout extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const CurrentPriceSection(),
+            CurrentPriceSection(
+              data: item.currentPriceMap,
+            ),
             const SizedBox(
               height: 20,
             ),
