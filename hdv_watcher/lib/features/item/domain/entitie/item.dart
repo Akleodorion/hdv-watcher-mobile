@@ -40,4 +40,8 @@ class Item extends Equatable {
   Map<PriceType, int> get recommandedSellingPrice {
     return superPrice.recommandedSellingPrice;
   }
+
+  Map<PriceType, int> get averageSellingPrice {
+    return superPrice.averageSellingPrice;
+  }
 }

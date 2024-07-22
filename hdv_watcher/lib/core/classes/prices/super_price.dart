@@ -51,4 +51,12 @@ class SuperPrice extends Equatable {
       PriceType.hundred: hundredPrices.medianPrice,
     };
   }
+
+  Map<PriceType, int> get averageSellingPrice {
+    return {
+      PriceType.unit: unitPrices.averagePriceValue,
+      PriceType.tenth: tenthPrices.averagePriceValue,
+      PriceType.hundred: hundredPrices.averagePriceValue,
+    };
+  }
 }
