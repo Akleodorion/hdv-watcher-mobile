@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:hdv_watcher/core/classes/prices/price.dart';
 import 'package:hdv_watcher/core/classes/prices/prices.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 
@@ -49,6 +50,22 @@ class SuperPrice extends Equatable {
       PriceType.unit: unitPrices.medianPrice,
       PriceType.tenth: tenthPrices.medianPrice,
       PriceType.hundred: hundredPrices.medianPrice,
+    };
+  }
+
+  Map<PriceType, int> get averageSellingPrice {
+    return {
+      PriceType.unit: unitPrices.averagePriceValue,
+      PriceType.tenth: tenthPrices.averagePriceValue,
+      PriceType.hundred: hundredPrices.averagePriceValue,
+    };
+  }
+
+  Map<PriceType, List<Price>> get priceList {
+    return {
+      PriceType.unit: unitPrices.prices,
+      PriceType.tenth: tenthPrices.prices,
+      PriceType.hundred: hundredPrices.prices,
     };
   }
 }

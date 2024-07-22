@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
+import 'package:hdv_watcher/features/item/presentation/pages/item_show/item_show_page.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({super.key, required this.item, required this.priceType});
@@ -20,7 +21,12 @@ class ItemCard extends StatelessWidget {
       ),
       height: 100,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (BuildContext context) {
+            return ItemShowPage(item: item);
+          }));
+        },
         child: Row(
           children: [
             Expanded(
