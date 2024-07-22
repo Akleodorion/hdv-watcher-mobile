@@ -1,7 +1,7 @@
 import 'package:hdv_watcher/core/classes/prices/super_price.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 
-import 'prices.dart';
+import 'prices_test_data.dart';
 
 SuperPrice superPriceGenerator() {
   return SuperPrice(

@@ -7,7 +7,7 @@ import 'package:hdv_watcher/features/item/domain/usecase/fetch_items_usecase.dar
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 
-import '../../../../test_data/items.dart';
+import '../../../../test_data/items_test_data.dart';
 import 'fetch_items_usecase_test.mocks.dart';
 
 @GenerateMocks([ItemRepository])

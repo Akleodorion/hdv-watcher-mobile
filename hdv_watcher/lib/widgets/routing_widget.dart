@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hdv_watcher/pages/initial_loading_page.dart';
 import '../../pages/item_features_page.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/item/item_provider.dart';
 
 import '../features/item/presentation/providers/item/state/item_state.dart';
 
-class RoutingWIdget extends ConsumerStatefulWidget {
-  const RoutingWIdget({super.key});
+class RoutingWidget extends ConsumerStatefulWidget {
+  const RoutingWidget({super.key});
 
   @override
-  ConsumerState<RoutingWIdget> createState() => _RoutingWIdgetState();
+  ConsumerState<RoutingWidget> createState() => _RoutingWidgetState();
 }
 
-class _RoutingWIdgetState extends ConsumerState<RoutingWIdget> {
+class _RoutingWidgetState extends ConsumerState<RoutingWidget> {
   // inits
   @override
   void initState() {
@@ -30,9 +31,7 @@ class _RoutingWIdgetState extends ConsumerState<RoutingWIdget> {
     if (state is Loaded) {
       return const ItemFeaturesPage();
     }
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
+    return const InitialLoadingPage();
   }
 
   // Widget
@@ -42,7 +41,7 @@ class _RoutingWIdgetState extends ConsumerState<RoutingWIdget> {
         future: _watchItemState(),
         builder: (BuildContext context, snapshot) {
           final state = snapshot.data;
-          return routing(state);
+          return snapshot.hasData ? routing(state) : const InitialLoadingPage();
         });
   }
 }

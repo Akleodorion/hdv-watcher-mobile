@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/filter_section.dart';
+import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/list_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/title_section.dart';
 
 class HdvWatcherPage extends StatelessWidget {
@@ -9,7 +10,7 @@ class HdvWatcherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(top: 20, left: 8, right: 8),
+        padding: EdgeInsets.only(top: 20, left: 20, right: 20),
         child: Column(
           children: [
             TitleSection(),
@@ -17,6 +18,10 @@ class HdvWatcherPage extends StatelessWidget {
               height: 20,
             ),
             FilterSection(),
+            SizedBox(
+              height: 20,
+            ),
+            ListSection(),
           ],
         ),
       ),

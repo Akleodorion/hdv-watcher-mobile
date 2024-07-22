@@ -36,18 +36,19 @@ class SuperPrice extends Equatable {
         hundredPrices,
       ];
 
-  bool get isUnitPriceValid {
-    return unitPrices.cleanedPriceList.length > 15 &&
-        unitPrices.prices.last.priceValue != 0;
+  Map<PriceType, int> get currentPrice {
+    return {
+      PriceType.unit: unitPrices.currentPrice,
+      PriceType.tenth: tenthPrices.currentPrice,
+      PriceType.hundred: hundredPrices.currentPrice,
+    };
   }
 
-  bool get isTenthPriceValid {
-    return tenthPrices.cleanedPriceList.length > 15 &&
-        tenthPrices.prices.last.priceValue != 0;
-  }
-
-  bool get isHundredPriceValid {
-    return hundredPrices.cleanedPriceList.length > 15 &&
-        hundredPrices.prices.last.priceValue != 0;
+  Map<PriceType, int> get recommandedSellingPrice {
+    return {
+      PriceType.unit: unitPrices.medianPrice,
+      PriceType.tenth: tenthPrices.medianPrice,
+      PriceType.hundred: hundredPrices.medianPrice,
+    };
   }
 }

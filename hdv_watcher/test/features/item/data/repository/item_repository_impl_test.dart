@@ -9,7 +9,7 @@ import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../test_data/items.dart';
+import '../../../../test_data/items_test_data.dart';
 import 'item_repository_impl_test.mocks.dart';
 
 @GenerateMocks([ItemRemoteDateSource])

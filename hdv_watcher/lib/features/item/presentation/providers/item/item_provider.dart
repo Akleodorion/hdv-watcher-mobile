@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hdv_watcher/core/classes/items/hundred_item_list.dart';
 import 'package:hdv_watcher/core/classes/items/unit_item_list.dart';
-import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_items_usecase.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/item/state/item_notifier.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/item/state/item_state.dart';
 
+import '../../../../../core/classes/items/tenth_item_list.dart';
 import '../../../../../injection_container.dart';
 
 final itemProvider = StateNotifierProvider<ItemNotifier, ItemState>((ref) {
@@ -13,28 +14,26 @@ final itemProvider = StateNotifierProvider<ItemNotifier, ItemState>((ref) {
   return ItemNotifier(fetchItemsUsecase: fetchItemsUsecase);
 });
 
-final validUnitPriceItemsProvider = Provider<UnitItemList?>((ref) {
+final validUnitPriceItemsProvider = Provider<UnitItemList>((ref) {
   final state = ref.watch(itemProvider);
   if (state is Loaded) {
     return UnitItemList(itemList: state.items);
   }
-  return null;
+  return UnitItemList(itemList: []);
 });
 
-final validTenthPriceItemsProvider = Provider<List<Item>>((ref) {
-  final List<Item> items = [];
+final validTenthPriceItemsProvider = Provider<TenthItemList>((ref) {
   final state = ref.watch(itemProvider);
   if (state is Loaded) {
-    state.items.where((item) => item.superPrice.isTenthPriceValid).toList();
+    return TenthItemList(itemList: state.items);
   }
-  return items;
+  return TenthItemList(itemList: []);
 });
 
-final validHundredPriceItemsProvider = Provider<List<Item>>((ref) {
-  final List<Item> items = [];
+final validHundredPriceItemsProvider = Provider<HundredItemList>((ref) {
   final state = ref.watch(itemProvider);
   if (state is Loaded) {
-    state.items.where((item) => item.superPrice.isHundredPriceValid).toList();
+    return HundredItemList(itemList: state.items);
   }
-  return items;
+  return HundredItemList(itemList: []);
 });

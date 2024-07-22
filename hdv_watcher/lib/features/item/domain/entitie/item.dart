@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:hdv_watcher/core/classes/prices/super_price.dart';
+import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
 
 class Item extends Equatable {
@@ -31,4 +32,12 @@ class Item extends Equatable {
         quantityForUnitXp,
         superPrice,
       ];
+
+  Map<PriceType, int> get currentPriceMap {
+    return superPrice.currentPrice;
+  }
+
+  Map<PriceType, int> get recommandedSellingPrice {
+    return superPrice.recommandedSellingPrice;
+  }
 }
