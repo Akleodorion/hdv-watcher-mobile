@@ -2,12 +2,18 @@ import 'package:equatable/equatable.dart';
 import 'package:hdv_watcher/core/classes/prices/price.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/errors/exceptions.dart';
+import 'package:hdv_watcher/core/utils/prices_array_utils.dart';
 
 class Prices extends Equatable {
-  final List<Price> prices;
-  final PriceType priceType;
+  late List<Price> prices;
+  late PriceType priceType;
+  late PricesArrayUtilsImpl _pricesArrayUtilsImpl;
 
-  const Prices({required this.prices, required this.priceType});
+  Prices({required this.prices, required this.priceType}) {
+    prices = prices;
+    priceType = priceType;
+    _pricesArrayUtilsImpl = PricesArrayUtilsImpl(prices: prices);
+  }
 
   factory Prices.fromSuperPriceFactory({
     required List<int> values,
@@ -35,7 +41,7 @@ class Prices extends Equatable {
 
   // Getters
   bool get isValid {
-    final clearedPrices = _filterUnwantedValueFromList(prices);
+    final clearedPrices = _pricesArrayUtilsImpl.validPriceList;
     if (clearedPrices.isEmpty) {
       return false;
     }
@@ -45,22 +51,22 @@ class Prices extends Equatable {
   }
 
   int get currentPrice {
-    final filteredList = _filterUnwantedValueFromList(prices);
+    final filteredList = _pricesArrayUtilsImpl.validPriceList;
     return filteredList.isNotEmpty ? filteredList.last.priceValue : 0;
   }
 
   List<Price> get cleanedPriceList {
-    return _filterUnwantedValueFromList(prices);
+    return _pricesArrayUtilsImpl.validPriceList;
   }
 
   int get averagePriceValue {
     return calculateAveragePriceValue(
-        prices: _filterUnwantedValueFromList(prices));
+        prices: _pricesArrayUtilsImpl.validPriceList);
   }
 
   int get medianPrice {
     try {
-      return calculateMedianPrice(_filterUnwantedValueFromList(prices));
+      return calculateMedianPrice(_pricesArrayUtilsImpl.validPriceList);
     } on UtilException {
       return 0;
     }
@@ -73,22 +79,6 @@ class Prices extends Equatable {
   }
 
   // Méthodes
-  List<Price> _filterUnwantedValueFromList(List<Price> prices) {
-    final filteredPrices =
-        prices.where((price) => price.priceValue > 0).toList();
-    return _removeDuplicates(filteredPrices);
-  }
-
-  List<Price> _removeDuplicates(List<Price> prices) {
-    if (prices.isEmpty) return [];
-    final List<Price> result = [prices.first];
-    for (var i = 1; i < prices.length; i++) {
-      if (result.last.priceValue != prices[i].priceValue) {
-        result.add(prices[i]);
-      }
-    }
-    return result;
-  }
 
   bool _isTradedOften(List<Price> clearedPrices) {
     return clearedPrices.length > 80;
@@ -134,5 +124,5 @@ class Prices extends Equatable {
   }
 
   @override
-  List<Object?> get props => [prices, priceType];
+  List<Object?> get props => [prices, priceType, _pricesArrayUtilsImpl];
 }
