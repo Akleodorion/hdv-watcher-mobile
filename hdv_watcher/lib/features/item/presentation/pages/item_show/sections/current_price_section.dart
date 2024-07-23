@@ -11,11 +11,14 @@ class CurrentPriceSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         for (final priceType in PRICETYPES)
           InfoContainer(
-            content: "${data[priceType].toString()} Kamas",
+            description: priceType.name,
+            content: data[priceType] != 0
+                ? "${data[priceType].toString()} K"
+                : "Pas en vente",
           ),
       ],
     );

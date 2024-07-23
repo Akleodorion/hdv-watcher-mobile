@@ -19,9 +19,11 @@ class SellingPriceSection extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         InfoContainer(
-            content: "avg price: ${averagePrice[activePriceType]} Kamas"),
+            description: "avg price",
+            content: "${averagePrice[activePriceType]} K"),
         InfoContainer(
-            content: "rec price: ${medianPrice[activePriceType]} Kamas"),
+            description: "rec price",
+            content: " ${medianPrice[activePriceType]} K"),
       ],
     );
   }
