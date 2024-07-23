@@ -27,6 +27,16 @@ final Prices tUnitPrice = Prices(prices: [
     scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
   ),
   Price(
+    priceValue: 0,
+    priceType: PriceType.unit,
+    scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
+  ),
+  Price(
+    priceValue: 125,
+    priceType: PriceType.unit,
+    scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
+  ),
+  Price(
     priceValue: 125,
     priceType: PriceType.unit,
     scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
@@ -40,6 +50,16 @@ final Prices tUnitPrice = Prices(prices: [
     priceValue: 158,
     priceType: PriceType.unit,
     scrapDate: DateTime.parse("2024-07-14T20:02:36.610+00:00"),
+  ),
+  Price(
+    priceValue: 0,
+    priceType: PriceType.unit,
+    scrapDate: DateTime.parse("2024-07-14T21:02:36.610+00:00"),
+  ),
+  Price(
+    priceValue: 0,
+    priceType: PriceType.unit,
+    scrapDate: DateTime.parse("2024-07-14T21:02:36.610+00:00"),
   ),
   Price(
     priceValue: 123,

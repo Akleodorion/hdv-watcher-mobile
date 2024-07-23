@@ -63,9 +63,9 @@ class SuperPrice extends Equatable {
 
   Map<PriceType, List<Price>> get priceList {
     return {
-      PriceType.unit: unitPrices.prices,
-      PriceType.tenth: tenthPrices.prices,
-      PriceType.hundred: hundredPrices.prices,
+      PriceType.unit: unitPrices.cleanedPriceList,
+      PriceType.tenth: tenthPrices.cleanedPriceList,
+      PriceType.hundred: hundredPrices.cleanedPriceList,
     };
   }
 }
