@@ -3,6 +3,7 @@ import 'package:hdv_watcher/core/classes/prices/price.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/utils/prices_array_utils.dart';
 import 'package:hdv_watcher/core/utils/prices_calculus_utils.dart';
+import 'package:hdv_watcher/core/utils/prices_evaluation_utils.dart';
 
 // ignore: must_be_immutable
 class Prices extends Equatable {
@@ -10,12 +11,17 @@ class Prices extends Equatable {
   late PriceType priceType;
   late PricesArrayUtilsImpl _pricesArrayUtilsImpl;
   late PricesCalculusUtilsImpl _pricesCalculusUtilsImpl;
+  late PricesEvalutionUtilsImpl _pricesEvalutionUtilsImpl;
 
   Prices({required this.prices, required this.priceType}) {
     prices = prices;
     priceType = priceType;
     _pricesArrayUtilsImpl = PricesArrayUtilsImpl(prices: prices);
     _pricesCalculusUtilsImpl = PricesCalculusUtilsImpl(prices: prices);
+    _pricesEvalutionUtilsImpl = PricesEvalutionUtilsImpl(
+        prices: prices,
+        clearedPrices: _pricesArrayUtilsImpl.validPriceList,
+        medianPrice: _pricesCalculusUtilsImpl.medianPrice);
   }
 
   factory Prices.fromSuperPriceFactory({
@@ -45,12 +51,11 @@ class Prices extends Equatable {
   // Getters
   bool get isValid {
     final clearedPrices = _pricesArrayUtilsImpl.validPriceList;
-    if (clearedPrices.isEmpty) {
-      return false;
-    }
-    return _isAvailable(prices, clearedPrices) &&
-        _isTradedOften(clearedPrices) &&
-        _isWorth();
+    if (clearedPrices.isEmpty) return false;
+
+    return _pricesEvalutionUtilsImpl.isAvailable &&
+        _pricesEvalutionUtilsImpl.isTradedOften &&
+        _pricesEvalutionUtilsImpl.isWorth;
   }
 
   int get currentPrice {
@@ -58,38 +63,20 @@ class Prices extends Equatable {
     return filteredList.isNotEmpty ? filteredList.last.priceValue : 0;
   }
 
-  List<Price> get cleanedPriceList {
-    return _pricesArrayUtilsImpl.validPriceList;
-  }
+  List<Price> get cleanedPriceList => _pricesArrayUtilsImpl.validPriceList;
 
-  int get averagePriceValue {
-    return _pricesCalculusUtilsImpl.averagePrice;
-  }
+  int get averagePriceValue => _pricesCalculusUtilsImpl.averagePrice;
 
-  int get medianPrice {
-    return _pricesCalculusUtilsImpl.medianPrice;
-  }
+  int get medianPrice => _pricesCalculusUtilsImpl.medianPrice;
 
-  int get capitalGainPriceValue {
-    return _pricesCalculusUtilsImpl.capitalGain;
-  }
-
-  // Méthodes
-  bool _isTradedOften(List<Price> clearedPrices) {
-    return clearedPrices.length > 80;
-  }
-
-  bool _isAvailable(List<Price> prices, List<Price> clearedPrices) {
-    return prices.isNotEmpty &&
-        clearedPrices.isNotEmpty &&
-        prices.last.scrapDate == clearedPrices.last.scrapDate;
-  }
-
-  bool _isWorth() {
-    return medianPrice > currentPrice;
-  }
+  int get capitalGainPriceValue => _pricesCalculusUtilsImpl.capitalGain;
 
   @override
-  List<Object?> get props =>
-      [prices, priceType, _pricesArrayUtilsImpl, _pricesCalculusUtilsImpl];
+  List<Object?> get props => [
+        prices,
+        priceType,
+        _pricesArrayUtilsImpl,
+        _pricesCalculusUtilsImpl,
+        _pricesEvalutionUtilsImpl
+      ];
 }
