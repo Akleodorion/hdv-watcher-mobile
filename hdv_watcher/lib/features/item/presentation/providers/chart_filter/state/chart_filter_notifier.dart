@@ -14,4 +14,9 @@ class ChartFilterNotifier extends StateNotifier<Map<PriceType, bool>> {
     state.updateAll((key, value) => value = false);
     state = {...state, type: !state[type]!};
   }
+
+  void setBaseFilter() {
+    state.updateAll((key, value) => value = false);
+    state = {...state, PriceType.unit: true};
+  }
 }

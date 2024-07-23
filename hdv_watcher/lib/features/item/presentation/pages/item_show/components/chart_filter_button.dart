@@ -8,38 +8,41 @@ class ChartFilterButton extends ConsumerWidget {
     super.key,
     required this.title,
     required this.priceType,
+    required this.isActive,
   });
 
   final String title;
+  final bool isActive;
   final PriceType priceType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final filterState = ref.watch(chartFilterProvider);
     return InkWell(
-      child: Container(
-        decoration: BoxDecoration(
-          color: filterState[priceType]!
-              ? const Color.fromARGB(187, 227, 200, 118)
-              : const Color.fromARGB(163, 226, 223, 223),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        width: 110,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
+        onTap: isActive
+            ? () {
+                ref.read(chartFilterProvider.notifier).toggleFilter(priceType);
+              }
+            : null,
+        child: Container(
+          decoration: BoxDecoration(
+            color: filterState[priceType]!
+                ? const Color.fromARGB(187, 227, 200, 118)
+                : const Color.fromARGB(163, 226, 223, 223),
+            borderRadius: BorderRadius.circular(10),
           ),
-          child: Center(
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 18),
+          width: 110,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+            ),
+            child: Center(
+              child: Text(
+                title,
+                style: const TextStyle(fontSize: 18),
+              ),
             ),
           ),
-        ),
-      ),
-      onTap: () {
-        ref.read(chartFilterProvider.notifier).toggleFilter(priceType);
-      },
-    );
+        ));
   }
 }

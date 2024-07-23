@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class InfoContainer extends StatelessWidget {
-  const InfoContainer({super.key, required this.content});
+  const InfoContainer(
+      {super.key, required this.content, required this.description});
+  final String description;
   final String content;
   @override
   Widget build(BuildContext context) {
@@ -11,9 +13,17 @@ class InfoContainer extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: Center(
-          child: Text(
-            content,
-            style: const TextStyle(fontSize: 12),
+          child: Column(
+            children: [
+              Text(
+                description,
+                style: const TextStyle(fontSize: 12),
+              ),
+              Text(
+                content,
+                style: const TextStyle(fontSize: 12),
+              )
+            ],
           ),
         ),
       ),

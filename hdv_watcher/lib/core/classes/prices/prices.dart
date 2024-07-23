@@ -106,7 +106,7 @@ class Prices extends Equatable {
 
   int calculateAveragePriceValue({required List<Price> prices}) {
     if (prices.isEmpty) {
-      throw UtilException(errorMessage: "errorMessage");
+      return 0;
     }
     final sum = prices.fold<int>(0, (prev, value) => prev + value.priceValue);
     return sum ~/ prices.length;
@@ -114,7 +114,7 @@ class Prices extends Equatable {
 
   int calculateMedianPrice(List<Price> prices) {
     if (prices.isEmpty) {
-      throw UtilException(errorMessage: "errorMessage");
+      return 0;
     }
     final sortedPrices = List<Price>.from(prices)
       ..sort((a, b) => a.priceValue.compareTo(b.priceValue));
