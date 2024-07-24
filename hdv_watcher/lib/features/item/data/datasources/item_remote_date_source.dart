@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/core/errors/exceptions.dart';
 import 'package:hdv_watcher/core/utils/array_utils.dart';
 import 'package:hdv_watcher/core/utils/dates_utils.dart';
@@ -22,11 +23,14 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
     // gérer en cas de bonne réponse
     if (response.statusCode == 200) {
       final List jsonData = json.decode(response.body);
-      return jsonData
+      final List<Item> items = jsonData
           .map<Item>(
             (json) => ItemModel.fromJson(
                 json: json, datesUtils: dateUtils, arrayUtils: arrayUtils),
           )
+          .toList();
+      return items
+          .where((item) => item.ressourceType != RessourceType.unknown)
           .toList();
     }
     throw ServerException(

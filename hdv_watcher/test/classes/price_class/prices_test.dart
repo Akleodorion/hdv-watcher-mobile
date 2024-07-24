@@ -12,10 +12,11 @@ void main() {
     final List<DateTime> dates = tDates;
     const PriceType priceType = PriceType.unit;
 
-    final Prices tPrices = Prices(prices: tPriceList, priceType: priceType);
+    final Prices tPrices = Prices(
+      prices: tPriceList,
+      priceType: priceType,
+    );
     test('should return a valid Prices', () async {
-      //arrange
-
       //act
       final result = Prices.fromSuperPriceFactory(
           values: values, dates: dates, priceType: priceType);

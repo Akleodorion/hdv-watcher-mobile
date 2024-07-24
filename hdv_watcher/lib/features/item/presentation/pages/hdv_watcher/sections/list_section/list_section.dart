@@ -16,7 +16,6 @@ class ListSection extends ConsumerWidget {
     List<Item> items =
         ref.read(retrieveItemList(mapData: filterState))!.sortedPriceList;
     final PriceType selectedPriceType = retrieveActiveFilterKey(filterState);
-
     late final Widget content;
 
     if (items.isEmpty) {

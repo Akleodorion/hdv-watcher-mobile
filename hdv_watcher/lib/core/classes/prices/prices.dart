@@ -7,15 +7,13 @@ import 'package:hdv_watcher/core/utils/prices_evaluation_utils.dart';
 
 // ignore: must_be_immutable
 class Prices extends Equatable {
-  late List<Price> prices;
-  late PriceType priceType;
+  final List<Price> prices;
+  final PriceType priceType;
   late PricesArrayUtilsImpl _pricesArrayUtilsImpl;
   late PricesCalculusUtilsImpl _pricesCalculusUtilsImpl;
   late PricesEvalutionUtilsImpl _pricesEvalutionUtilsImpl;
 
   Prices({required this.prices, required this.priceType}) {
-    prices = prices;
-    priceType = priceType;
     _pricesArrayUtilsImpl = PricesArrayUtilsImpl(prices: prices);
     _pricesCalculusUtilsImpl = PricesCalculusUtilsImpl(prices: prices);
     _pricesEvalutionUtilsImpl = PricesEvalutionUtilsImpl(
@@ -75,8 +73,5 @@ class Prices extends Equatable {
   List<Object?> get props => [
         prices,
         priceType,
-        _pricesArrayUtilsImpl,
-        _pricesCalculusUtilsImpl,
-        _pricesEvalutionUtilsImpl
       ];
 }
