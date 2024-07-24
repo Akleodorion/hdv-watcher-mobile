@@ -24,12 +24,6 @@ class ItemShowPage extends StatelessWidget {
           },
         ),
         title: Text(item.name),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite),
-          )
-        ],
       ),
       body: ItemShowPageLayout(
         item: item,

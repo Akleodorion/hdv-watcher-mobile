@@ -31,7 +31,8 @@ class PricesEvalutionUtilsImpl implements PricesEvaluationUtils {
 
   @override
   bool isWorthFunction() {
-    return medianPrice > prices.last.priceValue;
+    return medianPrice >
+        (prices.last.priceValue + (medianPrice * 0.02).round());
   }
 
   //! Inserer un constante.
