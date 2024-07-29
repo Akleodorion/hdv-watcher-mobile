@@ -4,6 +4,7 @@ import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/current_price_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/general_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/selling_price_section.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../domain/entitie/item.dart';
 
@@ -47,6 +48,12 @@ class ItemShowPageLayout extends StatelessWidget {
             ),
             ChartSection(
               mapData: item.priceList,
+            ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Text(
+                  "Date de scrapping: ${DateFormat.yMMMEd().format(item.superPrice.unitPrices.prices.last.scrapDate)}"),
             ),
           ],
         ),
