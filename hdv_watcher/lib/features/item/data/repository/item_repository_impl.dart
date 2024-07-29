@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/errors/exceptions.dart';
 import 'package:hdv_watcher/core/errors/failures.dart';
 import 'package:hdv_watcher/features/item/data/datasources/item_remote_date_source.dart';
@@ -17,5 +18,12 @@ class ItemRepositoryImpl implements ItemRepository {
     } on ServerException catch (error) {
       return Left(ServerFailure(errorMessage: error.errorMessage));
     }
+  }
+
+  @override
+  Future<Either<Failure, List<Item>>> fetchPaginatedItems(
+      {required int pageIndex, required PriceType priceType}) {
+    // TODO: implement fetchPaginatedItems
+    throw UnimplementedError();
   }
 }
