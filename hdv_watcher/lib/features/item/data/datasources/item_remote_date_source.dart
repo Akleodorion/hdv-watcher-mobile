@@ -18,7 +18,7 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
   @override
   Future<List<Item>> fetchItems() async {
     // faire la requête au serveur
-    final Uri url = Uri.parse("http://localhost:3000/items");
+    final Uri url = Uri.parse("http://localhost:3000/items/worth");
     final http.Response response = await http.get(url);
     // gérer en cas de bonne réponse
     if (response.statusCode == 200) {
