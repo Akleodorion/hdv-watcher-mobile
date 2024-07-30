@@ -62,30 +62,32 @@ class MockItemRepository extends _i1.Mock implements _i3.ItemRepository {
       ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Item>>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Item>>> fetchPaginatedItems({
+  _i4.Future<_i2.Either<_i5.Failure, Map<String, dynamic>>>
+      fetchPaginatedItems({
     required int? pageIndex,
     required _i7.PriceType? priceType,
   }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #fetchPaginatedItems,
-          [],
-          {
-            #pageIndex: pageIndex,
-            #priceType: priceType,
-          },
-        ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, List<_i6.Item>>>.value(
-            _FakeEither_0<_i5.Failure, List<_i6.Item>>(
-          this,
-          Invocation.method(
-            #fetchPaginatedItems,
-            [],
-            {
-              #pageIndex: pageIndex,
-              #priceType: priceType,
-            },
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Item>>>);
+          (super.noSuchMethod(
+            Invocation.method(
+              #fetchPaginatedItems,
+              [],
+              {
+                #pageIndex: pageIndex,
+                #priceType: priceType,
+              },
+            ),
+            returnValue:
+                _i4.Future<_i2.Either<_i5.Failure, Map<String, dynamic>>>.value(
+                    _FakeEither_0<_i5.Failure, Map<String, dynamic>>(
+              this,
+              Invocation.method(
+                #fetchPaginatedItems,
+                [],
+                {
+                  #pageIndex: pageIndex,
+                  #priceType: priceType,
+                },
+              ),
+            )),
+          ) as _i4.Future<_i2.Either<_i5.Failure, Map<String, dynamic>>>);
 }

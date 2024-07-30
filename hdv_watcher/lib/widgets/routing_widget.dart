@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/pages/initial_loading_page.dart';
 import '../../pages/item_features_page.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/item/item_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/item_provider.dart';
 
-import '../features/item/presentation/providers/item/state/item_state.dart';
+import '../features/item/presentation/providers/items/state/item_state.dart';
 
 class RoutingWidget extends ConsumerStatefulWidget {
   const RoutingWidget({super.key});

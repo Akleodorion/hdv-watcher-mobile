@@ -14,33 +14,9 @@ void main() {
       ));
 
   group("Retrieve Max Value", () {
-    // initialisation
-    final List<Price> tPrices = [
-      Price(
-        priceValue: 125,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
-      ),
-      Price(
-        priceValue: 125,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-      ),
-      Price(
-        priceValue: 147,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
-      ),
-      Price(
-        priceValue: 158,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T20:02:36.610+00:00"),
-      )
-    ];
-
     test('should return 158', () async {
       //act
-      final result = sut.retrieveMaxValue(tPrices);
+      final result = sut.retrieveMaxValue(tUnitPrice.prices);
       //assert
       expect(result, 158);
     });
@@ -116,40 +92,20 @@ void main() {
   group("removePriceWhereValueIsSameToPrevious", () {
     final List<Price> expected = [
       Price(
-        priceValue: 125,
+        priceValue: 0,
         priceType: PriceType.unit,
         scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
       ),
       Price(
-        priceValue: 0,
+        priceValue: 158,
         priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
+        scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
       ),
       Price(
         priceValue: 125,
         priceType: PriceType.unit,
         scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-      ),
-      Price(
-        priceValue: 147,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
-      ),
-      Price(
-        priceValue: 158,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T20:02:36.610+00:00"),
-      ),
-      Price(
-        priceValue: 0,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T21:02:36.610+00:00"),
-      ),
-      Price(
-        priceValue: 123,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T22:02:34.727+00:00"),
-      ),
+      )
     ];
     test('should return a List without consecutive doubles', () async {
       //act
@@ -163,34 +119,19 @@ void main() {
   group("removePriceWhereValueIsZero", () {
     final List<Price> expected = [
       Price(
-        priceValue: 125,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
-      ),
-      Price(
-        priceValue: 125,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-      ),
-      Price(
-        priceValue: 125,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-      ),
-      Price(
-        priceValue: 147,
+        priceValue: 158,
         priceType: PriceType.unit,
         scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
       ),
       Price(
-        priceValue: 158,
+        priceValue: 125,
         priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T20:02:36.610+00:00"),
+        scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
       ),
       Price(
-        priceValue: 123,
+        priceValue: 125,
         priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T22:02:34.727+00:00"),
+        scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
       ),
     ];
     test('should return a valid price list without 0', () async {
@@ -209,26 +150,6 @@ void main() {
         scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
       ),
       Price(
-        priceValue: 0,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T21:02:36.610+00:00"),
-      ),
-      Price(
-        priceValue: 0,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T21:02:36.610+00:00"),
-      ),
-      Price(
-        priceValue: 123,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T22:02:34.727+00:00"),
-      ),
-      Price(
-        priceValue: 125,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
-      ),
-      Price(
         priceValue: 125,
         priceType: PriceType.unit,
         scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
@@ -237,19 +158,13 @@ void main() {
         priceValue: 125,
         priceType: PriceType.unit,
         scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-      ),
-      Price(
-        priceValue: 147,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
       ),
       Price(
         priceValue: 158,
         priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T20:02:36.610+00:00"),
+        scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
       ),
     ];
-
     test('should return a sortedList', () async {
       //act
       final result = sut.sortPricesByValue(tUnitPrice.prices);
@@ -261,24 +176,14 @@ void main() {
   group("validPriceList", () {
     final List<Price> expected = [
       Price(
-        priceValue: 125,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
-      ),
-      Price(
-        priceValue: 147,
+        priceValue: 158,
         priceType: PriceType.unit,
         scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
       ),
       Price(
-        priceValue: 158,
+        priceValue: 125,
         priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T20:02:36.610+00:00"),
-      ),
-      Price(
-        priceValue: 123,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T22:02:34.727+00:00"),
+        scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
       ),
     ];
     test('should return a valid price list', () async {
@@ -292,27 +197,17 @@ void main() {
   group("sortedPriceList", () {
     final List<Price> expected = [
       Price(
-        priceValue: 123,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T22:02:34.727+00:00"),
-      ),
-      Price(
         priceValue: 125,
         priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
-      ),
-      Price(
-        priceValue: 147,
-        priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
+        scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
       ),
       Price(
         priceValue: 158,
         priceType: PriceType.unit,
-        scrapDate: DateTime.parse("2024-07-14T20:02:36.610+00:00"),
+        scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
       ),
     ];
-    test('should return a valid price list', () async {
+    test('should return a sorted valid list', () async {
       //act
       final result = sut.sortedPriceList;
       //assert

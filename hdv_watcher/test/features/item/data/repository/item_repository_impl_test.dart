@@ -69,16 +69,17 @@ void main() {
 
     test('should return Right List of Item when the call is successfull',
         () async {
+      final tResult = {"items": items, "batches": 5, "batch_index": 0};
       //arrange
       when(mockItemRemoteDataSource.fetchPaginatedItems(
               pageIndex: anyNamed('pageIndex'),
               priceType: anyNamed('priceType')))
-          .thenAnswer((_) async => items);
+          .thenAnswer((_) async => tResult);
       //act
       final result = await sut.fetchPaginatedItems(
           pageIndex: 0, priceType: PriceType.unit);
       //assert
-      expect(result, Right(items));
+      expect(result, Right(tResult));
     });
   });
 }

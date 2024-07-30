@@ -43,7 +43,7 @@ class MockItemRemoteDateSource extends _i1.Mock
       ) as _i3.Future<List<_i4.Item>>);
 
   @override
-  _i3.Future<List<_i4.Item>> fetchPaginatedItems({
+  _i3.Future<Map<String, dynamic>> fetchPaginatedItems({
     required int? pageIndex,
     required _i5.PriceType? priceType,
   }) =>
@@ -56,6 +56,7 @@ class MockItemRemoteDateSource extends _i1.Mock
             #priceType: priceType,
           },
         ),
-        returnValue: _i3.Future<List<_i4.Item>>.value(<_i4.Item>[]),
-      ) as _i3.Future<List<_i4.Item>>);
+        returnValue:
+            _i3.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+      ) as _i3.Future<Map<String, dynamic>>);
 }

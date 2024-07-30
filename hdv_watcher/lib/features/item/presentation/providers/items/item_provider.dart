@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/core/classes/items/hundred_item_list.dart';
 import 'package:hdv_watcher/core/classes/items/unit_item_list.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_items_usecase.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/item/state/item_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/item/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/item_notifier.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
 
 import '../../../../../core/classes/items/tenth_item_list.dart';
 import '../../../../../injection_container.dart';

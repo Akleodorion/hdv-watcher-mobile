@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/item/item_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/item_provider.dart';
 
 class MyList extends ConsumerStatefulWidget {
   const MyList({super.key});

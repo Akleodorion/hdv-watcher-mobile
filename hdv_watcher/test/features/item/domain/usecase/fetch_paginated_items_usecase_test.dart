@@ -40,17 +40,19 @@ void main() {
       expect(result, const Left(ServerFailure(errorMessage: "oops")));
     });
 
-    test('should return Right List of Item, when the call is successfull',
+    test(
+        'should return Right Map with list of item & page count, when the call is successfull',
         () async {
+      final tResult = {'items': items, "batches": 5, "batch_index": 0};
       //arrange
       when(mockItemRepository.fetchPaginatedItems(
               pageIndex: anyNamed('pageIndex'),
               priceType: anyNamed('priceType')))
-          .thenAnswer((_) async => Right(items));
+          .thenAnswer((_) async => Right(tResult));
       //act
       final result = await sut.call(pageIndex: 0, priceType: PriceType.unit);
       //assert
-      expect(result, Right(items));
+      expect(result, Right(tResult));
     });
   });
 }
