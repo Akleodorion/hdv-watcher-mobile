@@ -28,7 +28,7 @@ void main() {
     });
   });
 
-  group("fetchPaginatedItems", () {
+  group("fetchInitialPaginatedItems", () {
     final tResult = {
       "items": [tItem],
       "batches": 5,
@@ -74,6 +74,60 @@ void main() {
 
       //act
       await sut.fetchInitialPaginatedItems(pageIndex: 0);
+    });
+  });
+
+  group("fetchPaginatedItems", () {
+    group("When the call is unsuccessful", () {
+      final tItems = [tItem];
+      const tNumberOfBatches = 5;
+      const tBachesCounter = 1;
+      test('should emit Error', () async {
+        //arrange
+        when(mockFetchPaginatedItemsUsecase.call(
+                pageIndex: anyNamed('pageIndex'),
+                priceType: anyNamed('priceType')))
+            .thenAnswer(
+                (_) async => const Left(ServerFailure(errorMessage: "oops")));
+        //assert Later
+        final expected = [
+          Error(
+              errorMessage: "oops",
+              items: tItems,
+              numberOfBatches: tNumberOfBatches,
+              bachesCounter: tBachesCounter)
+        ];
+        expectLater(sut.stream, emitsInOrder(expected));
+        //act
+        await sut.fetchPaginatedItems(
+            pageIndex: 1,
+            itemState:
+                Loaded(items: tItems, numberOfBatches: 5, bachesCounter: 1));
+      });
+    });
+    group("When the call is successful", () {
+      final Map<String, dynamic> tResponseMap = {
+        "items": [tItem],
+        "batches": "5",
+        "batch_index": 1,
+      };
+      test('should add items to the list ', () async {
+        //arrange
+        when(mockFetchPaginatedItemsUsecase.call(
+                pageIndex: anyNamed('pageIndex'),
+                priceType: anyNamed('priceType')))
+            .thenAnswer((_) async => Right(tResponseMap));
+        //act
+        final result = await sut.fetchPaginatedItems(
+            pageIndex: 1,
+            itemState:
+                Loaded(items: [tItem], numberOfBatches: 5, bachesCounter: 0));
+        //assert
+        expect(
+            result,
+            Loaded(
+                items: [tItem, tItem], numberOfBatches: 5, bachesCounter: 1));
+      });
     });
   });
 }
