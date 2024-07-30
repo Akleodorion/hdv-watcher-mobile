@@ -23,6 +23,18 @@ class Item extends Equatable {
     required this.superPrice,
   });
 
+  Item copyWith() {
+    return Item(
+      id: id,
+      name: name,
+      imgUrl: imgUrl,
+      ressourceType: ressourceType,
+      petXp: petXp,
+      quantityForUnitXp: quantityForUnitXp,
+      superPrice: superPrice,
+    );
+  }
+
   @override
   List<Object?> get props => [
         id,

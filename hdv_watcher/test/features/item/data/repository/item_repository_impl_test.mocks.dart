@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
+import 'package:hdv_watcher/core/enums/price_type.dart' as _i5;
 import 'package:hdv_watcher/features/item/data/datasources/item_remote_date_source.dart'
     as _i2;
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart' as _i4;
@@ -40,4 +41,22 @@ class MockItemRemoteDateSource extends _i1.Mock
         ),
         returnValue: _i3.Future<List<_i4.Item>>.value(<_i4.Item>[]),
       ) as _i3.Future<List<_i4.Item>>);
+
+  @override
+  _i3.Future<Map<String, dynamic>> fetchPaginatedItems({
+    required int? pageIndex,
+    required _i5.PriceType? priceType,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #fetchPaginatedItems,
+          [],
+          {
+            #pageIndex: pageIndex,
+            #priceType: priceType,
+          },
+        ),
+        returnValue:
+            _i3.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+      ) as _i3.Future<Map<String, dynamic>>);
 }

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/item/item_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/item_provider.dart';
 
 import '../../../../../../../../core/classes/items/item_list.dart';
 import '../../../../../../../../core/enums/price_type.dart';

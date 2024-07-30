@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/core/errors/exceptions.dart';
 import 'package:hdv_watcher/core/utils/array_utils.dart';
@@ -9,6 +10,8 @@ import 'package:http/http.dart' as http;
 
 abstract class ItemRemoteDateSource {
   Future<List<Item>> fetchItems();
+  Future<Map<String, dynamic>> fetchPaginatedItems(
+      {required int pageIndex, required PriceType priceType});
 }
 
 class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
@@ -32,6 +35,33 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
       return items
           .where((item) => item.ressourceType != RessourceType.unknown)
           .toList();
+    }
+    throw ServerException(
+        errorMessage:
+            "Mauvaise requête serveur, veuillez ré-essayer plus tard");
+  }
+
+  @override
+  Future<Map<String, dynamic>> fetchPaginatedItems(
+      {required int pageIndex, required PriceType priceType}) async {
+    // Etablir l'uri
+    final Uri url = Uri.parse("http://localhost:3000/items/worth");
+    // faire la requête et ajouter les headers.
+    final response = await http.get(url, headers: {
+      "price_type": priceType.name,
+      "page_index": pageIndex.toString(),
+    });
+
+    if (response.statusCode == 200) {
+      final List jsonData = json.decode(response.body);
+      final List<Item> itemData = jsonData
+          .map<Item>((json) => ItemModel.fromJson(
+              json: json, datesUtils: dateUtils, arrayUtils: arrayUtils))
+          .toList();
+      final items = itemData
+          .where((item) => item.ressourceType != RessourceType.unknown)
+          .toList();
+      return {'items': items, "batches": jsonData[1], "batch_index": 2};
     }
     throw ServerException(
         errorMessage:
