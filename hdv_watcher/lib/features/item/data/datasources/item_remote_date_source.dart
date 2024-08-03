@@ -44,24 +44,32 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
   @override
   Future<Map<String, dynamic>> fetchPaginatedItems(
       {required int pageIndex, required PriceType priceType}) async {
-    // Etablir l'uri
-    final Uri url = Uri.parse("http://localhost:3000/items/worth");
-    // faire la requête et ajouter les headers.
-    final response = await http.get(url, headers: {
-      "price_type": priceType.name,
-      "page_index": pageIndex.toString(),
-    });
+    final Map<String, String> params = {
+      "price_type": priceType.headerName,
+      "page_index": pageIndex.toString()
+    };
+    final Uri url = Uri.parse("http://localhost:3000/items/paginateditem")
+        .replace(queryParameters: params);
+
+    final response = await http.get(
+      url,
+    );
 
     if (response.statusCode == 200) {
-      final List jsonData = json.decode(response.body);
-      final List<Item> itemData = jsonData
+      final Map<String, dynamic> jsonData = json.decode(response.body);
+      final List<Item> itemData = jsonData["items"]
           .map<Item>((json) => ItemModel.fromJson(
               json: json, datesUtils: dateUtils, arrayUtils: arrayUtils))
           .toList();
+
       final items = itemData
           .where((item) => item.ressourceType != RessourceType.unknown)
           .toList();
-      return {'items': items, "batches": jsonData[1], "batch_index": 2};
+
+      return {
+        'items': items,
+        "batches": jsonData["batches"],
+      };
     }
     throw ServerException(
         errorMessage:

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/providers/tenth_items_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/providers/unit_items_provider.dart';
 import 'package:hdv_watcher/pages/initial_loading_page.dart';
 import '../../pages/item_features_page.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/item_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/providers/item_provider.dart';
 
 import '../features/item/presentation/providers/items/state/item_state.dart';
 
@@ -18,6 +20,8 @@ class _RoutingWidgetState extends ConsumerState<RoutingWidget> {
   @override
   void initState() {
     super.initState();
+    ref.read(unitItemsProvider.notifier).fetchInitialPaginatedItems();
+    ref.read(tenthItemsProvider.notifier).fetchInitialPaginatedItems();
     ref.read(itemProvider.notifier).fetchItem();
   }
 

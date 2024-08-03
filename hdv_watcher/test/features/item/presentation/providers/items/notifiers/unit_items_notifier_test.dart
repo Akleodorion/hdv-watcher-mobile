@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/errors/failures.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_paginated_items_usecase.dart';
@@ -18,7 +19,8 @@ void main() {
 
   setUp(() {
     mockFetchPaginatedItemsUsecase = MockFetchPaginatedItemsUsecase();
-    sut = UnitItemsNotifier(usecase: mockFetchPaginatedItemsUsecase);
+    sut = UnitItemsNotifier(
+        usecase: mockFetchPaginatedItemsUsecase, priceType: PriceType.unit);
   });
 
   group("initialState", () {
@@ -51,7 +53,7 @@ void main() {
       expectLater(sut.stream, emitsInOrder(expected));
 
       //act
-      await sut.fetchInitialPaginatedItems(pageIndex: 0);
+      await sut.fetchInitialPaginatedItems();
     });
 
     test('should emit Error when the call is successfull', () async {
@@ -73,7 +75,7 @@ void main() {
       expectLater(sut.stream, emitsInOrder(expected));
 
       //act
-      await sut.fetchInitialPaginatedItems(pageIndex: 0);
+      await sut.fetchInitialPaginatedItems();
     });
   });
 
