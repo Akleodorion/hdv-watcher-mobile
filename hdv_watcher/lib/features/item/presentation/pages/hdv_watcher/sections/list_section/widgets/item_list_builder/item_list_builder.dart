@@ -38,7 +38,8 @@ class _ItemListBuilderState extends ConsumerState<ItemListBuilder> {
         builder: (context, snapshot) {
           final List<Item> items = ref.read(widget.provider).sortedPriceList;
           return snapshot.hasData
-              ? routing(snapshot.data!, items, widget.priceType)
+              ? routing(
+                  snapshot.data!, items, widget.priceType, widget.notifier)
               : const ItemListLoadingPage();
         });
   }

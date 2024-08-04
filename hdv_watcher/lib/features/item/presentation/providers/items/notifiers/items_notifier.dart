@@ -10,7 +10,7 @@ class ItemsNotifier extends StateNotifier<ItemState> {
   final PriceType priceType;
   ItemsNotifier({required this.usecase, required this.priceType})
       : super(Unloaded()) {
-    fetchInitialPaginatedItems();
+    // fetchInitialPaginatedItems();
   }
 
   ItemState get initialState => Unloaded();
