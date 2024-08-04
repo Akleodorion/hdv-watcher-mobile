@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/functions/retrieve_item_list.dart';
-import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/widgets/item_list_builder.dart';
+import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/widgets/item_list_builder/item_list_builder.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/providers/hundred_items_provider.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/providers/tenth_items_provider.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/providers/unit_items_provider.dart';
