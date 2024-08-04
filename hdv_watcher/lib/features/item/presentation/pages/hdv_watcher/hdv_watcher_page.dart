@@ -8,20 +8,20 @@ class HdvWatcherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
         child: Column(
           children: [
-            TitleSection(),
-            SizedBox(
+            const TitleSection(),
+            const SizedBox(
               height: 20,
             ),
-            FilterSection(),
-            SizedBox(
+            const FilterSection(),
+            const SizedBox(
               height: 20,
             ),
-            ListSection(),
+            const ListSection(),
           ],
         ),
       ),

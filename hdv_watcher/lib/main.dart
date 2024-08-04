@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hdv_watcher/widgets/routing_widget.dart';
+import 'package:hdv_watcher/pages/item_features_page.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const RoutingWidget(),
+      home: const ItemFeaturesPage(),
     );
   }
 }

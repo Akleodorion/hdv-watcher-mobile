@@ -9,11 +9,14 @@ class ItemsNotifier extends StateNotifier<ItemState> {
   final FetchPaginatedItemsUsecase usecase;
   final PriceType priceType;
   ItemsNotifier({required this.usecase, required this.priceType})
-      : super(Loading());
+      : super(Unloaded()) {
+    fetchInitialPaginatedItems();
+  }
 
-  ItemState get initialState => Loading();
+  ItemState get initialState => Unloaded();
 
   Future<ItemState> fetchInitialPaginatedItems() async {
+    state = Loading();
     final response = await usecase.call(pageIndex: 0, priceType: priceType);
 
     response!.fold((failure) {

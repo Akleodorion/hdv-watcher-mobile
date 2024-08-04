@@ -20,5 +20,6 @@ final validUnitPriceItemsProvider = Provider<UnitItemList>((ref) {
   if (state is Loaded) {
     return UnitItemList(itemList: state.items);
   }
+  if (state is Unloaded) {}
   return UnitItemList(itemList: []);
 });
