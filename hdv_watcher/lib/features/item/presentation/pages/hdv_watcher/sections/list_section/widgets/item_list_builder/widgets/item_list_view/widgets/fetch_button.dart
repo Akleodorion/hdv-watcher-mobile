@@ -15,13 +15,14 @@ class FetchButton extends ConsumerWidget {
     final int counter = retrieveBatchIndex(state);
     final int batches = retrieveBatchNumber(state);
 
-    return counter < batches
+    return (counter) < batches
         ? ElevatedButton(
             onPressed: () {
-              ref.read(stateNotifier.notifier).fetchPaginatedItems(
-                  pageIndex: counter + 1, itemState: state);
+              ref
+                  .read(stateNotifier.notifier)
+                  .fetchPaginatedItems(pageIndex: counter, itemState: state);
             },
             child: const Text("Charger plus d'objet"))
-        : const Text(" Vous avez chargés tous les objets");
+        : const Center(child: Text(" Vous avez chargés tous les objets"));
   }
 }

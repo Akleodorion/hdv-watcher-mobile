@@ -25,13 +25,13 @@ class ItemsNotifier extends StateNotifier<ItemState> {
             errorMessage: failure.errorMessage,
             items: const [],
             numberOfBatches: 0,
-            bachesCounter: 0);
+            bachesCounter: 1);
       }
     }, (sucess) {
       state = Loaded(
           items: sucess["items"],
           numberOfBatches: sucess["batches"],
-          bachesCounter: 0);
+          bachesCounter: 1);
     });
     return state;
   }
