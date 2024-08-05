@@ -46,7 +46,7 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
       {required int pageIndex, required PriceType priceType}) async {
     final Map<String, String> params = {
       "price_type": priceType.headerName,
-      "page_index": pageIndex.toString()
+      "batch_index": pageIndex.toString()
     };
     final Uri url = Uri.parse("http://localhost:3000/items/paginateditem")
         .replace(queryParameters: params);

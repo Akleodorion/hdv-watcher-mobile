@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
-import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/widgets/item_card.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/widgets/item_list_builder/functions/routing.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/widgets/item_list_builder/widgets/item_list_loading_page.dart';
-import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/widgets/item_list_builder/widgets/item_list_unloaded.dart';
-import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/widgets/item_list_builder/widgets/item_list_view.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_notifier.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
 
@@ -34,13 +31,13 @@ class _ItemListBuilderState extends ConsumerState<ItemListBuilder> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _itemState(),
-        builder: (context, snapshot) {
-          final List<Item> items = ref.read(widget.provider).sortedPriceList;
-          return snapshot.hasData
-              ? routing(
-                  snapshot.data!, items, widget.priceType, widget.notifier)
-              : const ItemListLoadingPage();
-        });
+      future: _itemState(),
+      builder: (context, snapshot) {
+        final List<Item> items = ref.read(widget.provider).sortedPriceList;
+        return snapshot.hasData
+            ? routing(snapshot.data!, items, widget.priceType, widget.notifier)
+            : const ItemListLoadingPage();
+      },
+    );
   }
 }
