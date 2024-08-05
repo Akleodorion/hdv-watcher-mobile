@@ -2,22 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/price_type/price_type_filter_provider.dart';
 
-import '../../core/enums/price_type.dart';
+import '../../enums/price_type.dart';
 
 class FilterButton extends ConsumerWidget {
-  const FilterButton({
-    super.key,
-    required this.title,
-    required this.priceType,
-  });
+  const FilterButton(
+      {super.key,
+      required this.title,
+      required this.priceType,
+      required this.onTap,
+      required this.isActivated});
 
   final String title;
   final PriceType priceType;
+  final bool isActivated;
+
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final filterState = ref.watch(priceTypeFilterProvider);
     return InkWell(
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           color: filterState[priceType]!
@@ -38,9 +43,6 @@ class FilterButton extends ConsumerWidget {
           ),
         ),
       ),
-      onTap: () {
-        ref.read(priceTypeFilterProvider.notifier).toggleFilter(priceType);
-      },
     );
   }
 }

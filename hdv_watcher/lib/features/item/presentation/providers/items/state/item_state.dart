@@ -7,6 +7,8 @@ class ItemState extends Equatable {
   List<Object?> get props => [];
 }
 
+class Unloaded extends ItemState {}
+
 class Loaded extends ItemState {
   final List<Item> items;
   final int numberOfBatches;
@@ -25,6 +27,13 @@ class Loaded extends ItemState {
       bachesCounter: bachesCounter + 1,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        items,
+        numberOfBatches,
+        bachesCounter,
+      ];
 }
 
 class Loading extends ItemState {}
@@ -41,4 +50,12 @@ class Error extends ItemState {
     required this.numberOfBatches,
     required this.bachesCounter,
   });
+
+  @override
+  List<Object?> get props => [
+        errorMessage,
+        items,
+        numberOfBatches,
+        bachesCounter,
+      ];
 }
