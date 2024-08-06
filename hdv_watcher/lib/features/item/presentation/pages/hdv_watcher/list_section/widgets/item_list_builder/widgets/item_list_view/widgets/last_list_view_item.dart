@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hdv_watcher/core/providers/occupied/providers/occupied_provider.dart';
 import 'package:hdv_watcher/core/widgets/buttons/cta_button/cta_button.dart';
-import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/widgets/item_list_builder/widgets/item_list_view/functions/retrieve_batch_index.dart';
-import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/widgets/item_list_builder/widgets/item_list_view/functions/retrieve_batch_number.dart';
+import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/widgets/item_list_builder/widgets/item_list_view/functions/fetch_paginated_item.dart';
+import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/widgets/item_list_builder/widgets/item_list_view/functions/retrieve_batch_index.dart';
+import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/widgets/item_list_builder/widgets/item_list_view/functions/retrieve_batch_number.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_notifier.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
 
-class FetchButton extends ConsumerWidget {
-  const FetchButton({super.key, required this.stateNotifier});
+class LastListViewItem extends ConsumerWidget {
+  const LastListViewItem({super.key, required this.stateNotifier});
   final StateNotifierProvider<ItemsNotifier, ItemState> stateNotifier;
 
   @override
@@ -16,14 +16,11 @@ class FetchButton extends ConsumerWidget {
     final state = ref.watch(stateNotifier);
     final int counter = retrieveBatchIndex(state);
     final int batches = retrieveBatchNumber(state);
-    return (counter) < batches
+    final bool isMorePageAvailable = counter < batches;
+    return isMorePageAvailable
         ? CtaButton(
             onTap: () async {
-              ref.read(occupiedProvider.notifier).setStateToLoading();
-              await ref
-                  .read(stateNotifier.notifier)
-                  .fetchPaginatedItems(pageIndex: counter, itemState: state);
-              ref.read(occupiedProvider.notifier).setStateToLoaded();
+              await fetchPaginatedItem(ref, counter, state, stateNotifier);
             },
             title: "Charger plus d'objet",
           )

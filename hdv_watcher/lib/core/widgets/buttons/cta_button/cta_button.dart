@@ -22,11 +22,7 @@ class CtaButton extends ConsumerWidget {
                 vertical: 10,
               ),
             ),
-            child: isLoading
-                ? const CircularProgressIndicator(
-                    strokeWidth: 2,
-                  )
-                : Text(title),
+            child: isLoading ? const Text("Chargement ...") : Text(title),
           );
         });
   }

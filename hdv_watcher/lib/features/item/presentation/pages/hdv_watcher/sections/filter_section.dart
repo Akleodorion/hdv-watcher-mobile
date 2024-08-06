@@ -18,7 +18,6 @@ class FilterSection extends StatelessWidget {
               final stateMap = ref.watch(priceTypeFilterProvider);
               return FilterButton(
                 title: priceType.name,
-                priceType: priceType,
                 isActivated: stateMap[priceType]!,
                 onTap: () {
                   ref
