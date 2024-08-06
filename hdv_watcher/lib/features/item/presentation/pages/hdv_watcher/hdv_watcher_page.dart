@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/filter_section.dart';
-import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/list_section/list_section.dart';
+import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/list_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/sections/title_section.dart';
 
 class HdvWatcherPage extends StatelessWidget {

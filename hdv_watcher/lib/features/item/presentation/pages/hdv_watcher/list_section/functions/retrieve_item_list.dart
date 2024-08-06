@@ -4,8 +4,8 @@ import 'package:hdv_watcher/features/item/presentation/providers/items/providers
 import 'package:hdv_watcher/features/item/presentation/providers/items/providers/unit_items_provider.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
 
-import '../../../../../../../../core/classes/items/item_list.dart';
-import '../../../../../../../../core/enums/price_type.dart';
+import '../../../../../../../core/classes/items/item_list.dart';
+import '../../../../../../../core/enums/price_type.dart';
 
 ProviderListenable<ItemList?> retrieveItemList(
     {required Map<PriceType, bool> mapData}) {
