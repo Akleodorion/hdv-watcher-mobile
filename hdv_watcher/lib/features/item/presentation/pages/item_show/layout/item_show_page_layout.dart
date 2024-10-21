@@ -27,15 +27,15 @@ class ItemShowPageLayout extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            CurrentPriceSection(
-              data: item.currentPriceMap,
-            ),
+            // CurrentPriceSection(
+            //   data: item.currentPriceMap,
+            // ),
             const SizedBox(
               height: 20,
             ),
-            ChartFilterSection(
-              data: item.currentPriceMap,
-            ),
+            // ChartFilterSection(
+            //   data: item.currentPriceMap,
+            // ),
             const SizedBox(
               height: 20,
             ),

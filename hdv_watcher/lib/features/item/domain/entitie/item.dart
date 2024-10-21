@@ -9,8 +9,6 @@ class Item extends Equatable {
   final String name;
   final String imgUrl;
   final RessourceType ressourceType;
-  final double petXp;
-  final int quantityForUnitXp;
   final SuperPrice superPrice;
 
   const Item({
@@ -18,8 +16,6 @@ class Item extends Equatable {
     required this.name,
     required this.imgUrl,
     required this.ressourceType,
-    required this.petXp,
-    required this.quantityForUnitXp,
     required this.superPrice,
   });
 
@@ -29,8 +25,6 @@ class Item extends Equatable {
       name: name,
       imgUrl: imgUrl,
       ressourceType: ressourceType,
-      petXp: petXp,
-      quantityForUnitXp: quantityForUnitXp,
       superPrice: superPrice,
     );
   }
@@ -41,14 +35,8 @@ class Item extends Equatable {
         name,
         imgUrl,
         ressourceType,
-        petXp,
-        quantityForUnitXp,
         superPrice,
       ];
-
-  Map<PriceType, int> get currentPriceMap {
-    return superPrice.currentPrice;
-  }
 
   Map<PriceType, int> get recommandedSellingPrice {
     return superPrice.recommandedSellingPrice;

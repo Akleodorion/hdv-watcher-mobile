@@ -22,10 +22,12 @@ class ItemRepositoryImpl implements ItemRepository {
 
   @override
   Future<Either<Failure, Map<String, dynamic>>> fetchPaginatedItems(
-      {required int pageIndex, required PriceType priceType}) async {
+      {required int pageIndex,
+      required PriceType priceType,
+      required int batchSize}) async {
     try {
       final resultMap = await dataSource.fetchPaginatedItems(
-          pageIndex: pageIndex, priceType: priceType);
+          pageIndex: pageIndex, priceType: priceType, batchSize: batchSize);
       return Right(resultMap);
     } on ServerException catch (e) {
       return Left(ServerFailure(errorMessage: e.errorMessage));

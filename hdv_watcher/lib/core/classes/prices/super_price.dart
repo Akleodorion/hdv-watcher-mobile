@@ -14,19 +14,18 @@ class SuperPrice extends Equatable {
     required this.hundredPrices,
   });
 
-  factory SuperPrice.fromItemFactory({
-    required List<int> unitPrices,
-    required List<int> tenthPrices,
-    required List<int> hundredPrices,
-    required List<DateTime> dates,
+  factory SuperPrice.fromJson({
+    required Map<String, dynamic> unitPricesInfoJson,
+    required Map<String, dynamic> tenthPricesInfoJson,
+    required Map<String, dynamic> hundredPricesInfoJson,
   }) {
     return SuperPrice(
-      unitPrices: Prices.fromSuperPriceFactory(
-          values: unitPrices, dates: dates, priceType: PriceType.unit),
-      tenthPrices: Prices.fromSuperPriceFactory(
-          values: tenthPrices, dates: dates, priceType: PriceType.tenth),
-      hundredPrices: Prices.fromSuperPriceFactory(
-          values: hundredPrices, dates: dates, priceType: PriceType.hundred),
+      unitPrices: Prices.fromJson(
+          priceInfoJson: unitPricesInfoJson, priceType: PriceType.unit),
+      tenthPrices: Prices.fromJson(
+          priceInfoJson: unitPricesInfoJson, priceType: PriceType.tenth),
+      hundredPrices: Prices.fromJson(
+          priceInfoJson: hundredPricesInfoJson, priceType: PriceType.hundred),
     );
   }
 
@@ -36,14 +35,6 @@ class SuperPrice extends Equatable {
         tenthPrices,
         hundredPrices,
       ];
-
-  Map<PriceType, int> get currentPrice {
-    return {
-      PriceType.unit: unitPrices.currentPrice,
-      PriceType.tenth: tenthPrices.currentPrice,
-      PriceType.hundred: hundredPrices.currentPrice,
-    };
-  }
 
   Map<PriceType, int> get recommandedSellingPrice => {
         PriceType.unit: unitPrices.medianPrice,

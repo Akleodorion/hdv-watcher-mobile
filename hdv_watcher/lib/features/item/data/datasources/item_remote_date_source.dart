@@ -11,7 +11,9 @@ import 'package:http/http.dart' as http;
 abstract class ItemRemoteDateSource {
   Future<List<Item>> fetchItems();
   Future<Map<String, dynamic>> fetchPaginatedItems(
-      {required int pageIndex, required PriceType priceType});
+      {required int pageIndex,
+      required PriceType priceType,
+      required int batchSize});
 }
 
 class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
@@ -22,7 +24,8 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
   Future<List<Item>> fetchItems() async {
     // faire la requête au serveur
     final Uri url = Uri.parse("http://localhost:3000/items/worth");
-    final http.Response response = await http.get(url);
+    final http.Response response =
+        await http.get(url, headers: {'Accept': 'application/json'});
     // gérer en cas de bonne réponse
     if (response.statusCode == 200) {
       final List jsonData = json.decode(response.body);
@@ -43,18 +46,19 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
 
   @override
   Future<Map<String, dynamic>> fetchPaginatedItems(
-      {required int pageIndex, required PriceType priceType}) async {
-    final Map<String, String> params = {
+      {required int pageIndex,
+      required PriceType priceType,
+      required int batchSize}) async {
+    final Map<String, dynamic> params = {
       "price_type": priceType.headerName,
-      "batch_index": pageIndex.toString()
+      "batch_index": pageIndex.toString(),
+      "batch_size": batchSize.toString(),
     };
-    final Uri url = Uri.parse(
-            "https://hdv-watcher-3be496b8731a.herokuapp.com/items/paginateditem")
+    final Uri url = Uri.parse("http://localhost:3000/api/v1/items")
         .replace(queryParameters: params);
 
-    final response = await http.get(
-      url,
-    );
+    final response =
+        await http.get(url, headers: {'Accept': 'application/json'});
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = json.decode(response.body);
@@ -66,10 +70,10 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
       final items = itemData
           .where((item) => item.ressourceType != RessourceType.unknown)
           .toList();
-
+      print(items[5].superPrice.unitPrices.currentPrice);
       return {
         'items': items,
-        "batches": jsonData["batches"],
+        "batches": jsonData["number_of_batches"],
       };
     }
     throw ServerException(

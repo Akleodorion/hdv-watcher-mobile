@@ -10,8 +10,6 @@ class ItemModel extends Item {
       required super.name,
       required super.imgUrl,
       required super.ressourceType,
-      required super.petXp,
-      required super.quantityForUnitXp,
       required super.superPrice});
 
   factory ItemModel.fromJson({
@@ -19,29 +17,17 @@ class ItemModel extends Item {
     required DatesUtils datesUtils,
     required ArrayUtils arrayUtils,
   }) {
-    final List<int> unitPrices =
-        arrayUtils.getIntsFromArray(json["unit_price"]);
-    final List<int> tenthPrices =
-        arrayUtils.getIntsFromArray(json["tenth_price"]);
-    final List<int> hundredPrices =
-        arrayUtils.getIntsFromArray(json["hundred_price"]);
-
-    final List<DateTime> dates =
-        datesUtils.dateListParser(values: json["scrap_date"]);
-
     final String ressourceTypeName = json["ressource_type"];
     return ItemModel(
       id: json["id"],
       name: json["name"],
       imgUrl: json["img_url"],
       ressourceType: ressourceFromString(name: ressourceTypeName),
-      petXp: json["f_xp"].toDouble() ?? 0.0,
-      quantityForUnitXp: json["xp_quantity"] ?? 0,
-      superPrice: SuperPrice.fromItemFactory(
-          unitPrices: unitPrices,
-          tenthPrices: tenthPrices,
-          hundredPrices: hundredPrices,
-          dates: dates),
+      superPrice: SuperPrice.fromJson(
+        unitPricesInfoJson: json["unit_price_info"],
+        tenthPricesInfoJson: json["tenth_price_info"],
+        hundredPricesInfoJson: json["hundred_price_info"],
+      ),
     );
   }
 }

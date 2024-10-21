@@ -9,11 +9,19 @@ import 'package:hdv_watcher/core/utils/prices_evaluation_utils.dart';
 class Prices extends Equatable {
   final List<Price> prices;
   final PriceType priceType;
+  final int medianPrice;
+  final int capitalGain;
+  final int currentPrice;
   late PricesArrayUtilsImpl _pricesArrayUtilsImpl;
   late PricesCalculusUtilsImpl _pricesCalculusUtilsImpl;
   late PricesEvalutionUtilsImpl _pricesEvalutionUtilsImpl;
 
-  Prices({required this.prices, required this.priceType}) {
+  Prices(
+      {required this.prices,
+      required this.priceType,
+      required this.capitalGain,
+      required this.currentPrice,
+      required this.medianPrice}) {
     _pricesArrayUtilsImpl = PricesArrayUtilsImpl(prices: prices);
     _pricesCalculusUtilsImpl = PricesCalculusUtilsImpl(prices: prices);
     _pricesEvalutionUtilsImpl = PricesEvalutionUtilsImpl(
@@ -22,27 +30,25 @@ class Prices extends Equatable {
         medianPrice: _pricesCalculusUtilsImpl.medianPrice);
   }
 
-  factory Prices.fromSuperPriceFactory({
-    required List<int> values,
-    required List<DateTime> dates,
+  factory Prices.fromJson({
+    required Map<String, dynamic> priceInfoJson,
     required PriceType priceType,
   }) {
-    if (values.length != dates.length) {
-      throw Exception('Values and dates lists must have the same length.');
-    }
-
     final List<Price> prices = List.generate(
-      values.length,
+      priceInfoJson["price_list"].length,
       (i) => Price(
-        priceValue: values[i],
+        priceValue: priceInfoJson["price_list"][i]["price"] as int,
+        scrapDate: DateTime.parse(priceInfoJson["price_list"][i]["scrap_date"]),
         priceType: priceType,
-        scrapDate: dates[i],
       ),
     );
 
     return Prices(
       prices: prices,
       priceType: priceType,
+      medianPrice: priceInfoJson["median_price"],
+      capitalGain: priceInfoJson["capital_gain"],
+      currentPrice: priceInfoJson["current_price"],
     );
   }
 
@@ -56,16 +62,9 @@ class Prices extends Equatable {
         _pricesEvalutionUtilsImpl.isWorth;
   }
 
-  int get currentPrice {
-    final filteredList = _pricesArrayUtilsImpl.validPriceList;
-    return filteredList.isNotEmpty ? filteredList.last.priceValue : 0;
-  }
-
   List<Price> get cleanedPriceList => _pricesArrayUtilsImpl.validPriceList;
 
   int get averagePriceValue => _pricesCalculusUtilsImpl.averagePrice;
-
-  int get medianPrice => _pricesCalculusUtilsImpl.medianPrice;
 
   int get capitalGainPriceValue => _pricesCalculusUtilsImpl.capitalGain;
 

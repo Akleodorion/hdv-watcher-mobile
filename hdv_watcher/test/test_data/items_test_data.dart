@@ -11,8 +11,6 @@ Item itemGenerator({required String name}) {
     name: name,
     imgUrl: "imgUrl",
     ressourceType: RessourceType.values[Random().nextInt(ressourceTypeLength)],
-    petXp: Random().nextInt(40).toDouble(),
-    quantityForUnitXp: 1,
     superPrice: superPriceGenerator(),
   );
 }
@@ -22,6 +20,4 @@ final ItemModel tItem = ItemModel(
     name: "Œil de Crowneille",
     imgUrl: "https://api.dofusdb.fr/img/items/109326.png",
     ressourceType: RessourceType.oeil,
-    petXp: 1,
-    quantityForUnitXp: 1,
     superPrice: tSuperPrice);
