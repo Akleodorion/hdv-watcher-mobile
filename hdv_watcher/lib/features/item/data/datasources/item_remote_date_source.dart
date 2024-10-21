@@ -48,7 +48,8 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
       "price_type": priceType.headerName,
       "batch_index": pageIndex.toString()
     };
-    final Uri url = Uri.parse("http://localhost:3000/items/paginateditem")
+    final Uri url = Uri.parse(
+            "https://hdv-watcher-3be496b8731a.herokuapp.com/items/paginateditem")
         .replace(queryParameters: params);
 
     final response = await http.get(
