@@ -8,6 +8,6 @@ Future<void> fetchPaginatedItem(WidgetRef ref, int counter, ItemState state,
   ref.read(occupiedProvider.notifier).setStateToLoading();
   await ref
       .read(stateNotifier.notifier)
-      .fetchPaginatedItems(pageIndex: counter, itemState: state);
+      .fetchPaginatedItems(pageIndex: counter, itemState: state, batchSize: 50);
   ref.read(occupiedProvider.notifier).setStateToLoaded();
 }

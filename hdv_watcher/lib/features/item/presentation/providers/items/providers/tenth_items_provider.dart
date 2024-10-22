@@ -17,7 +17,7 @@ final tenthItemsProvider =
 final validTenthPriceItemsProvider = Provider<TenthItemList>((ref) {
   final state = ref.watch(tenthItemsProvider);
   if (state is Loaded) {
-    return TenthItemList(itemList: state.items);
+    return TenthItemList(items: state.items);
   }
-  return TenthItemList(itemList: []);
+  return TenthItemList(items: []);
 });

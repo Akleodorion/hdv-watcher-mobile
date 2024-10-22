@@ -17,7 +17,8 @@ class ItemsNotifier extends StateNotifier<ItemState> {
 
   Future<ItemState> fetchInitialPaginatedItems() async {
     state = Loading();
-    final response = await usecase.call(pageIndex: 0, priceType: priceType);
+    final response =
+        await usecase.call(pageIndex: 0, priceType: priceType, batchSize: 50);
 
     response!.fold((failure) {
       if (failure is ServerFailure) {
@@ -37,9 +38,11 @@ class ItemsNotifier extends StateNotifier<ItemState> {
   }
 
   Future<ItemState> fetchPaginatedItems(
-      {required int pageIndex, required ItemState itemState}) async {
-    final response =
-        await usecase.call(pageIndex: pageIndex, priceType: priceType);
+      {required int pageIndex,
+      required ItemState itemState,
+      required int batchSize}) async {
+    final response = await usecase.call(
+        pageIndex: pageIndex, priceType: priceType, batchSize: batchSize);
     response!.fold((failure) {
       if (itemState is Loaded && failure is ServerFailure) {
         state = Error(

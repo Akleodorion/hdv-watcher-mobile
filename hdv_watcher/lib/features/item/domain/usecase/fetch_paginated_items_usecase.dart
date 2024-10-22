@@ -9,10 +9,13 @@ class FetchPaginatedItemsUsecase {
   FetchPaginatedItemsUsecase({required this.repository});
 
   Future<Either<Failure, Map<String, dynamic>>?> call(
-      {required int pageIndex, required PriceType priceType}) async {
+      {required int pageIndex,
+      required PriceType priceType,
+      required int batchSize}) async {
     return await repository.fetchPaginatedItems(
       pageIndex: pageIndex,
       priceType: priceType,
+      batchSize: batchSize,
     );
   }
 }

@@ -18,8 +18,8 @@ final unitItemsProvider =
 final validUnitPriceItemsProvider = Provider<UnitItemList>((ref) {
   final state = ref.watch(unitItemsProvider);
   if (state is Loaded) {
-    return UnitItemList(itemList: state.items);
+    return UnitItemList(items: state.items);
   }
   if (state is Unloaded) {}
-  return UnitItemList(itemList: []);
+  return UnitItemList(items: []);
 });

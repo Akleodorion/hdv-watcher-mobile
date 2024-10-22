@@ -32,8 +32,6 @@ void main() {
       name: "Œil de Crowneille",
       imgUrl: "https://api.dofusdb.fr/img/items/109326.png",
       ressourceType: RessourceType.oeil,
-      petXp: 1,
-      quantityForUnitXp: 1,
       superPrice: SuperPrice(
         unitPrices: Prices(prices: [
           Price(
