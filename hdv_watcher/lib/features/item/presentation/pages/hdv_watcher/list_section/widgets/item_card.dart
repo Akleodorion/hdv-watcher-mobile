@@ -69,11 +69,12 @@ class ItemCard extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Prix d'achat: ${item} k"),
                       Text(
-                          "Prix de vente: ${item.recommandedSellingPrice[priceType]} k"),
+                          "Prix d'achat: ${item.superPrice.currentPrice[priceType]} k"),
                       Text(
-                          "Plus value: ${item.recommandedSellingPrice[priceType]! - (item.recommandedSellingPrice[priceType]! * 0.02).round()} k")
+                          "Prix de vente: ${item.superPrice.recommandedSellingPrice[priceType]} k"),
+                      Text(
+                          "Plus value: ${item.superPrice.capitalGain[priceType]} k")
                     ],
                   ),
                 ),

@@ -37,7 +37,7 @@ class PricesEvalutionUtilsImpl implements PricesEvaluationUtils {
 
   //! Inserer un constante.
   @override
-  bool get isTradedOften => isTradedOftenFunction(80);
+  bool get isTradedOften => isTradedOftenFunction(10);
 
   @override
   bool get isAvailable => isAvailableFunction();

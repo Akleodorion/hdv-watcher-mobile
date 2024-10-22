@@ -17,7 +17,7 @@ final hundredItemsProvider =
 final validHundredPriceItemsProvider = Provider<HundredItemList>((ref) {
   final state = ref.watch(hundredItemsProvider);
   if (state is Loaded) {
-    return HundredItemList(itemList: state.items);
+    return HundredItemList(items: state.items);
   }
-  return HundredItemList(itemList: []);
+  return HundredItemList(items: []);
 });

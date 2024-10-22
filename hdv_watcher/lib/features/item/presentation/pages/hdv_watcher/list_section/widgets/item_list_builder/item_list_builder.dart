@@ -33,7 +33,7 @@ class _ItemListBuilderState extends ConsumerState<ItemListBuilder> {
     return FutureBuilder(
       future: _itemState(),
       builder: (context, snapshot) {
-        final List<Item> items = ref.read(widget.provider).sortedPriceList;
+        final List<Item> items = ref.read(widget.provider).items;
         return snapshot.hasData
             ? routing(snapshot.data!, items, widget.priceType, widget.notifier)
             : const ItemListLoadingPage();

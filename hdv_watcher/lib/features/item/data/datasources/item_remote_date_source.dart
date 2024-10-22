@@ -70,7 +70,7 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
       final items = itemData
           .where((item) => item.ressourceType != RessourceType.unknown)
           .toList();
-      print(items[5].superPrice.unitPrices.currentPrice);
+
       return {
         'items': items,
         "batches": jsonData["number_of_batches"],

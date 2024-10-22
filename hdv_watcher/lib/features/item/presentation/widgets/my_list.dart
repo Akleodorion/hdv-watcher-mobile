@@ -12,7 +12,7 @@ class MyList extends ConsumerStatefulWidget {
 class _MyListState extends ConsumerState<MyList> {
   @override
   Widget build(BuildContext context) {
-    final items = ref.watch(validUnitPriceItemsProvider).sortedPriceList;
+    final items = ref.watch(validUnitPriceItemsProvider).items;
 
     return Expanded(
       child: ListView.builder(
