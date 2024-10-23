@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_list_notifier.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
 
 class ItemListUnloaded extends StatelessWidget {
   const ItemListUnloaded({super.key, required this.stateNotifier});
-  final StateNotifierProvider<ItemsNotifier, ItemState> stateNotifier;
+  final StateNotifierProvider<ItemsListNotifier, ItemsListState> stateNotifier;
 
   @override
   Widget build(BuildContext context) {

@@ -30,7 +30,7 @@ class Loading extends FetchItemState {}
 
 class Error extends FetchItemState {
   final String errorMessage;
-  final Item item;
+  final Item? item;
 
   Error({
     required this.errorMessage,
