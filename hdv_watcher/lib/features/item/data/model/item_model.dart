@@ -8,10 +8,12 @@ class ItemModel extends Item {
       required super.name,
       required super.imgUrl,
       required super.ressourceType,
-      required super.superPrice});
+      required super.superPrice,
+      required super.isLoaded});
 
   factory ItemModel.fromJson({
     required Map<String, dynamic> json,
+    required bool isLoaded,
   }) {
     final String ressourceTypeName = json["ressource_type"];
     return ItemModel(
@@ -24,6 +26,7 @@ class ItemModel extends Item {
         tenthPricesInfoJson: json["tenth_price_info"],
         hundredPricesInfoJson: json["hundred_price_info"],
       ),
+      isLoaded: isLoaded,
     );
   }
 }

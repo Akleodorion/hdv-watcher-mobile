@@ -30,7 +30,10 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
     // gérer en cas de bonne réponse
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = json.decode(response.body);
-      return ItemModel.fromJson(json: jsonData);
+      return ItemModel.fromJson(
+        json: jsonData,
+        isLoaded: true,
+      );
     }
     throw ServerException(
         errorMessage:
@@ -56,7 +59,7 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = json.decode(response.body);
       final List<Item> itemData = jsonData["items"]
-          .map<Item>((json) => ItemModel.fromJson(json: json))
+          .map<Item>((json) => ItemModel.fromJson(json: json, isLoaded: false))
           .toList();
 
       final items = itemData
