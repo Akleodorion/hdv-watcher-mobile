@@ -9,7 +9,7 @@ class FetchItemsUsecase {
   FetchItemsUsecase({required ItemRepository repository})
       : _repository = repository;
 
-  Future<Either<Failure, List<Item>>> call({required int itemId}) async {
+  Future<Either<Failure, Item>> call({required int itemId}) async {
     return await _repository.fetchItem(itemId: itemId);
   }
 }

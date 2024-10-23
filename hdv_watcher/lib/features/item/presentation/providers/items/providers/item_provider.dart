@@ -5,7 +5,7 @@ import 'package:hdv_watcher/features/item/presentation/providers/items/state/ite
 
 import '../../../../../../injection_container.dart';
 
-final itemProvider = StateNotifierProvider<ItemNotifier, ItemState>((ref) {
+final itemProvider = StateNotifierProvider<ItemNotifier, ItemListState>((ref) {
   final FetchItemsUsecase fetchItemsUsecase = sl<FetchItemsUsecase>();
   return ItemNotifier(fetchItemsUsecase: fetchItemsUsecase);
 });

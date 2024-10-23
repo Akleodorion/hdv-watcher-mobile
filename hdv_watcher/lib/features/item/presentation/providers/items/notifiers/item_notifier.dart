@@ -9,8 +9,8 @@ class ItemNotifier extends StateNotifier<ItemState> {
   ItemNotifier({required this.fetchItemsUsecase}) : super(Loading());
   ItemState get initialState => Loading();
 
-  Future<ItemState> fetchItem() async {
-    final response = await fetchItemsUsecase.call();
+  Future<ItemState> fetchItem({required int itemId}) async {
+    final response = await fetchItemsUsecase.call(itemId: itemId);
 
     response.fold((failure) {
       if (failure is ServerFailure) {

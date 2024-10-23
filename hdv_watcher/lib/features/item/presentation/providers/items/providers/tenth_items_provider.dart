@@ -7,7 +7,7 @@ import 'package:hdv_watcher/features/item/presentation/providers/items/state/ite
 import 'package:hdv_watcher/injection_container.dart';
 
 final tenthItemsProvider =
-    StateNotifierProvider<TenthItemsNotifier, ItemState>((ref) {
+    StateNotifierProvider<TenthItemsNotifier, ItemListState>((ref) {
   final FetchPaginatedItemsUsecase fetchPaginatedItemsUsecase =
       sl<FetchPaginatedItemsUsecase>();
   return TenthItemsNotifier(

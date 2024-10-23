@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../domain/entitie/item.dart';
 
-class ItemState extends Equatable {
+class ItemListState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
-class Unloaded extends ItemState {}
+class Unloaded extends ItemListState {}
 
-class Loaded extends ItemState {
+class Loaded extends ItemListState {
   final List<Item> items;
   final int numberOfBatches;
   final int bachesCounter;
@@ -36,9 +36,9 @@ class Loaded extends ItemState {
       ];
 }
 
-class Loading extends ItemState {}
+class Loading extends ItemListState {}
 
-class Error extends ItemState {
+class Error extends ItemListState {
   final String errorMessage;
   final List<Item> items;
   final int numberOfBatches;

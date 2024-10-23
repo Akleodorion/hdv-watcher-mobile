@@ -5,7 +5,7 @@ import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_paginated_items_usecase.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
 
-class ItemsNotifier extends StateNotifier<ItemState> {
+class ItemsNotifier extends StateNotifier<ItemListState> {
   final FetchPaginatedItemsUsecase usecase;
   final PriceType priceType;
   ItemsNotifier({required this.usecase, required this.priceType})
@@ -13,9 +13,9 @@ class ItemsNotifier extends StateNotifier<ItemState> {
     // fetchInitialPaginatedItems();
   }
 
-  ItemState get initialState => Unloaded();
+  ItemListState get initialState => Unloaded();
 
-  Future<ItemState> fetchInitialPaginatedItems() async {
+  Future<ItemListState> fetchInitialPaginatedItems() async {
     state = Loading();
     final response =
         await usecase.call(pageIndex: 0, priceType: priceType, batchSize: 50);
@@ -37,25 +37,25 @@ class ItemsNotifier extends StateNotifier<ItemState> {
     return state;
   }
 
-  Future<ItemState> fetchPaginatedItems(
+  Future<ItemListState> fetchPaginatedItems(
       {required int pageIndex,
-      required ItemState itemState,
+      required ItemListState itemListState,
       required int batchSize}) async {
     final response = await usecase.call(
         pageIndex: pageIndex, priceType: priceType, batchSize: batchSize);
     response!.fold((failure) {
-      if (itemState is Loaded && failure is ServerFailure) {
+      if (itemListState is Loaded && failure is ServerFailure) {
         state = Error(
             errorMessage: failure.errorMessage,
-            items: itemState.items,
-            numberOfBatches: itemState.numberOfBatches,
-            bachesCounter: itemState.bachesCounter);
+            items: itemListState.items,
+            numberOfBatches: itemListState.numberOfBatches,
+            bachesCounter: itemListState.bachesCounter);
       }
     }, (success) {
-      if (itemState is Loaded) {
-        final updatedItems = List<Item>.from(itemState.items)
+      if (itemListState is Loaded) {
+        final updatedItems = List<Item>.from(itemListState.items)
           ..addAll(success["items"]);
-        state = itemState.copyWith(items: updatedItems);
+        state = itemListState.copyWith(items: updatedItems);
       }
     });
     return state;
