@@ -10,14 +10,15 @@ class Item extends Equatable {
   final String imgUrl;
   final RessourceType ressourceType;
   final SuperPrice superPrice;
+  final bool isLoaded;
 
-  const Item({
-    required this.id,
-    required this.name,
-    required this.imgUrl,
-    required this.ressourceType,
-    required this.superPrice,
-  });
+  const Item(
+      {required this.id,
+      required this.name,
+      required this.imgUrl,
+      required this.ressourceType,
+      required this.superPrice,
+      required this.isLoaded});
 
   Item copyWith() {
     return Item(
@@ -26,6 +27,7 @@ class Item extends Equatable {
       imgUrl: imgUrl,
       ressourceType: ressourceType,
       superPrice: superPrice,
+      isLoaded: isLoaded,
     );
   }
 
@@ -36,6 +38,7 @@ class Item extends Equatable {
         imgUrl,
         ressourceType,
         superPrice,
+        isLoaded,
       ];
 
   Map<PriceType, List<Price>> get priceList {
