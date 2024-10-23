@@ -22,13 +22,8 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
 
   @override
   Future<Item> fetchItem({required int itemId}) async {
-    final Map<String, dynamic> params = {
-      "item_id": itemId.toString(),
-    };
     // faire la requête au serveur
-    final Uri url = Uri.parse("http://localhost:3000/items/worth").replace(
-      queryParameters: params,
-    );
+    final Uri url = Uri.parse("http://localhost:3000/items/$itemId");
     final http.Response response =
         await http.get(url, headers: {'Accept': 'application/json'});
 

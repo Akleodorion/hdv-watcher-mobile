@@ -10,6 +10,7 @@ class FetchItemNotifier extends StateNotifier<FetchItemState> {
   FetchItemState get initialState => Unloaded();
 
   Future<FetchItemState> fetchItem({required int itemId}) async {
+    state = Loading();
     final response = await fetchItemsUsecase.call(itemId: itemId);
 
     response.fold((failure) {
@@ -20,5 +21,9 @@ class FetchItemNotifier extends StateNotifier<FetchItemState> {
       state = Loaded(item: success);
     });
     return state;
+  }
+
+  void resetState() {
+    state = Unloaded();
   }
 }
