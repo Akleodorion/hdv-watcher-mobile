@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/providers/hundred_items_provider.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/providers/tenth_items_provider.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/providers/unit_items_provider.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/providers/hundred_items_list_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/providers/tenth_items_list_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/providers/unit_items_list_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
 
 import '../../../../../../../core/classes/items/item_list.dart';
 import '../../../../../../../core/enums/price_type.dart';
@@ -14,14 +14,14 @@ ProviderListenable<ItemList?> retrieveItemList(
   return providerName;
 }
 
-ProviderListenable<ItemState?> retrieveState(
+ProviderListenable<ItemsListState?> retrieveState(
     {required Map<PriceType, bool> mapData}) {
   final filterKey = retrieveActiveFilterKey(mapData);
   final state = _state(filterKey);
   return state;
 }
 
-Future<ItemState> Function() retrieveInitiateFunction(
+Future<ItemsListState> Function() retrieveInitiateFunction(
     {required WidgetRef ref, required Map<PriceType, bool> mapData}) {
   final filterKey = retrieveActiveFilterKey(mapData);
   final function = fetchInitialPaginatedItem(ref, filterKey);
@@ -41,8 +41,8 @@ ProviderListenable<ItemList?> _provider(PriceType filter) {
   return map[filter]!;
 }
 
-ProviderListenable<ItemState?> _state(PriceType filter) {
-  final Map<PriceType, ProviderListenable<ItemState?>> map = {
+ProviderListenable<ItemsListState?> _state(PriceType filter) {
+  final Map<PriceType, ProviderListenable<ItemsListState?>> map = {
     PriceType.unit: unitItemsProvider,
     PriceType.tenth: tenthItemsProvider,
     PriceType.hundred: hundredItemsProvider,
@@ -50,9 +50,9 @@ ProviderListenable<ItemState?> _state(PriceType filter) {
   return map[filter]!;
 }
 
-Future<ItemState> Function() fetchInitialPaginatedItem(
+Future<ItemsListState> Function() fetchInitialPaginatedItem(
     WidgetRef ref, PriceType filter) {
-  final Map<PriceType, Future<ItemState> Function()> map = {
+  final Map<PriceType, Future<ItemsListState> Function()> map = {
     PriceType.unit:
         ref.read(unitItemsProvider.notifier).fetchInitialPaginatedItems,
     PriceType.tenth:

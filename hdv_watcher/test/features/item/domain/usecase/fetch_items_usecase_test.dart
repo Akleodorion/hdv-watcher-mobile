@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hdv_watcher/core/errors/failures.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/domain/repository/item_repository.dart';
-import 'package:hdv_watcher/features/item/domain/usecase/fetch_items_usecase.dart';
+import 'package:hdv_watcher/features/item/domain/usecase/fetch_item_usecase.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 

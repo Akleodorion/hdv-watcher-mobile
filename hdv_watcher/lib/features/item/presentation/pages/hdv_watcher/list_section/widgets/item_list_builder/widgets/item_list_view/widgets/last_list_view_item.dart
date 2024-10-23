@@ -4,12 +4,12 @@ import 'package:hdv_watcher/core/widgets/buttons/cta_button/cta_button.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/widgets/item_list_builder/widgets/item_list_view/functions/fetch_paginated_item.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/widgets/item_list_builder/widgets/item_list_view/functions/retrieve_batch_index.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/widgets/item_list_builder/widgets/item_list_view/functions/retrieve_batch_number.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_list_notifier.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
 
 class LastListViewItem extends ConsumerWidget {
   const LastListViewItem({super.key, required this.stateNotifier});
-  final StateNotifierProvider<ItemsNotifier, ItemState> stateNotifier;
+  final StateNotifierProvider<ItemsListNotifier, ItemsListState> stateNotifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

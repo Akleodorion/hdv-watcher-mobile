@@ -4,8 +4,8 @@ import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/widgets/item_card.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/widgets/item_list_builder/widgets/item_list_view/widgets/last_list_view_item.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_list_notifier.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
 
 class ItemListView extends StatelessWidget {
   const ItemListView(
@@ -13,7 +13,7 @@ class ItemListView extends StatelessWidget {
       required this.items,
       required this.priceType,
       required this.stateNotifier});
-  final StateNotifierProvider<ItemsNotifier, ItemState> stateNotifier;
+  final StateNotifierProvider<ItemsListNotifier, ItemsListState> stateNotifier;
 
   final List<Item> items;
   final PriceType priceType;

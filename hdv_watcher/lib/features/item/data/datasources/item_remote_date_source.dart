@@ -9,7 +9,7 @@ import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ItemRemoteDateSource {
-  Future<List<Item>> fetchItems();
+  Future<Item> fetchItem({required int itemId});
   Future<Map<String, dynamic>> fetchPaginatedItems(
       {required int pageIndex,
       required PriceType priceType,
@@ -21,23 +21,16 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
   final ArrayUtilsImpl arrayUtils = ArrayUtilsImpl();
 
   @override
-  Future<List<Item>> fetchItems() async {
+  Future<Item> fetchItem({required int itemId}) async {
     // faire la requête au serveur
-    final Uri url = Uri.parse("http://localhost:3000/items/worth");
+    final Uri url = Uri.parse("http://localhost:3000/items/$itemId");
     final http.Response response =
         await http.get(url, headers: {'Accept': 'application/json'});
+
     // gérer en cas de bonne réponse
     if (response.statusCode == 200) {
-      final List jsonData = json.decode(response.body);
-      final List<Item> items = jsonData
-          .map<Item>(
-            (json) => ItemModel.fromJson(
-                json: json, datesUtils: dateUtils, arrayUtils: arrayUtils),
-          )
-          .toList();
-      return items
-          .where((item) => item.ressourceType != RessourceType.unknown)
-          .toList();
+      final Map<String, dynamic> jsonData = json.decode(response.body);
+      return ItemModel.fromJson(json: jsonData);
     }
     throw ServerException(
         errorMessage:
@@ -63,8 +56,7 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = json.decode(response.body);
       final List<Item> itemData = jsonData["items"]
-          .map<Item>((json) => ItemModel.fromJson(
-              json: json, datesUtils: dateUtils, arrayUtils: arrayUtils))
+          .map<Item>((json) => ItemModel.fromJson(json: json))
           .toList();
 
       final items = itemData

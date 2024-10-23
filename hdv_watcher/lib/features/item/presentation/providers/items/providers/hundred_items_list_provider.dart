@@ -2,12 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/core/classes/items/hundred_item_list.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_paginated_items_usecase.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/hundred_items_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/subnotifier/hundred_items_list_notifier.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
 import 'package:hdv_watcher/injection_container.dart';
 
 final hundredItemsProvider =
-    StateNotifierProvider<HundredItemsNotifier, ItemState>((ref) {
+    StateNotifierProvider<HundredItemsNotifier, ItemsListState>((ref) {
   final FetchPaginatedItemsUsecase fetchPaginatedItemsUsecase =
       sl<FetchPaginatedItemsUsecase>();
   return HundredItemsNotifier(

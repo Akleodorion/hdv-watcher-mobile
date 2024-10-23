@@ -1,6 +1,6 @@
-import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
 
-int retrieveBatchIndex(ItemState state) {
+int retrieveBatchIndex(ItemsListState state) {
   if (state is Loaded) {
     return state.bachesCounter;
   }

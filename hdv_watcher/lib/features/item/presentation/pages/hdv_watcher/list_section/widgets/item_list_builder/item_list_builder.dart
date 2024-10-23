@@ -4,8 +4,8 @@ import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/widgets/item_list_builder/functions/routing.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/hdv_watcher/list_section/widgets/item_list_builder/widgets/item_list_loading_page.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_list_notifier.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
 
 class ItemListBuilder extends ConsumerStatefulWidget {
   const ItemListBuilder({
@@ -15,7 +15,7 @@ class ItemListBuilder extends ConsumerStatefulWidget {
     required this.priceType,
   });
 
-  final StateNotifierProvider<ItemsNotifier, ItemState> notifier;
+  final StateNotifierProvider<ItemsListNotifier, ItemsListState> notifier;
   final Provider<dynamic> provider;
   final PriceType priceType;
   @override
@@ -23,8 +23,8 @@ class ItemListBuilder extends ConsumerStatefulWidget {
 }
 
 class _ItemListBuilderState extends ConsumerState<ItemListBuilder> {
-  Future<ItemState> _itemState() async {
-    final ItemState state = ref.watch(widget.notifier);
+  Future<ItemsListState> _itemState() async {
+    final ItemsListState state = ref.watch(widget.notifier);
     return state;
   }
 

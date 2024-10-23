@@ -1,7 +1,5 @@
 import 'package:hdv_watcher/core/classes/prices/super_price.dart';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
-import 'package:hdv_watcher/core/utils/array_utils.dart';
-import 'package:hdv_watcher/core/utils/dates_utils.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 
 class ItemModel extends Item {
@@ -14,8 +12,6 @@ class ItemModel extends Item {
 
   factory ItemModel.fromJson({
     required Map<String, dynamic> json,
-    required DatesUtils datesUtils,
-    required ArrayUtils arrayUtils,
   }) {
     final String ressourceTypeName = json["ressource_type"];
     return ItemModel(

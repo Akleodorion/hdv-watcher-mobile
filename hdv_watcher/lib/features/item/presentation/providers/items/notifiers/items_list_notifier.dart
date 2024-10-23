@@ -3,19 +3,19 @@ import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/errors/failures.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_paginated_items_usecase.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
 
-class ItemsNotifier extends StateNotifier<ItemState> {
+class ItemsListNotifier extends StateNotifier<ItemsListState> {
   final FetchPaginatedItemsUsecase usecase;
   final PriceType priceType;
-  ItemsNotifier({required this.usecase, required this.priceType})
+  ItemsListNotifier({required this.usecase, required this.priceType})
       : super(Unloaded()) {
     // fetchInitialPaginatedItems();
   }
 
-  ItemState get initialState => Unloaded();
+  ItemsListState get initialState => Unloaded();
 
-  Future<ItemState> fetchInitialPaginatedItems() async {
+  Future<ItemsListState> fetchInitialPaginatedItems() async {
     state = Loading();
     final response =
         await usecase.call(pageIndex: 0, priceType: priceType, batchSize: 50);
@@ -37,25 +37,26 @@ class ItemsNotifier extends StateNotifier<ItemState> {
     return state;
   }
 
-  Future<ItemState> fetchPaginatedItems(
-      {required int pageIndex,
-      required ItemState itemState,
-      required int batchSize}) async {
+  Future<ItemsListState> fetchPaginatedItems({
+    required int pageIndex,
+    required ItemsListState itemsListState,
+    required int batchSize,
+  }) async {
     final response = await usecase.call(
         pageIndex: pageIndex, priceType: priceType, batchSize: batchSize);
     response!.fold((failure) {
-      if (itemState is Loaded && failure is ServerFailure) {
+      if (itemsListState is Loaded && failure is ServerFailure) {
         state = Error(
             errorMessage: failure.errorMessage,
-            items: itemState.items,
-            numberOfBatches: itemState.numberOfBatches,
-            bachesCounter: itemState.bachesCounter);
+            items: itemsListState.items,
+            numberOfBatches: itemsListState.numberOfBatches,
+            bachesCounter: itemsListState.bachesCounter);
       }
     }, (success) {
-      if (itemState is Loaded) {
-        final updatedItems = List<Item>.from(itemState.items)
+      if (itemsListState is Loaded) {
+        final updatedItems = List<Item>.from(itemsListState.items)
           ..addAll(success["items"]);
-        state = itemState.copyWith(items: updatedItems);
+        state = itemsListState.copyWith(items: updatedItems);
       }
     });
     return state;
