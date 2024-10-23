@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/core/errors/exceptions.dart';
-import 'package:hdv_watcher/core/utils/array_utils.dart';
 import 'package:hdv_watcher/core/utils/dates_utils.dart';
 import 'package:hdv_watcher/features/item/data/model/item_model.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
@@ -18,7 +17,6 @@ abstract class ItemRemoteDateSource {
 
 class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
   final DatesUtilsImpl dateUtils = DatesUtilsImpl();
-  final ArrayUtilsImpl arrayUtils = ArrayUtilsImpl();
 
   @override
   Future<Item> fetchItem({required int itemId}) async {
