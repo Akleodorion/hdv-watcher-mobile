@@ -12,12 +12,15 @@ Item itemGenerator({required String name}) {
     imgUrl: "imgUrl",
     ressourceType: RessourceType.values[Random().nextInt(ressourceTypeLength)],
     superPrice: superPriceGenerator(),
+    isLoaded: true,
   );
 }
 
 final ItemModel tItem = ItemModel(
-    id: 10250,
-    name: "Œil de Crowneille",
-    imgUrl: "https://api.dofusdb.fr/img/items/109326.png",
-    ressourceType: RessourceType.oeil,
-    superPrice: tSuperPrice);
+  id: 10250,
+  name: "Œil de Crowneille",
+  imgUrl: "https://api.dofusdb.fr/img/items/109326.png",
+  ressourceType: RessourceType.oeil,
+  superPrice: tSuperPrice,
+  isLoaded: true,
+);

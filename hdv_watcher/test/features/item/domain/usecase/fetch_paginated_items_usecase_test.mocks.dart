@@ -45,27 +45,31 @@ class MockItemRepository extends _i1.Mock implements _i3.ItemRepository {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Item>>> fetchItems() =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Item>> fetchItem(
+          {required int? itemId}) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fetchItems,
+          #fetchItem,
           [],
+          {#itemId: itemId},
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, List<_i6.Item>>>.value(
-            _FakeEither_0<_i5.Failure, List<_i6.Item>>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Item>>.value(
+            _FakeEither_0<_i5.Failure, _i6.Item>(
           this,
           Invocation.method(
-            #fetchItems,
+            #fetchItem,
             [],
+            {#itemId: itemId},
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Item>>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Item>>);
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, Map<String, dynamic>>>
       fetchPaginatedItems({
     required int? pageIndex,
     required _i7.PriceType? priceType,
+    required int? batchSize,
   }) =>
           (super.noSuchMethod(
             Invocation.method(
@@ -74,6 +78,7 @@ class MockItemRepository extends _i1.Mock implements _i3.ItemRepository {
               {
                 #pageIndex: pageIndex,
                 #priceType: priceType,
+                #batchSize: batchSize,
               },
             ),
             returnValue:
@@ -86,6 +91,7 @@ class MockItemRepository extends _i1.Mock implements _i3.ItemRepository {
                 {
                   #pageIndex: pageIndex,
                   #priceType: priceType,
+                  #batchSize: batchSize,
                 },
               ),
             )),
