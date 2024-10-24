@@ -60,6 +60,7 @@ class MockFetchPaginatedItemsUsecase extends _i1.Mock
   _i4.Future<_i5.Either<_i6.Failure, Map<String, dynamic>>?> call({
     required int? pageIndex,
     required _i7.PriceType? priceType,
+    required int? batchSize,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -68,6 +69,7 @@ class MockFetchPaginatedItemsUsecase extends _i1.Mock
           {
             #pageIndex: pageIndex,
             #priceType: priceType,
+            #batchSize: batchSize,
           },
         ),
         returnValue:

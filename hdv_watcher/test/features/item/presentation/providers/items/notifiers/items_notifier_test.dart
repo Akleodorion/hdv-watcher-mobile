@@ -14,11 +14,11 @@ import 'items_notifier_test.mocks.dart';
 @GenerateMocks([FetchPaginatedItemsUsecase])
 void main() {
   late MockFetchPaginatedItemsUsecase mockFetchPaginatedItemsUsecase;
-  late ItemsNotifier sut;
+  late ItemsListNotifier sut;
 
   setUp(() {
     mockFetchPaginatedItemsUsecase = MockFetchPaginatedItemsUsecase();
-    sut = ItemsNotifier(
+    sut = ItemsListNotifier(
         usecase: mockFetchPaginatedItemsUsecase, priceType: PriceType.unit);
   });
 
@@ -37,6 +37,7 @@ void main() {
     test('should emit [Loading,Loaded] when the call is a success', () async {
       //arrange
       when(mockFetchPaginatedItemsUsecase.call(
+              batchSize: anyNamed('batchSize'),
               pageIndex: anyNamed('pageIndex'),
               priceType: anyNamed('priceType')))
           .thenAnswer((_) async => Right(tResultMap));
@@ -52,6 +53,7 @@ void main() {
     test('should emit [Loading,Error] when the call is a success', () async {
       //arrange
       when(mockFetchPaginatedItemsUsecase.call(
+              batchSize: anyNamed('batchSize'),
               pageIndex: anyNamed('pageIndex'),
               priceType: anyNamed('priceType')))
           .thenAnswer(
@@ -79,6 +81,7 @@ void main() {
     test('should emit [Loaded] when the call is a success', () async {
       //arrange
       when(mockFetchPaginatedItemsUsecase.call(
+              batchSize: anyNamed('batchSize'),
               pageIndex: anyNamed('pageIndex'),
               priceType: anyNamed('priceType')))
           .thenAnswer((_) async => Right(tResultMap));
@@ -89,14 +92,16 @@ void main() {
       expectLater(sut.stream, emitsInOrder(expectedState));
       //assert
       await sut.fetchPaginatedItems(
+          batchSize: 50,
           pageIndex: 1,
-          itemState:
+          itemsListState:
               Loaded(items: [tItem], numberOfBatches: 5, bachesCounter: 0));
     });
 
     test('should emit [Error] when the call is not a success', () async {
       //arrange
       when(mockFetchPaginatedItemsUsecase.call(
+              batchSize: anyNamed('batchSize'),
               pageIndex: anyNamed('pageIndex'),
               priceType: anyNamed('priceType')))
           .thenAnswer(
@@ -112,8 +117,9 @@ void main() {
       expectLater(sut.stream, emitsInOrder(expectedState));
       //assert
       await sut.fetchPaginatedItems(
+          batchSize: 50,
           pageIndex: 1,
-          itemState:
+          itemsListState:
               Loaded(items: [tItem], numberOfBatches: 5, bachesCounter: 0));
     });
   });

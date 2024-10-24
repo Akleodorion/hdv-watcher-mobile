@@ -24,28 +24,30 @@ void main() {
   });
 
   group("fetchItems", () {
+    const int tItemId = 150;
+
     group("when the call is unsuccessfull", () {
       test('should return Left ServerFailure when the call is unsuccesfull',
           () async {
         //arrange
-        when(mockItemRemoteDataSource.fetchItems())
+        when(mockItemRemoteDataSource.fetchItem(itemId: anyNamed('itemId')))
             .thenThrow(ServerException(errorMessage: "oops"));
         //act
-        final result = await sut.fetchItems();
+        final result = await sut.fetchItem(itemId: tItemId);
         //assert
         expect(result, const Left(ServerFailure(errorMessage: "oops")));
       });
     });
     group("when the call is successfull", () {
-      final List<Item> items = [tItem];
+      final Item tItem = itemGenerator(name: "Item1 Test");
       test('should return Right(Item) when the call is succesfull', () async {
         //arrange
-        when(mockItemRemoteDataSource.fetchItems())
-            .thenAnswer((_) async => items);
+        when(mockItemRemoteDataSource.fetchItem(itemId: anyNamed('itemId')))
+            .thenAnswer((_) async => tItem);
         //act
-        final result = await sut.fetchItems();
+        final result = await sut.fetchItem(itemId: tItemId);
         //assert
-        expect(result, Right(items));
+        expect(result, Right(tItem));
       });
     });
   });
@@ -57,12 +59,13 @@ void main() {
         () async {
       //arrange
       when(mockItemRemoteDataSource.fetchPaginatedItems(
+              batchSize: anyNamed('batchSize'),
               pageIndex: anyNamed('pageIndex'),
               priceType: anyNamed('priceType')))
           .thenThrow(ServerException(errorMessage: "oops"));
       //act
       final result = await sut.fetchPaginatedItems(
-          pageIndex: 0, priceType: PriceType.unit);
+          batchSize: 50, pageIndex: 0, priceType: PriceType.unit);
       //assert
       expect(result, const Left(ServerFailure(errorMessage: "oops")));
     });
@@ -72,12 +75,13 @@ void main() {
       final tResult = {"items": items, "batches": 5, "batch_index": 0};
       //arrange
       when(mockItemRemoteDataSource.fetchPaginatedItems(
+              batchSize: anyNamed('batchSize'),
               pageIndex: anyNamed('pageIndex'),
               priceType: anyNamed('priceType')))
           .thenAnswer((_) async => tResult);
       //act
       final result = await sut.fetchPaginatedItems(
-          pageIndex: 0, priceType: PriceType.unit);
+          batchSize: 50, pageIndex: 0, priceType: PriceType.unit);
       //assert
       expect(result, Right(tResult));
     });

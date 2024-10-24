@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:hdv_watcher/core/classes/prices/price.dart';
 import 'package:hdv_watcher/core/classes/prices/prices.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
@@ -15,18 +17,36 @@ Prices pricesGenerator({required PriceType priceType}) {
   }
 
   return Prices(
-    prices: prices,
-    priceType: priceType,
-  );
+      prices: prices,
+      priceType: priceType,
+      medianPrice: 1500,
+      currentPrice: 1456,
+      capitalGain: 500);
 }
 
-final Prices tUnitPrice = Prices(prices: unitPrice, priceType: PriceType.unit);
+final Prices tUnitPrice = Prices(
+  prices: unitPrice,
+  priceType: PriceType.unit,
+  medianPrice: 1500,
+  currentPrice: 1456,
+  capitalGain: 500,
+);
 
-final Prices tTenthPrice =
-    Prices(prices: tenthPrice, priceType: PriceType.tenth);
+final Prices tTenthPrice = Prices(
+  prices: tenthPrice,
+  priceType: PriceType.tenth,
+  medianPrice: 1500,
+  currentPrice: 1456,
+  capitalGain: 500,
+);
 
-final Prices tHundredPrice =
-    Prices(prices: hundredPrice, priceType: PriceType.hundred);
+final Prices tHundredPrice = Prices(
+  prices: hundredPrice,
+  priceType: PriceType.hundred,
+  medianPrice: 1500,
+  currentPrice: 1456,
+  capitalGain: 500,
+);
 
 final List<Price> unitPrice = [
   Price(

@@ -35,28 +35,30 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-/// A class which mocks [FetchItemsUsecase].
+/// A class which mocks [FetchItemUsecase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFetchItemsUsecase extends _i1.Mock implements _i3.FetchItemsUsecase {
-  MockFetchItemsUsecase() {
+class MockFetchItemUsecase extends _i1.Mock implements _i3.FetchItemUsecase {
+  MockFetchItemUsecase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, List<_i6.Item>>> call() =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.Item>> call({required int? itemId}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
+          {#itemId: itemId},
         ),
-        returnValue: _i4.Future<_i2.Either<_i5.Failure, List<_i6.Item>>>.value(
-            _FakeEither_0<_i5.Failure, List<_i6.Item>>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Item>>.value(
+            _FakeEither_0<_i5.Failure, _i6.Item>(
           this,
           Invocation.method(
             #call,
             [],
+            {#itemId: itemId},
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Item>>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Item>>);
 }

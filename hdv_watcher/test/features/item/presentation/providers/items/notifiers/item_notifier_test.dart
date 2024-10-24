@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hdv_watcher/core/errors/failures.dart';
+import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_item_usecase.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/fetch_item_notifier.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
@@ -10,36 +11,37 @@ import 'package:mockito/mockito.dart';
 import '../../../../../../test_data/items_test_data.dart';
 import 'item_notifier_test.mocks.dart';
 
-@GenerateMocks([FetchItemsUsecase])
+@GenerateMocks([FetchItemUsecase])
 void main() {
-  late MockFetchItemsUsecase mockFetchItemsUsecase;
-  late ItemNotifier sut;
+  late MockFetchItemUsecase mockFetchItemUsecase;
+  late FetchItemNotifier sut;
 
   setUp(() {
-    mockFetchItemsUsecase = MockFetchItemsUsecase();
-    sut = ItemNotifier(fetchItemsUsecase: mockFetchItemsUsecase);
+    mockFetchItemUsecase = MockFetchItemUsecase();
+    sut = FetchItemNotifier(fetchItemsUsecase: mockFetchItemUsecase);
   });
 
   test("should return Loading", () {
     expect(sut.initialState, Loading());
   });
   group("fetchItems", () {
+    final Item tItem = itemGenerator(name: "Test Item");
     test('should emit [Loaded] when the call is a success', () async {
       //arrange
-      when(mockFetchItemsUsecase.call())
-          .thenAnswer((_) async => Right([tItem]));
+      when(mockFetchItemUsecase.call(itemId: anyNamed('itemId')))
+          .thenAnswer((_) async => Right(tItem));
       //act
       final expectedState = [
         Loaded(items: [tItem], numberOfBatches: 0, bachesCounter: 0)
       ];
       expectLater(sut.stream, emitsInOrder(expectedState));
       //assert
-      sut.fetchItem();
+      sut.fetchItem(itemId: tItem.id);
     });
 
     test('should emit [Error] when the call is a success', () async {
       //arrange
-      when(mockFetchItemsUsecase.call()).thenAnswer(
+      when(mockFetchItemUsecase.call(itemId: anyNamed('itemId'))).thenAnswer(
           (_) async => const Left(ServerFailure(errorMessage: "oops")));
       //act
       final expectedState = [
@@ -51,7 +53,7 @@ void main() {
       ];
       expectLater(sut.stream, emitsInOrder(expectedState));
       //assert
-      sut.fetchItem();
+      sut.fetchItem(itemId: tItem.id);
     });
   });
 }

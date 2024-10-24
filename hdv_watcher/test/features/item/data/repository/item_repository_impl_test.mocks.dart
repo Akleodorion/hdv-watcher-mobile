@@ -3,12 +3,12 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:hdv_watcher/core/enums/price_type.dart' as _i5;
 import 'package:hdv_watcher/features/item/data/datasources/item_remote_date_source.dart'
-    as _i2;
-import 'package:hdv_watcher/features/item/domain/entitie/item.dart' as _i4;
+    as _i3;
+import 'package:hdv_watcher/features/item/domain/entitie/item.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -24,28 +24,47 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeItem_0 extends _i1.SmartFake implements _i2.Item {
+  _FakeItem_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [ItemRemoteDateSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockItemRemoteDateSource extends _i1.Mock
-    implements _i2.ItemRemoteDateSource {
+    implements _i3.ItemRemoteDateSource {
   MockItemRemoteDateSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<List<_i4.Item>> fetchItems() => (super.noSuchMethod(
+  _i4.Future<_i2.Item> fetchItem({required int? itemId}) => (super.noSuchMethod(
         Invocation.method(
-          #fetchItems,
+          #fetchItem,
           [],
+          {#itemId: itemId},
         ),
-        returnValue: _i3.Future<List<_i4.Item>>.value(<_i4.Item>[]),
-      ) as _i3.Future<List<_i4.Item>>);
+        returnValue: _i4.Future<_i2.Item>.value(_FakeItem_0(
+          this,
+          Invocation.method(
+            #fetchItem,
+            [],
+            {#itemId: itemId},
+          ),
+        )),
+      ) as _i4.Future<_i2.Item>);
 
   @override
-  _i3.Future<Map<String, dynamic>> fetchPaginatedItems({
+  _i4.Future<Map<String, dynamic>> fetchPaginatedItems({
     required int? pageIndex,
     required _i5.PriceType? priceType,
+    required int? batchSize,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -54,9 +73,10 @@ class MockItemRemoteDateSource extends _i1.Mock
           {
             #pageIndex: pageIndex,
             #priceType: priceType,
+            #batchSize: batchSize,
           },
         ),
         returnValue:
-            _i3.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
-      ) as _i3.Future<Map<String, dynamic>>);
+            _i4.Future<Map<String, dynamic>>.value(<String, dynamic>{}),
+      ) as _i4.Future<Map<String, dynamic>>);
 }

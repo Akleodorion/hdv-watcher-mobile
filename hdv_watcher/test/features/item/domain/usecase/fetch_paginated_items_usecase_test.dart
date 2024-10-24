@@ -30,12 +30,14 @@ void main() {
         () async {
       //arrange
       when(mockItemRepository.fetchPaginatedItems(
+              batchSize: anyNamed('batchSize'),
               pageIndex: anyNamed('pageIndex'),
               priceType: anyNamed('priceType')))
           .thenAnswer(
               (_) async => const Left(ServerFailure(errorMessage: "oops")));
       //act
-      final result = await sut.call(pageIndex: 0, priceType: PriceType.unit);
+      final result = await sut.call(
+          batchSize: 50, pageIndex: 0, priceType: PriceType.unit);
       //assert
       expect(result, const Left(ServerFailure(errorMessage: "oops")));
     });
@@ -46,11 +48,13 @@ void main() {
       final tResult = {'items': items, "batches": 5, "batch_index": 0};
       //arrange
       when(mockItemRepository.fetchPaginatedItems(
+              batchSize: anyNamed('batchSize'),
               pageIndex: anyNamed('pageIndex'),
               priceType: anyNamed('priceType')))
           .thenAnswer((_) async => Right(tResult));
       //act
-      final result = await sut.call(pageIndex: 0, priceType: PriceType.unit);
+      final result = await sut.call(
+          batchSize: 50, pageIndex: 0, priceType: PriceType.unit);
       //assert
       expect(result, Right(tResult));
     });

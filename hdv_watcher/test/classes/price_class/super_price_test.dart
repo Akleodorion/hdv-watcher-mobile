@@ -15,11 +15,11 @@ void main() {
 
     test('should return a valid SuperPrice model', () async {
       //act
-      final SuperPrice result = SuperPrice.fromItemFactory(
-          unitPrices: tUnits,
-          tenthPrices: tTenths,
-          hundredPrices: tHundreds,
-          dates: tDates);
+      final SuperPrice result = SuperPrice.fromJson(
+        unitPricesInfoJson: {},
+        tenthPricesInfoJson: {},
+        hundredPricesInfoJson: {},
+      );
       //assert
       expect(result, tSuperPrice);
     });
