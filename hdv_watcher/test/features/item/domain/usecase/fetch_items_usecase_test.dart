@@ -21,7 +21,8 @@ void main() {
   });
 
   group("call", () {
-    final Item item1 = itemGenerator(name: "Braises de tombouctou");
+    final Item item1 =
+        itemGenerator(name: "Braises de tombouctou", priceQuantity: 10);
     test(
       'should return a Left<ServerFailure> when the call is not successfull',
       () async {

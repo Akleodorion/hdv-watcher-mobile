@@ -3,16 +3,13 @@ import 'package:hdv_watcher/core/enums/price_type.dart';
 
 import 'prices_test_data.dart';
 
-SuperPrice superPriceGenerator() {
+SuperPrice superPriceGenerator({required int priceQuantity}) {
   return SuperPrice(
-    unitPrices: pricesGenerator(priceType: PriceType.unit),
-    tenthPrices: pricesGenerator(priceType: PriceType.tenth),
-    hundredPrices: pricesGenerator(priceType: PriceType.hundred),
+    unitPrices: pricesGenerator(
+        priceType: PriceType.unit, priceQuantity: priceQuantity),
+    tenthPrices: pricesGenerator(
+        priceType: PriceType.tenth, priceQuantity: priceQuantity),
+    hundredPrices: pricesGenerator(
+        priceType: PriceType.hundred, priceQuantity: priceQuantity),
   );
 }
-
-final SuperPrice tSuperPrice = SuperPrice(
-  unitPrices: tUnitPrice,
-  tenthPrices: tTenthPrice,
-  hundredPrices: tHundredPrice,
-);

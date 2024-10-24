@@ -1,13 +1,88 @@
-{  
+
+{
     "id": 10250,
-    "name": "Œil de Crowneille",
-    "ressource_type": "Œil",
+    "name":"Œil de Crowneille",
     "img_url": "https://api.dofusdb.fr/img/items/109326.png",
-    "unit_price": [125,125,147,158,123],
-    "tenth_price": [1257,1257,1236,1356,1554],
-    "hundred_price": [12458,12650,12385,14523,13256],
-    "scrap_date": ["2024-07-14T15:02:34.954+00:00","2024-07-14T17:02:31.617+00:00","2024-07-14T18:02:34.031+00:00","2024-07-14T20:02:36.610+00:00", "2024-07-14T22:02:34.727+00:00"],
-    "f_xp": 1,
-    "xp_quantity": 1,
-    "must_buy": "false"
+    "ressource_type": "Œil",
+    "unit_price_info": {
+        "price_list": [
+            {
+                "price": 220,
+                "scrap_date": "2024-07-14T15:00:00.000+00:00"
+            },
+            {
+                "price": 221,
+                "scrap_date": "2024-07-14T16:00:00.000+00:00"
+            },
+            {
+                "price": 219,
+                "scrap_date": "2024-07-14T17:00:00.000+00:00"
+            },
+            {
+                "price": 223,
+                "scrap_date": "2024-07-14T18:00:00.000+00:00"
+            },
+            {
+                "price": 218,
+                "scrap_date": "2024-07-14T19:00:00.000+00:00"
+            }
+        ],
+        "median_price": 191,
+        "capital_gain": 45,
+        "current_price": 218
+    },
+    "tenth_price_info": {
+        "price_list": [
+            {
+                "price": 2200,
+                "scrap_date": "2024-07-14T15:00:00.000+00:00"
+            },
+            {
+                "price": 2210,
+                "scrap_date": "2024-07-14T16:00:00.000+00:00"
+            },
+            {
+                "price": 2190,
+                "scrap_date": "2024-07-14T17:00:00.000+00:00"
+            },
+            {
+                "price": 2230,
+                "scrap_date": "2024-07-14T18:00:00.000+00:00"
+            },
+            {
+                "price": 2180,
+                "scrap_date": "2024-07-14T19:00:00.000+00:00"
+            }
+        ],
+        "median_price": 1910,
+        "capital_gain": 450,
+        "current_price": 2210
+    },
+    "hundred_price_info": {
+        "price_list": [
+            {
+                "price": 1750,
+                "scrap_date": "2024-07-14T15:00:00.000+00:00"
+            },
+            {
+                "price": 1800,
+                "scrap_date": "2024-07-14T16:00:00.000+00:00"
+            },
+            {
+                "price": 1900,
+                "scrap_date": "2024-07-14T17:00:00.000+00:00"
+            },
+            {
+                "price": 2100,
+                "scrap_date": "2024-07-14T18:00:00.000+00:00"
+            },
+            {
+                "price": 2000,
+                "scrap_date": "2024-07-14T19:00:00.000+00:00"
+            }
+        ],
+        "median_price": 19100,
+        "capital_gain": 4500,
+        "current_price": 22100
+    }
 }

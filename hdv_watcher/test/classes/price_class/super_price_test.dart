@@ -1,24 +1,34 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:hdv_watcher/core/classes/prices/super_price.dart';
+import 'dart:convert';
 
-import '../../test_data/dates_test_data.dart';
-import '../../test_data/prices_test_data.dart';
-import '../../test_data/values_test_data.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:hdv_watcher/core/classes/prices/prices.dart';
+import 'package:hdv_watcher/core/classes/prices/super_price.dart';
+import 'package:hdv_watcher/core/enums/price_type.dart';
+
+import '../../fixtures/fixture_reader.dart';
 
 void main() {
-  group("SuperPricefromJson", () {
+  group("fromJson", () {
+    Map<String, dynamic> jsonData = json.decode(fixture('item.json'));
+
     final SuperPrice tSuperPrice = SuperPrice(
-      unitPrices: tUnitPrice,
-      tenthPrices: tTenthPrice,
-      hundredPrices: tHundredPrice,
+      unitPrices: Prices.fromJson(
+          priceInfoJson: jsonData["item"]["unit_price_info"],
+          priceType: PriceType.unit),
+      tenthPrices: Prices.fromJson(
+          priceInfoJson: jsonData["item"]["tenth_price_info"],
+          priceType: PriceType.tenth),
+      hundredPrices: Prices.fromJson(
+          priceInfoJson: jsonData["item"]["hundred_price_info"],
+          priceType: PriceType.hundred),
     );
 
     test('should return a valid SuperPrice model', () async {
       //act
       final SuperPrice result = SuperPrice.fromJson(
-        unitPricesInfoJson: {},
-        tenthPricesInfoJson: {},
-        hundredPricesInfoJson: {},
+        unitPricesInfoJson: jsonData["item"]["unit_price_info"],
+        tenthPricesInfoJson: jsonData["item"]["tenth_price_info"],
+        hundredPricesInfoJson: jsonData["item"]["hundred_price_info"],
       );
       //assert
       expect(result, tSuperPrice);

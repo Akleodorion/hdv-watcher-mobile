@@ -4,7 +4,7 @@ import 'package:hdv_watcher/core/errors/failures.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_item_usecase.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/fetch_item_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/fetch_item_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -22,34 +22,32 @@ void main() {
   });
 
   test("should return Loading", () {
-    expect(sut.initialState, Loading());
+    expect(sut.initialState, Unloaded());
   });
-  group("fetchItems", () {
-    final Item tItem = itemGenerator(name: "Test Item");
-    test('should emit [Loaded] when the call is a success', () async {
+  group("fetch Item", () {
+    final Item tItem = itemGenerator(name: "Test Item", priceQuantity: 10);
+    test('should emit [Loading, Loaded] when the call is a success', () async {
       //arrange
       when(mockFetchItemUsecase.call(itemId: anyNamed('itemId')))
           .thenAnswer((_) async => Right(tItem));
       //act
-      final expectedState = [
-        Loaded(items: [tItem], numberOfBatches: 0, bachesCounter: 0)
-      ];
+      final expectedState = [Loading(), Loaded(item: tItem)];
       expectLater(sut.stream, emitsInOrder(expectedState));
       //assert
       sut.fetchItem(itemId: tItem.id);
     });
 
-    test('should emit [Error] when the call is a success', () async {
+    test('should emit [Loading,Error] when the call is a success', () async {
       //arrange
       when(mockFetchItemUsecase.call(itemId: anyNamed('itemId'))).thenAnswer(
           (_) async => const Left(ServerFailure(errorMessage: "oops")));
       //act
       final expectedState = [
+        Loading(),
         Error(
-            errorMessage: "oops",
-            items: const [],
-            numberOfBatches: 0,
-            bachesCounter: 0)
+          errorMessage: "oops",
+          item: null,
+        )
       ];
       expectLater(sut.stream, emitsInOrder(expectedState));
       //assert

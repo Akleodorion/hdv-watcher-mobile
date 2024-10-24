@@ -39,7 +39,7 @@ void main() {
       });
     });
     group("when the call is successfull", () {
-      final Item tItem = itemGenerator(name: "Item1 Test");
+      final Item tItem = itemGenerator(name: "Item1 Test", priceQuantity: 10);
       test('should return Right(Item) when the call is succesfull', () async {
         //arrange
         when(mockItemRemoteDataSource.fetchItem(itemId: anyNamed('itemId')))
@@ -53,6 +53,7 @@ void main() {
   });
 
   group("FetchPaginatedItem", () {
+    final Item tItem = itemGenerator(name: "test item", priceQuantity: 10);
     final List<Item> items = [tItem];
 
     test('should return Left ServerFailure when the call is unsuccessfull',

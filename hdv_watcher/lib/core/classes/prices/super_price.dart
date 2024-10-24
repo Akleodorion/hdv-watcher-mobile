@@ -23,7 +23,7 @@ class SuperPrice extends Equatable {
       unitPrices: Prices.fromJson(
           priceInfoJson: unitPricesInfoJson, priceType: PriceType.unit),
       tenthPrices: Prices.fromJson(
-          priceInfoJson: unitPricesInfoJson, priceType: PriceType.tenth),
+          priceInfoJson: tenthPricesInfoJson, priceType: PriceType.tenth),
       hundredPrices: Prices.fromJson(
           priceInfoJson: hundredPricesInfoJson, priceType: PriceType.hundred),
     );
