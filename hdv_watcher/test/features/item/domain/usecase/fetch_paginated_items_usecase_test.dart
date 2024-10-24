@@ -22,9 +22,11 @@ void main() {
   });
 
   group("call", () {
-    final Item item1 = itemGenerator(name: "Braises de tombouctou");
-    final Item item2 = itemGenerator(name: "Poils de smilomouth");
-    final Item item3 = itemGenerator(name: "Os de chafer");
+    final Item item1 =
+        itemGenerator(name: "Braises de tombouctou", priceQuantity: 10);
+    final Item item2 =
+        itemGenerator(name: "Poils de smilomouth", priceQuantity: 20);
+    final Item item3 = itemGenerator(name: "Os de chafer", priceQuantity: 5);
     final List<Item> items = [item1, item2, item3];
     test('should return Left Server failure, when the call is not successfull',
         () async {

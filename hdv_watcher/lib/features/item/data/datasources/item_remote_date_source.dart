@@ -29,7 +29,7 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = json.decode(response.body);
       return ItemModel.fromJson(
-        json: jsonData,
+        json: jsonData["item"],
         isLoaded: true,
       );
     }

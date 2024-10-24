@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:ui';
 
 import 'package:hdv_watcher/core/classes/prices/price.dart';
 import 'package:hdv_watcher/core/classes/prices/prices.dart';
@@ -6,113 +6,44 @@ import 'package:hdv_watcher/core/enums/price_type.dart';
 
 import 'price_test_data.dart';
 
-Prices pricesGenerator({required PriceType priceType}) {
-  var cpt = 0;
+Prices pricesGenerator(
+    {required PriceType priceType, required int priceQuantity}) {
   final List<Price> prices = [];
-  while (cpt < 10) {
-    prices.add(
-      priceGenerator(priceType),
-    );
-    cpt++;
+  for (var i = priceQuantity; i > 0; i--) {
+    prices.add(priceGenerator(priceType: priceType, daysfromToday: i));
   }
+
+  int capitalGain = calculateCapitalGain(
+    medianPrice: calculateMedianPrice(prices: prices),
+    currentPrice: prices.last.priceValue,
+  );
 
   return Prices(
       prices: prices,
       priceType: priceType,
-      medianPrice: 1500,
-      currentPrice: 1456,
-      capitalGain: 500);
+      medianPrice: calculateMedianPrice(prices: prices),
+      currentPrice: prices.last.priceValue,
+      capitalGain: capitalGain);
 }
 
-final Prices tUnitPrice = Prices(
-  prices: unitPrice,
-  priceType: PriceType.unit,
-  medianPrice: 1500,
-  currentPrice: 1456,
-  capitalGain: 500,
-);
+int calculateMedianPrice({
+  required List<Price> prices,
+}) {
+  final List<Price> orderedPrices = sortPrices(prices: prices);
+  final int middle = (orderedPrices.length / 2).round();
+  if (orderedPrices.length % 2 == 1) return orderedPrices[middle].priceValue;
+  return ((orderedPrices[middle - 1].priceValue +
+          orderedPrices[middle].priceValue) ~/
+      2);
+}
 
-final Prices tTenthPrice = Prices(
-  prices: tenthPrice,
-  priceType: PriceType.tenth,
-  medianPrice: 1500,
-  currentPrice: 1456,
-  capitalGain: 500,
-);
+List<Price> sortPrices({required List<Price> prices}) {
+  final List<Price> clonedArray = List.from(prices);
+  clonedArray.sort((a, b) => a.priceValue.compareTo(b.priceValue));
+  return clonedArray;
+}
 
-final Prices tHundredPrice = Prices(
-  prices: hundredPrice,
-  priceType: PriceType.hundred,
-  medianPrice: 1500,
-  currentPrice: 1456,
-  capitalGain: 500,
-);
-
-final List<Price> unitPrice = [
-  Price(
-    priceValue: 0,
-    priceType: PriceType.unit,
-    scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
-  ),
-  Price(
-    priceValue: 158,
-    priceType: PriceType.unit,
-    scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
-  ),
-  Price(
-    priceValue: 125,
-    priceType: PriceType.unit,
-    scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-  ),
-  Price(
-    priceValue: 125,
-    priceType: PriceType.unit,
-    scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-  ),
-];
-
-final List<Price> tenthPrice = [
-  Price(
-    priceValue: 0,
-    priceType: PriceType.tenth,
-    scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
-  ),
-  Price(
-    priceValue: 1356,
-    priceType: PriceType.tenth,
-    scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
-  ),
-  Price(
-    priceValue: 1257,
-    priceType: PriceType.tenth,
-    scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-  ),
-  Price(
-    priceValue: 1257,
-    priceType: PriceType.tenth,
-    scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-  ),
-];
-
-final List<Price> hundredPrice = [
-  Price(
-    priceValue: 0,
-    priceType: PriceType.hundred,
-    scrapDate: DateTime.parse("2024-07-14T15:02:34.954+00:00"),
-  ),
-  Price(
-    priceValue: 12458,
-    priceType: PriceType.hundred,
-    scrapDate: DateTime.parse("2024-07-14T18:02:34.031+00:00"),
-  ),
-  Price(
-    priceValue: 12650,
-    priceType: PriceType.hundred,
-    scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-  ),
-  Price(
-    priceValue: 12385,
-    priceType: PriceType.hundred,
-    scrapDate: DateTime.parse("2024-07-14T17:02:31.617+00:00"),
-  ),
-];
+int calculateCapitalGain(
+    {required int medianPrice, required int currentPrice}) {
+  return medianPrice - (currentPrice + (medianPrice * 0.02).toInt());
+}
