@@ -13,26 +13,24 @@ import 'fetch_items_usecase_test.mocks.dart';
 @GenerateMocks([ItemRepository])
 void main() {
   late MockItemRepository mockItemRepository;
-  late FetchItemsUsecase sut;
+  late FetchItemUsecase sut;
 
   setUp(() {
     mockItemRepository = MockItemRepository();
-    sut = FetchItemsUsecase(repository: mockItemRepository);
+    sut = FetchItemUsecase(repository: mockItemRepository);
   });
 
   group("call", () {
     final Item item1 = itemGenerator(name: "Braises de tombouctou");
-    final Item item2 = itemGenerator(name: "Poils de smilomouth");
-    final Item item3 = itemGenerator(name: "Os de chafer");
-    final List<Item> items = [item1, item2, item3];
     test(
       'should return a Left<ServerFailure> when the call is not successfull',
       () async {
         //arrange
-        when(mockItemRepository.fetchItems()).thenAnswer(
-            (_) async => const Left(ServerFailure(errorMessage: "oops")));
+        when(mockItemRepository.fetchItem(itemId: anyNamed('itemId')))
+            .thenAnswer(
+                (_) async => const Left(ServerFailure(errorMessage: "oops")));
         //act
-        final result = await sut.call();
+        final result = await sut.call(itemId: item1.id);
         //assert
         expect(result, const Left(ServerFailure(errorMessage: "oops")));
       },
@@ -41,12 +39,12 @@ void main() {
     test('should return  Right List<Item> when the call is successfull',
         () async {
       //arrange
-      when(mockItemRepository.fetchItems())
-          .thenAnswer((_) async => Right(items));
+      when(mockItemRepository.fetchItem(itemId: anyNamed('itemId')))
+          .thenAnswer((_) async => Right(item1));
       //act
-      final result = await sut.call();
+      final result = await sut.call(itemId: item1.id);
       //assert
-      expect(result, Right(items));
+      expect(result, Right(item1));
     });
   });
 }
