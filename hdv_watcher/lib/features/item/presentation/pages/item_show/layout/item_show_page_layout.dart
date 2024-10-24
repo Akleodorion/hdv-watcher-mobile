@@ -53,19 +53,23 @@ class ItemShowPageLayout extends StatelessWidget {
             ),
             Consumer(
               builder: (context, ref, child) {
-                if (item.isLoaded)
-                  return FutureBuilder(
-                      future: fetchItemState(widgetRef: ref),
-                      builder: (BuildContext context, snapshot) {
-                        if (snapshot.data is Unloaded ||
-                            snapshot.data is Loading ||
-                            !snapshot.hasData) {
-                          return const CircularProgressIndicator();
-                        }
-                        return ChartSection(
-                          mapData: item.priceList,
-                        );
-                      });
+                if (!item.isLoaded) {
+                  ref
+                      .read(fetchItemProvider.notifier)
+                      .fetchItem(itemId: item.id);
+                }
+                return FutureBuilder(
+                    future: fetchItemState(widgetRef: ref),
+                    builder: (BuildContext context, snapshot) {
+                      if (snapshot.data is Unloaded ||
+                          snapshot.data is Loading ||
+                          !snapshot.hasData) {
+                        return const CircularProgressIndicator();
+                      }
+                      return ChartSection(
+                        mapData: item.priceList,
+                      );
+                    });
               },
             ),
 
