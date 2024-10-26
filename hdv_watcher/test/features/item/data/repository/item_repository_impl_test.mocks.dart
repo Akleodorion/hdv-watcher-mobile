@@ -44,18 +44,19 @@ class MockItemRemoteDateSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.Item> fetchItem({required int? itemId}) => (super.noSuchMethod(
+  _i4.Future<_i2.Item> fetchItem({required _i2.Item? item}) =>
+      (super.noSuchMethod(
         Invocation.method(
           #fetchItem,
           [],
-          {#itemId: itemId},
+          {#item: item},
         ),
         returnValue: _i4.Future<_i2.Item>.value(_FakeItem_0(
           this,
           Invocation.method(
             #fetchItem,
             [],
-            {#itemId: itemId},
+            {#item: item},
           ),
         )),
       ) as _i4.Future<_i2.Item>);

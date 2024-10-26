@@ -8,7 +8,7 @@ import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ItemRemoteDateSource {
-  Future<Item> fetchItem({required int itemId});
+  Future<Item> fetchItem({required Item item});
   Future<Map<String, dynamic>> fetchPaginatedItems(
       {required int pageIndex,
       required PriceType priceType,
@@ -19,9 +19,9 @@ class ItemRemoteDateSourceImpl implements ItemRemoteDateSource {
   final DatesUtilsImpl dateUtils = DatesUtilsImpl();
 
   @override
-  Future<Item> fetchItem({required int itemId}) async {
+  Future<Item> fetchItem({required Item item}) async {
     // faire la requête au serveur
-    final Uri url = Uri.parse("http://localhost:3000/items/$itemId");
+    final Uri url = Uri.parse("http://localhost:3000/api/v1/items/${item.id}");
     final http.Response response =
         await http.get(url, headers: {'Accept': 'application/json'});
 

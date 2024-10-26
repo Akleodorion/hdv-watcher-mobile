@@ -27,11 +27,10 @@ void main() {
       'should return a Left<ServerFailure> when the call is not successfull',
       () async {
         //arrange
-        when(mockItemRepository.fetchItem(itemId: anyNamed('itemId')))
-            .thenAnswer(
-                (_) async => const Left(ServerFailure(errorMessage: "oops")));
+        when(mockItemRepository.fetchItem(item: anyNamed('item'))).thenAnswer(
+            (_) async => const Left(ServerFailure(errorMessage: "oops")));
         //act
-        final result = await sut.call(itemId: item1.id);
+        final result = await sut.call(item: item1);
         //assert
         expect(result, const Left(ServerFailure(errorMessage: "oops")));
       },
@@ -40,10 +39,10 @@ void main() {
     test('should return  Right List<Item> when the call is successfull',
         () async {
       //arrange
-      when(mockItemRepository.fetchItem(itemId: anyNamed('itemId')))
+      when(mockItemRepository.fetchItem(item: anyNamed('item')))
           .thenAnswer((_) async => Right(item1));
       //act
-      final result = await sut.call(itemId: item1.id);
+      final result = await sut.call(item: item1);
       //assert
       expect(result, Right(item1));
     });

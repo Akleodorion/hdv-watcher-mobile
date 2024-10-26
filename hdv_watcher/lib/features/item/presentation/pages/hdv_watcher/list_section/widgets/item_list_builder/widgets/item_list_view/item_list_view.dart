@@ -13,6 +13,7 @@ class ItemListView extends StatelessWidget {
       required this.items,
       required this.priceType,
       required this.stateNotifier});
+
   final StateNotifierProvider<ItemsListNotifier, ItemsListState> stateNotifier;
 
   final List<Item> items;

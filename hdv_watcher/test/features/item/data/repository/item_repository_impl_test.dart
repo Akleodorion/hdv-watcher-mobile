@@ -24,16 +24,16 @@ void main() {
   });
 
   group("fetchItems", () {
-    const int tItemId = 150;
+    Item tItem = itemGenerator(name: 'Test Item', priceQuantity: 10);
 
     group("when the call is unsuccessfull", () {
       test('should return Left ServerFailure when the call is unsuccesfull',
           () async {
         //arrange
-        when(mockItemRemoteDataSource.fetchItem(itemId: anyNamed('itemId')))
+        when(mockItemRemoteDataSource.fetchItem(item: anyNamed('item')))
             .thenThrow(ServerException(errorMessage: "oops"));
         //act
-        final result = await sut.fetchItem(itemId: tItemId);
+        final result = await sut.fetchItem(item: tItem);
         //assert
         expect(result, const Left(ServerFailure(errorMessage: "oops")));
       });
@@ -42,10 +42,10 @@ void main() {
       final Item tItem = itemGenerator(name: "Item1 Test", priceQuantity: 10);
       test('should return Right(Item) when the call is succesfull', () async {
         //arrange
-        when(mockItemRemoteDataSource.fetchItem(itemId: anyNamed('itemId')))
+        when(mockItemRemoteDataSource.fetchItem(item: anyNamed('item')))
             .thenAnswer((_) async => tItem);
         //act
-        final result = await sut.fetchItem(itemId: tItemId);
+        final result = await sut.fetchItem(item: tItem);
         //assert
         expect(result, Right(tItem));
       });

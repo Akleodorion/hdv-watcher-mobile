@@ -11,10 +11,10 @@ class ItemRepositoryImpl implements ItemRepository {
 
   ItemRepositoryImpl({required this.dataSource});
   @override
-  Future<Either<Failure, Item>> fetchItem({required int itemId}) async {
+  Future<Either<Failure, Item>> fetchItem({required Item item}) async {
     try {
-      final Item item = await dataSource.fetchItem(itemId: itemId);
-      return Right(item);
+      final Item newItem = await dataSource.fetchItem(item: item);
+      return Right(newItem);
     } on ServerException catch (error) {
       return Left(ServerFailure(errorMessage: error.errorMessage));
     }

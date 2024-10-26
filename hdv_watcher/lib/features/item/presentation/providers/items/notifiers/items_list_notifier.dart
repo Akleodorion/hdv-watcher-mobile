@@ -61,4 +61,15 @@ class ItemsListNotifier extends StateNotifier<ItemsListState> {
     });
     return state;
   }
+
+  void updateItemFromList({required Item newItem}) {
+    final currentState = state;
+
+    if (currentState is Loaded) {
+      final updatedList = currentState.items
+          .map<Item>((element) => element.id == newItem.id ? newItem : element)
+          .toList();
+      state = currentState.copyWith(items: updatedList);
+    }
+  }
 }
