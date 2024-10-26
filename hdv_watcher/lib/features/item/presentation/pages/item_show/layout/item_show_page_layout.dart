@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/chart_filter_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/chart_section.dart';
+import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/current_price_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/general_section.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/sections/selling_price_section.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/providers/fetch_item_provider.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/state/fetch_item_state.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../domain/entitie/item.dart';
+import '../../../providers/items/state/fetch_item_state.dart';
 
 class ItemShowPageLayout extends StatelessWidget {
   const ItemShowPageLayout({super.key, required this.item});
   final Item item;
 
-  Future<FetchItemState> fetchItemState({required WidgetRef widgetRef}) async {
-    final state = widgetRef.watch(fetchItemProvider);
+  Future<FetchItemState> fetchItemState({required WidgetRef ref}) async {
+    final state = ref.watch(fetchItemProvider);
     return state;
   }
 
@@ -32,15 +34,15 @@ class ItemShowPageLayout extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            // CurrentPriceSection(
-            //   data: item.currentPriceMap,
-            // ),
+            CurrentPriceSection(
+              data: item.superPrice.currentPrice,
+            ),
             const SizedBox(
               height: 20,
             ),
-            // ChartFilterSection(
-            //   data: item.currentPriceMap,
-            // ),
+            ChartFilterSection(
+              data: item.superPrice.currentPrice,
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -51,33 +53,15 @@ class ItemShowPageLayout extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Consumer(
-              builder: (context, ref, child) {
-                if (!item.isLoaded) {
-                  ref
-                      .read(fetchItemProvider.notifier)
-                      .fetchItem(itemId: item.id);
-                }
-                return FutureBuilder(
-                    future: fetchItemState(widgetRef: ref),
-                    builder: (BuildContext context, snapshot) {
-                      if (snapshot.data is Unloaded ||
-                          snapshot.data is Loading ||
-                          !snapshot.hasData) {
-                        return const CircularProgressIndicator();
-                      }
-                      return ChartSection(
-                        mapData: item.priceList,
-                      );
-                    });
-              },
+            ChartSection(
+              mapData: item.priceList,
             ),
-
             const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: Text(
-                  "Date de scrapping: ${DateFormat.yMMMEd().format(item.superPrice.unitPrices.prices.last.scrapDate)}"),
+                "Date de scrapping: ${DateFormat.yMMMEd().format(item.superPrice.unitPrices.prices.last.scrapDate)}",
+              ),
             ),
           ],
         ),

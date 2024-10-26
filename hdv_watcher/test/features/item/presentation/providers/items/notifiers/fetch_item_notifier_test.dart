@@ -9,7 +9,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../../../test_data/items_test_data.dart';
-import 'item_notifier_test.mocks.dart';
+import 'fetch_item_notifier_test.mocks.dart';
 
 @GenerateMocks([FetchItemUsecase])
 void main() {
@@ -28,18 +28,18 @@ void main() {
     final Item tItem = itemGenerator(name: "Test Item", priceQuantity: 10);
     test('should emit [Loading, Loaded] when the call is a success', () async {
       //arrange
-      when(mockFetchItemUsecase.call(itemId: anyNamed('itemId')))
+      when(mockFetchItemUsecase.call(item: anyNamed('item')))
           .thenAnswer((_) async => Right(tItem));
       //act
       final expectedState = [Loading(), Loaded(item: tItem)];
       expectLater(sut.stream, emitsInOrder(expectedState));
       //assert
-      sut.fetchItem(itemId: tItem.id);
+      sut.fetchItem(item: tItem);
     });
 
     test('should emit [Loading,Error] when the call is a success', () async {
       //arrange
-      when(mockFetchItemUsecase.call(itemId: anyNamed('itemId'))).thenAnswer(
+      when(mockFetchItemUsecase.call(item: anyNamed('item'))).thenAnswer(
           (_) async => const Left(ServerFailure(errorMessage: "oops")));
       //act
       final expectedState = [
@@ -51,7 +51,7 @@ void main() {
       ];
       expectLater(sut.stream, emitsInOrder(expectedState));
       //assert
-      sut.fetchItem(itemId: tItem.id);
+      sut.fetchItem(item: tItem);
     });
   });
 }

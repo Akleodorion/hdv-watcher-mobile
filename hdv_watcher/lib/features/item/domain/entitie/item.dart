@@ -20,15 +20,16 @@ class Item extends Equatable {
       required this.superPrice,
       required this.isLoaded});
 
-  Item copyWith() {
-    return Item(
+  Item copyWith({required Item newItem}) {
+    final item = Item(
       id: id,
       name: name,
       imgUrl: imgUrl,
       ressourceType: ressourceType,
-      superPrice: superPrice,
-      isLoaded: isLoaded,
+      superPrice: newItem.superPrice,
+      isLoaded: newItem.isLoaded,
     );
+    return item;
   }
 
   @override

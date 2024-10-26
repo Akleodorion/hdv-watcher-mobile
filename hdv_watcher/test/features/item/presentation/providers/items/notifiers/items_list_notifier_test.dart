@@ -10,7 +10,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../../../test_data/items_test_data.dart';
-import 'items_notifier_test.mocks.dart';
+import 'items_list_notifier_test.mocks.dart';
 
 @GenerateMocks([FetchPaginatedItemsUsecase])
 void main() {

@@ -38,14 +38,14 @@ class SuperPrice extends Equatable {
 
   Map<PriceType, int> get capitalGain => {
         PriceType.unit: unitPrices.capitalGain,
-        PriceType.tenth: unitPrices.capitalGain,
-        PriceType.hundred: unitPrices.capitalGain,
+        PriceType.tenth: tenthPrices.capitalGain,
+        PriceType.hundred: hundredPrices.capitalGain,
       };
 
   Map<PriceType, int> get currentPrice => {
         PriceType.unit: unitPrices.currentPrice,
-        PriceType.tenth: unitPrices.currentPrice,
-        PriceType.hundred: unitPrices.currentPrice,
+        PriceType.tenth: tenthPrices.currentPrice,
+        PriceType.hundred: hundredPrices.currentPrice,
       };
 
   Map<PriceType, int> get averageSellingPrice => {

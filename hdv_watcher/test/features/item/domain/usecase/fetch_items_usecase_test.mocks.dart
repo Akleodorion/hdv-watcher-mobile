@@ -46,12 +46,12 @@ class MockItemRepository extends _i1.Mock implements _i3.ItemRepository {
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.Item>> fetchItem(
-          {required int? itemId}) =>
+          {required _i6.Item? item}) =>
       (super.noSuchMethod(
         Invocation.method(
           #fetchItem,
           [],
-          {#itemId: itemId},
+          {#item: item},
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.Item>>.value(
             _FakeEither_0<_i5.Failure, _i6.Item>(
@@ -59,7 +59,7 @@ class MockItemRepository extends _i1.Mock implements _i3.ItemRepository {
           Invocation.method(
             #fetchItem,
             [],
-            {#itemId: itemId},
+            {#item: item},
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.Item>>);

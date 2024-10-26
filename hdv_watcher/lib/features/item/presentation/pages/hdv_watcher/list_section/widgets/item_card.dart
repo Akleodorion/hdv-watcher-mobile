@@ -5,6 +5,7 @@ import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/item_show_page.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/chart_filter/chart_filter_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/providers/fetch_item_provider.dart';
 
 class ItemCard extends ConsumerWidget {
   const ItemCard({super.key, required this.item, required this.priceType});
@@ -25,10 +26,20 @@ class ItemCard extends ConsumerWidget {
       child: InkWell(
         onTap: () {
           ref.read(chartFilterProvider.notifier).toggleFilter(priceType);
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (BuildContext context) {
-            return ItemShowPage(item: item);
-          }));
+
+          if (item.isLoaded) {
+            ref.read(fetchItemProvider.notifier).setStateToLoaded(item: item);
+          } else {
+            ref.read(fetchItemProvider.notifier).fetchItem(item: item);
+          }
+
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return ItemShowPage(item: item);
+              },
+            ),
+          );
         },
         child: Row(
           children: [
