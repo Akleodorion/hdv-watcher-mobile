@@ -22,6 +22,7 @@ class ItemShowPage extends ConsumerWidget {
         leading: IconButton(
           onPressed: () {
             ref.read(chartFilterProvider.notifier).setBaseFilter();
+            ref.read(fetchItemProvider.notifier).resetState();
             Navigator.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back),

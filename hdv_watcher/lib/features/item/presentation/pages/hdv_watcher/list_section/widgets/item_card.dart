@@ -5,7 +5,12 @@ import 'package:hdv_watcher/core/enums/ressource_type.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/item_show_page.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/chart_filter/chart_filter_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/items_list_notifier.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/providers/fetch_item_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/providers/hundred_items_list_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/providers/tenth_items_list_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/providers/unit_items_list_provider.dart';
+import 'package:hdv_watcher/features/item/presentation/providers/items/state/item_list_state.dart';
 
 class ItemCard extends ConsumerWidget {
   const ItemCard({super.key, required this.item, required this.priceType});
@@ -15,6 +20,12 @@ class ItemCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Map<PriceType, dynamic> notifiersMap = {
+      PriceType.unit: ref.read(unitItemsProvider.notifier),
+      PriceType.tenth: ref.read(tenthItemsProvider.notifier),
+      PriceType.hundred: ref.read(hundredItemsProvider.notifier),
+    };
+
     return Container(
       margin: const EdgeInsets.symmetric(
         vertical: 10,
@@ -26,11 +37,12 @@ class ItemCard extends ConsumerWidget {
       child: InkWell(
         onTap: () {
           ref.read(chartFilterProvider.notifier).toggleFilter(priceType);
-
           if (item.isLoaded) {
             ref.read(fetchItemProvider.notifier).setStateToLoaded(item: item);
           } else {
-            ref.read(fetchItemProvider.notifier).fetchItem(item: item);
+            ref
+                .read(fetchItemProvider.notifier)
+                .fetchItem(item: item, provider: notifiersMap[priceType]!);
           }
 
           Navigator.of(context).push(

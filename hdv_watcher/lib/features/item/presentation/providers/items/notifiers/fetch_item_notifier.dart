@@ -10,7 +10,10 @@ class FetchItemNotifier extends StateNotifier<FetchItemState> {
   FetchItemNotifier({required this.fetchItemsUsecase}) : super(Unloaded());
   FetchItemState get initialState => Unloaded();
 
-  Future<FetchItemState> fetchItem({required Item item}) async {
+  Future<FetchItemState> fetchItem({
+    required Item item,
+    required dynamic provider,
+  }) async {
     state = Loading();
     final response = await fetchItemsUsecase.call(item: item);
 
@@ -22,6 +25,7 @@ class FetchItemNotifier extends StateNotifier<FetchItemState> {
       },
       (success) {
         state = Loaded(item: success);
+        provider.updateItemFromList(newItem: success);
       },
     );
     return state;

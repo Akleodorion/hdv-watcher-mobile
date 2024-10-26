@@ -17,7 +17,6 @@ final unitItemsProvider =
 
 final validUnitPriceItemsProvider = Provider<UnitItemList>((ref) {
   final state = ref.watch(unitItemsProvider);
-  print("changed");
   if (state is Loaded) {
     return UnitItemList(items: state.items);
   }
