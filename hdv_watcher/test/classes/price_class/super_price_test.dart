@@ -13,22 +13,22 @@ void main() {
 
     final SuperPrice tSuperPrice = SuperPrice(
       unitPrices: Prices.fromJson(
-          priceInfoJson: jsonData["item"]["unit_price_info"],
+          priceInfoJson: jsonData["unit_price_info"],
           priceType: PriceType.unit),
       tenthPrices: Prices.fromJson(
-          priceInfoJson: jsonData["item"]["tenth_price_info"],
+          priceInfoJson: jsonData["tenth_price_info"],
           priceType: PriceType.tenth),
       hundredPrices: Prices.fromJson(
-          priceInfoJson: jsonData["item"]["hundred_price_info"],
+          priceInfoJson: jsonData["hundred_price_info"],
           priceType: PriceType.hundred),
     );
 
     test('should return a valid SuperPrice model', () async {
       //act
       final SuperPrice result = SuperPrice.fromJson(
-        unitPricesInfoJson: jsonData["item"]["unit_price_info"],
-        tenthPricesInfoJson: jsonData["item"]["tenth_price_info"],
-        hundredPricesInfoJson: jsonData["item"]["hundred_price_info"],
+        unitPricesInfoJson: jsonData["unit_price_info"],
+        tenthPricesInfoJson: jsonData["tenth_price_info"],
+        hundredPricesInfoJson: jsonData["hundred_price_info"],
       );
       //assert
       expect(result, tSuperPrice);
