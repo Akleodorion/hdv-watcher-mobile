@@ -3,18 +3,17 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i7;
+import 'dart:async' as _i6;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:flutter/widgets.dart' as _i3;
-import 'package:flutter_riverpod/src/internals.dart' as _i4;
-import 'package:hdv_watcher/core/errors/failures.dart' as _i8;
-import 'package:hdv_watcher/features/item/domain/entitie/item.dart' as _i9;
+import 'package:hdv_watcher/core/errors/failures.dart' as _i7;
+import 'package:hdv_watcher/features/item/domain/entitie/item.dart' as _i8;
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_item_usecase.dart'
-    as _i6;
+    as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i10;
-import 'package:state_notifier/state_notifier.dart' as _i5;
+import 'package:mockito/src/dummies.dart' as _i9;
+import 'package:riverpod/src/internals.dart' as _i3;
+import 'package:state_notifier/state_notifier.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -39,8 +38,9 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
         );
 }
 
-class _FakeBuildContext_1 extends _i1.SmartFake implements _i3.BuildContext {
-  _FakeBuildContext_1(
+class _FakeAlwaysAliveRefreshable_1<T1> extends _i1.SmartFake
+    implements _i3.AlwaysAliveRefreshable<T1> {
+  _FakeAlwaysAliveRefreshable_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -49,9 +49,10 @@ class _FakeBuildContext_1 extends _i1.SmartFake implements _i3.BuildContext {
         );
 }
 
-class _FakeProviderSubscription_2<State> extends _i1.SmartFake
-    implements _i4.ProviderSubscription<State> {
-  _FakeProviderSubscription_2(
+class _FakeStateNotifierProviderElement_2<
+        NotifierT1 extends _i4.StateNotifier<T1>, T1> extends _i1.SmartFake
+    implements _i3.StateNotifierProviderElement<NotifierT1, T1> {
+  _FakeStateNotifierProviderElement_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -60,9 +61,8 @@ class _FakeProviderSubscription_2<State> extends _i1.SmartFake
         );
 }
 
-class _FakeAlwaysAliveRefreshable_3<T1> extends _i1.SmartFake
-    implements _i4.AlwaysAliveRefreshable<T1> {
-  _FakeAlwaysAliveRefreshable_3(
+class _FakeOverride_3 extends _i1.SmartFake implements _i3.Override {
+  _FakeOverride_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -71,10 +71,9 @@ class _FakeAlwaysAliveRefreshable_3<T1> extends _i1.SmartFake
         );
 }
 
-class _FakeStateNotifierProviderElement_4<
-        NotifierT1 extends _i5.StateNotifier<T1>, T1> extends _i1.SmartFake
-    implements _i4.StateNotifierProviderElement<NotifierT1, T1> {
-  _FakeStateNotifierProviderElement_4(
+class _FakeProviderSubscription_4<State> extends _i1.SmartFake
+    implements _i3.ProviderSubscription<State> {
+  _FakeProviderSubscription_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -83,19 +82,9 @@ class _FakeStateNotifierProviderElement_4<
         );
 }
 
-class _FakeOverride_5 extends _i1.SmartFake implements _i4.Override {
-  _FakeOverride_5(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeAlwaysAliveProviderListenable_6<State> extends _i1.SmartFake
-    implements _i4.AlwaysAliveProviderListenable<State> {
-  _FakeAlwaysAliveProviderListenable_6(
+class _FakeAlwaysAliveProviderListenable_5<State> extends _i1.SmartFake
+    implements _i3.AlwaysAliveProviderListenable<State> {
+  _FakeAlwaysAliveProviderListenable_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -107,22 +96,22 @@ class _FakeAlwaysAliveProviderListenable_6<State> extends _i1.SmartFake
 /// A class which mocks [FetchItemUsecase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFetchItemUsecase extends _i1.Mock implements _i6.FetchItemUsecase {
+class MockFetchItemUsecase extends _i1.Mock implements _i5.FetchItemUsecase {
   MockFetchItemUsecase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i7.Future<_i2.Either<_i8.Failure, _i9.Item>> call(
-          {required _i9.Item? item}) =>
+  _i6.Future<_i2.Either<_i7.Failure, _i8.Item>> call(
+          {required _i8.Item? item}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
           {#item: item},
         ),
-        returnValue: _i7.Future<_i2.Either<_i8.Failure, _i9.Item>>.value(
-            _FakeEither_0<_i8.Failure, _i9.Item>(
+        returnValue: _i6.Future<_i2.Either<_i7.Failure, _i8.Item>>.value(
+            _FakeEither_0<_i7.Failure, _i8.Item>(
           this,
           Invocation.method(
             #call,
@@ -130,210 +119,64 @@ class MockFetchItemUsecase extends _i1.Mock implements _i6.FetchItemUsecase {
             {#item: item},
           ),
         )),
-      ) as _i7.Future<_i2.Either<_i8.Failure, _i9.Item>>);
-}
-
-/// A class which mocks [WidgetRef].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockWidgetRef extends _i1.Mock implements _i4.WidgetRef {
-  MockWidgetRef() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.BuildContext get context => (super.noSuchMethod(
-        Invocation.getter(#context),
-        returnValue: _FakeBuildContext_1(
-          this,
-          Invocation.getter(#context),
-        ),
-      ) as _i3.BuildContext);
-
-  @override
-  T watch<T>(_i4.ProviderListenable<T>? provider) => (super.noSuchMethod(
-        Invocation.method(
-          #watch,
-          [provider],
-        ),
-        returnValue: _i10.dummyValue<T>(
-          this,
-          Invocation.method(
-            #watch,
-            [provider],
-          ),
-        ),
-      ) as T);
-
-  @override
-  bool exists(_i4.ProviderBase<Object?>? provider) => (super.noSuchMethod(
-        Invocation.method(
-          #exists,
-          [provider],
-        ),
-        returnValue: false,
-      ) as bool);
-
-  @override
-  void listen<T>(
-    _i4.ProviderListenable<T>? provider,
-    void Function(
-      T?,
-      T,
-    )? listener, {
-    void Function(
-      Object,
-      StackTrace,
-    )? onError,
-  }) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #listen,
-          [
-            provider,
-            listener,
-          ],
-          {#onError: onError},
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i4.ProviderSubscription<T> listenManual<T>(
-    _i4.ProviderListenable<T>? provider,
-    void Function(
-      T?,
-      T,
-    )? listener, {
-    void Function(
-      Object,
-      StackTrace,
-    )? onError,
-    bool? fireImmediately,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #listenManual,
-          [
-            provider,
-            listener,
-          ],
-          {
-            #onError: onError,
-            #fireImmediately: fireImmediately,
-          },
-        ),
-        returnValue: _FakeProviderSubscription_2<T>(
-          this,
-          Invocation.method(
-            #listenManual,
-            [
-              provider,
-              listener,
-            ],
-            {
-              #onError: onError,
-              #fireImmediately: fireImmediately,
-            },
-          ),
-        ),
-      ) as _i4.ProviderSubscription<T>);
-
-  @override
-  T read<T>(_i4.ProviderListenable<T>? provider) => (super.noSuchMethod(
-        Invocation.method(
-          #read,
-          [provider],
-        ),
-        returnValue: _i10.dummyValue<T>(
-          this,
-          Invocation.method(
-            #read,
-            [provider],
-          ),
-        ),
-      ) as T);
-
-  @override
-  State refresh<State>(_i4.Refreshable<State>? provider) => (super.noSuchMethod(
-        Invocation.method(
-          #refresh,
-          [provider],
-        ),
-        returnValue: _i10.dummyValue<State>(
-          this,
-          Invocation.method(
-            #refresh,
-            [provider],
-          ),
-        ),
-      ) as State);
-
-  @override
-  void invalidate(_i4.ProviderOrFamily? provider) => super.noSuchMethod(
-        Invocation.method(
-          #invalidate,
-          [provider],
-        ),
-        returnValueForMissingStub: null,
-      );
+      ) as _i6.Future<_i2.Either<_i7.Failure, _i8.Item>>);
 }
 
 /// A class which mocks [StateNotifierProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockStateNotifierProvider<NotifierT extends _i5.StateNotifier<T>, T>
-    extends _i1.Mock implements _i4.StateNotifierProvider<NotifierT, T> {
+class MockStateNotifierProvider<NotifierT extends _i4.StateNotifier<T>, T>
+    extends _i1.Mock implements _i3.StateNotifierProvider<NotifierT, T> {
   MockStateNotifierProvider() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.AlwaysAliveRefreshable<NotifierT> get notifier => (super.noSuchMethod(
+  _i3.AlwaysAliveRefreshable<NotifierT> get notifier => (super.noSuchMethod(
         Invocation.getter(#notifier),
-        returnValue: _FakeAlwaysAliveRefreshable_3<NotifierT>(
+        returnValue: _FakeAlwaysAliveRefreshable_1<NotifierT>(
           this,
           Invocation.getter(#notifier),
         ),
-      ) as _i4.AlwaysAliveRefreshable<NotifierT>);
+      ) as _i3.AlwaysAliveRefreshable<NotifierT>);
 
   @override
-  _i4.StateNotifierProviderElement<NotifierT, T> createElement() =>
+  _i3.StateNotifierProviderElement<NotifierT, T> createElement() =>
       (super.noSuchMethod(
         Invocation.method(
           #createElement,
           [],
         ),
-        returnValue: _FakeStateNotifierProviderElement_4<NotifierT, T>(
+        returnValue: _FakeStateNotifierProviderElement_2<NotifierT, T>(
           this,
           Invocation.method(
             #createElement,
             [],
           ),
         ),
-      ) as _i4.StateNotifierProviderElement<NotifierT, T>);
+      ) as _i3.StateNotifierProviderElement<NotifierT, T>);
 
   @override
-  _i4.Override overrideWith(
-          _i4.Create<NotifierT, _i4.StateNotifierProviderRef<NotifierT, T>>?
+  _i3.Override overrideWith(
+          _i3.Create<NotifierT, _i3.StateNotifierProviderRef<NotifierT, T>>?
               create) =>
       (super.noSuchMethod(
         Invocation.method(
           #overrideWith,
           [create],
         ),
-        returnValue: _FakeOverride_5(
+        returnValue: _FakeOverride_3(
           this,
           Invocation.method(
             #overrideWith,
             [create],
           ),
         ),
-      ) as _i4.Override);
+      ) as _i3.Override);
 
   @override
-  _i4.ProviderSubscription<T> addListener(
-    _i4.Node? node,
+  _i3.ProviderSubscription<T> addListener(
+    _i3.Node? node,
     void Function(
       T?,
       T,
@@ -358,7 +201,7 @@ class MockStateNotifierProvider<NotifierT extends _i5.StateNotifier<T>, T>
             #fireImmediately: fireImmediately,
           },
         ),
-        returnValue: _FakeProviderSubscription_2<T>(
+        returnValue: _FakeProviderSubscription_4<T>(
           this,
           Invocation.method(
             #addListener,
@@ -373,15 +216,15 @@ class MockStateNotifierProvider<NotifierT extends _i5.StateNotifier<T>, T>
             },
           ),
         ),
-      ) as _i4.ProviderSubscription<T>);
+      ) as _i3.ProviderSubscription<T>);
 
   @override
-  T read(_i4.Node? node) => (super.noSuchMethod(
+  T read(_i3.Node? node) => (super.noSuchMethod(
         Invocation.method(
           #read,
           [node],
         ),
-        returnValue: _i10.dummyValue<T>(
+        returnValue: _i9.dummyValue<T>(
           this,
           Invocation.method(
             #read,
@@ -391,19 +234,19 @@ class MockStateNotifierProvider<NotifierT extends _i5.StateNotifier<T>, T>
       ) as T);
 
   @override
-  _i4.AlwaysAliveProviderListenable<Selected> select<Selected>(
+  _i3.AlwaysAliveProviderListenable<Selected> select<Selected>(
           Selected Function(T)? selector) =>
       (super.noSuchMethod(
         Invocation.method(
           #select,
           [selector],
         ),
-        returnValue: _FakeAlwaysAliveProviderListenable_6<Selected>(
+        returnValue: _FakeAlwaysAliveProviderListenable_5<Selected>(
           this,
           Invocation.method(
             #select,
             [selector],
           ),
         ),
-      ) as _i4.AlwaysAliveProviderListenable<Selected>);
+      ) as _i3.AlwaysAliveProviderListenable<Selected>);
 }

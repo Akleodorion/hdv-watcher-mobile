@@ -5,9 +5,6 @@ import 'package:hdv_watcher/core/errors/failures.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_item_usecase.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/fetch_item_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/subnotifier/unit_items_list_notifier.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/providers/tenth_items_list_provider.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/providers/unit_items_list_provider.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/state/fetch_item_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -15,17 +12,15 @@ import 'package:mockito/mockito.dart';
 import '../../../../../../test_data/items_test_data.dart';
 import 'fetch_item_notifier_test.mocks.dart';
 
-@GenerateMocks([FetchItemUsecase, WidgetRef, StateNotifierProvider])
+@GenerateMocks([FetchItemUsecase, StateNotifierProvider])
 void main() {
   late MockFetchItemUsecase mockFetchItemUsecase;
-  late MockWidgetRef mockWidgetRef;
   late MockStateNotifierProvider mockStateNotifierProvider;
   late FetchItemNotifier sut;
 
   setUp(() {
     mockFetchItemUsecase = MockFetchItemUsecase();
     mockStateNotifierProvider = MockStateNotifierProvider();
-    mockWidgetRef = MockWidgetRef();
     sut = FetchItemNotifier(fetchItemsUsecase: mockFetchItemUsecase);
   });
 
