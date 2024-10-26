@@ -20,11 +20,10 @@ class ItemCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Map<PriceType, StateNotifierProvider<ItemsListNotifier, ItemsListState>>
-        notifiersMap = {
-      PriceType.unit: unitItemsProvider,
-      PriceType.tenth: tenthItemsProvider,
-      PriceType.hundred: hundredItemsProvider,
+    Map<PriceType, dynamic> notifiersMap = {
+      PriceType.unit: ref.read(unitItemsProvider.notifier),
+      PriceType.tenth: ref.read(tenthItemsProvider.notifier),
+      PriceType.hundred: ref.read(hundredItemsProvider.notifier),
     };
 
     return Container(
@@ -41,8 +40,9 @@ class ItemCard extends ConsumerWidget {
           if (item.isLoaded) {
             ref.read(fetchItemProvider.notifier).setStateToLoaded(item: item);
           } else {
-            ref.read(fetchItemProvider.notifier).fetchItem(
-                item: item, ref: ref, provider: notifiersMap[priceType]!);
+            ref
+                .read(fetchItemProvider.notifier)
+                .fetchItem(item: item, provider: notifiersMap[priceType]!);
           }
 
           Navigator.of(context).push(
