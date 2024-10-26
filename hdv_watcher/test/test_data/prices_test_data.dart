@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:hdv_watcher/core/classes/prices/price.dart';
 import 'package:hdv_watcher/core/classes/prices/prices.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
