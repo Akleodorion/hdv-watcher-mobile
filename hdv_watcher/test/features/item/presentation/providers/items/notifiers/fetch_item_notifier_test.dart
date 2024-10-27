@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/errors/failures.dart';
+import 'package:hdv_watcher/core/utils/notifier_caller.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/domain/usecase/fetch_item_usecase.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/notifiers/fetch_item_notifier.dart';
@@ -12,15 +13,15 @@ import 'package:mockito/mockito.dart';
 import '../../../../../../test_data/items_test_data.dart';
 import 'fetch_item_notifier_test.mocks.dart';
 
-@GenerateMocks([FetchItemUsecase, StateNotifierProvider])
+@GenerateMocks([FetchItemUsecase, NotifierCallerImpl])
 void main() {
   late MockFetchItemUsecase mockFetchItemUsecase;
-  late MockStateNotifierProvider mockStateNotifierProvider;
+  late MockNotifierCallerImpl mockNotifierCallerImpl;
   late FetchItemNotifier sut;
 
   setUp(() {
     mockFetchItemUsecase = MockFetchItemUsecase();
-    mockStateNotifierProvider = MockStateNotifierProvider();
+    mockNotifierCallerImpl = MockNotifierCallerImpl();
     sut = FetchItemNotifier(fetchItemsUsecase: mockFetchItemUsecase);
   });
 
@@ -29,18 +30,19 @@ void main() {
   });
   group("fetch Item", () {
     final Item tItem = itemGenerator(name: "Test Item", priceQuantity: 10);
-    // test('should emit [Loading, Loaded] when the call is a success', () async {
-    //   //arrange
-    //   when(mockFetchItemUsecase.call(item: anyNamed('item')))
-    //       .thenAnswer((_) async => Right(tItem));
-    //   //act
-    //   final expectedState = [Loading(), Loaded(item: tItem)];
-    //   expectLater(sut.stream, emitsInOrder(expectedState));
-    //   //assert
-    //   sut.fetchItem(
-    //       item: tItem,
-    //       provider: mockWidgetRef.read(unitItemsProvider.notifier));
-    // });
+    test('should emit [Loading, Loaded] when the call is a success', () async {
+      //arrange
+      when(mockFetchItemUsecase.call(item: anyNamed('item')))
+          .thenAnswer((_) async => Right(tItem));
+      //act
+      final expectedState = [Loading(), Loaded(item: tItem)];
+      expectLater(sut.stream, emitsInOrder(expectedState));
+      //assert
+      sut.fetchItem(
+          item: tItem,
+          notifier: mockNotifierCallerImpl,
+          priceType: PriceType.unit);
+    });
 
     test('should emit [Loading,Error] when the call is a success', () async {
       //arrange
@@ -56,7 +58,10 @@ void main() {
       ];
       expectLater(sut.stream, emitsInOrder(expectedState));
       //assert
-      sut.fetchItem(item: tItem, provider: mockStateNotifierProvider);
+      sut.fetchItem(
+          item: tItem,
+          notifier: mockNotifierCallerImpl,
+          priceType: PriceType.unit);
     });
   });
 }

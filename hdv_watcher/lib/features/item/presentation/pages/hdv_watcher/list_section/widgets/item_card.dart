@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hdv_watcher/core/enums/price_type.dart';
 import 'package:hdv_watcher/core/enums/ressource_type.dart';
+import 'package:hdv_watcher/core/utils/notifier_caller.dart';
 import 'package:hdv_watcher/features/item/domain/entitie/item.dart';
 import 'package:hdv_watcher/features/item/presentation/pages/item_show/item_show_page.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/chart_filter/chart_filter_provider.dart';
 import 'package:hdv_watcher/features/item/presentation/providers/items/providers/fetch_item_provider.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/providers/hundred_items_list_provider.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/providers/tenth_items_list_provider.dart';
-import 'package:hdv_watcher/features/item/presentation/providers/items/providers/unit_items_list_provider.dart';
 
 class ItemCard extends ConsumerWidget {
   const ItemCard({super.key, required this.item, required this.priceType});
@@ -18,11 +16,7 @@ class ItemCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Map<PriceType, dynamic> notifiersMap = {
-      PriceType.unit: ref.read(unitItemsProvider.notifier),
-      PriceType.tenth: ref.read(tenthItemsProvider.notifier),
-      PriceType.hundred: ref.read(hundredItemsProvider.notifier),
-    };
+    final NotifierCaller notifier = NotifierCallerImpl(ref: ref);
 
     return Container(
       margin: const EdgeInsets.symmetric(
@@ -38,9 +32,8 @@ class ItemCard extends ConsumerWidget {
           if (item.isLoaded) {
             ref.read(fetchItemProvider.notifier).setStateToLoaded(item: item);
           } else {
-            ref
-                .read(fetchItemProvider.notifier)
-                .fetchItem(item: item, provider: notifiersMap[priceType]!);
+            ref.read(fetchItemProvider.notifier).fetchItem(
+                item: item, notifier: notifier, priceType: priceType);
           }
 
           Navigator.of(context).push(
